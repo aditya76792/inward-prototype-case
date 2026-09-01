@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purplle Manage · QC Module — Phase 1 mockup v1.1</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<style>
+  :root{
+    --purplle:#662d91; --purplle-dark:#4a148c; --purplle-tint:#f3e5f5;
+    --accent:#e91e63; --bg:#f6f5f8; --ink:#241f33; --muted:#6f6880; --line:#e9e4f0;
+  }
+  body{background:var(--bg);font-family:'Segoe UI',Tahoma,sans-serif;color:var(--ink);padding-bottom:118px;}
+  .navbar{background:var(--purplle);border-bottom:3px solid var(--accent);}
+  .navbar .brand{font-weight:700;color:#fff;}
+  .navbar .sub{color:#e3d2f0;font-size:.72rem;}
+  .role-switch .btn{border-color:rgba(255,255,255,.45);color:#fff;font-size:.78rem;}
+  .role-switch .btn.active{background:#fff;color:var(--purplle);font-weight:600;}
+
+  .card-soft{background:#fff;border:1px solid var(--line);border-radius:12px;}
+  .screen-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+  .screen-no{width:30px;height:30px;border-radius:8px;background:var(--purplle);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.86rem;flex:0 0 auto;}
+  .screen-title{font-size:1.02rem;font-weight:600;}
+  .screen-purpose{font-size:.82rem;color:var(--muted);}
+
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+  .rail div{flex:1 1 0;min-width:104px;font-size:.75rem;padding:7px 9px;border-radius:8px;
+    background:#fff;border:1px solid var(--line);color:var(--muted);display:flex;gap:7px;align-items:center;}
+  .rail div b{width:19px;height:19px;border-radius:5px;background:#eee;color:#78708c;
+    display:flex;align-items:center;justify-content:center;font-size:.68rem;flex:0 0 auto;}
+  .rail div.on{background:var(--purplle);border-color:var(--purplle);color:#fff;}
+  .rail div.on b{background:#fff;color:var(--purplle);}
+  .rail div.done{background:#eef7ee;border-color:#cfe6cf;color:#2e7d32;}
+  .rail div.done b{background:#43a047;color:#fff;}
+  .rail div.skip{opacity:.4;}
+
+  table thead th{background:var(--purplle-tint);color:var(--purplle-dark);font-size:.7rem;
+    font-weight:600;letter-spacing:.3px;border:none;padding:10px;}
+  table td{vertical-align:middle;padding:10px;font-size:.85rem;border-bottom:1px solid #f1eef6;}
+  tr.inv-row td{background:#faf8fc;font-weight:600;}
+  tr.sku-row td{background:#fff;}
+  .pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:.71rem;font-weight:600;}
+  .s-pending{background:#eeecf2;color:#5c566b}
+  .s-progress{background:#fdf2cf;color:#87690a}
+  .s-disc{background:#fde2e2;color:#a12a2a}
+  .s-done{background:#e3f2e3;color:#2e7d32}
+  .s-grn{background:#ededed;color:#5f5f5f}
+  .s-green{background:#e3f2e3;color:#2e7d32;border:1px solid #cbe5cb}
+  .s-phys{background:#fbeddf;color:#89550f;border:1px solid #f0dcc4}
+  .s-lock{background:#eceaf4;color:#5b5372;border:1px solid #ddd7ea}
+  .s-batch{background:#eef0fb;color:#33409a;border:1px solid #d5dbf5}
+  .s-new{background:#f6eefb;color:#6c2d91;border:1px solid #e6d3f2}
+
+  .scanstrip{border:1px solid var(--line);border-radius:12px;background:#fff;padding:14px;}
+  .slots{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;}
+  .slot{flex:1 1 220px;border:2px dashed #d5cde4;border-radius:10px;padding:12px;min-height:96px;
+    display:flex;flex-direction:column;justify-content:center;background:#fcfbfd;}
+  .slot.filled{border-style:solid;border-color:var(--purplle);background:#faf6fd;}
+  .slot .lab{font-size:.74rem;color:var(--muted);margin-bottom:4px;}
+  .slot .val{font-size:.86rem;font-weight:600;}
+  .slot .meta{font-size:.72rem;color:var(--muted);line-height:1.5;}
+  .joiner{flex:0 0 44px;display:flex;align-items:center;justify-content:center;color:#c3b8d6;font-size:1.3rem;}
+  .joiner.live{color:var(--purplle);}
+
+  .boxrow{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;background:#fff;}
+  .boxrow.sampled{background:#faf6fd;border-color:#e3d6f0;}
+  .boxrow.bad{background:#fdf4f4;border-color:#f2cccc;}
+  .mini{width:74px}
+  .attr{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;}
+  .attr .name{font-weight:600;font-size:.86rem;min-width:140px;}
+  .attr .exp{font-size:.78rem;color:var(--muted);flex:1 1 170px;}
+  .attr.ok{background:#f4faf4;border-color:#d5e9d5;}
+  .attr.bad{background:#fdf4f4;border-color:#f2cccc;}
+
+  .flag{display:flex;gap:8px;align-items:flex-start;padding:9px 11px;border-radius:9px;font-size:.81rem;margin-bottom:7px;}
+  .f-block{background:#fde2e2;color:#8f2323;}
+  .f-info{background:#e8eefb;color:#1d4a8f;}
+  .f-ok{background:#e3f2e3;color:#2b6d2f;}
+  .f-warn{background:#fdf2cf;color:#7d6008;}
+  .blocker{font-size:.75rem;background:#fffaeb;border:1px dashed #ddb100;color:#6f5300;border-radius:8px;padding:8px 10px;}
+  .codechip{border:1px solid var(--line);border-radius:9px;padding:8px 10px;cursor:pointer;background:#fff;
+    display:flex;gap:8px;align-items:flex-start;font-size:.82rem;}
+  .codechip.on{border-color:var(--purplle);background:#faf6fd;}
+  .codechip i{color:var(--purplle);}
+
+  .kpi{border:1px solid var(--line);border-radius:10px;padding:11px;text-align:center;background:#fff;}
+  .kpi .v{font-size:1.32rem;font-weight:700;color:var(--purplle-dark);}
+  .kpi .l{font-size:.71rem;color:var(--muted);}
+  .disp{border-radius:9px;padding:11px;color:#fff;text-align:center;}
+  .d-tgdc{background:#2e7d32}.d-dmdc{background:#e07b00}.d-rvdc{background:#c62828}.d-iwdc{background:#1565c0}
+  .footer{position:fixed;bottom:20px;left:0;right:0;display:flex;justify-content:center;z-index:900;pointer-events:none;}
+  .footer .in{pointer-events:auto;background:#fff;border:1px solid var(--line);border-radius:44px;
+    box-shadow:0 10px 28px rgba(102,45,145,.16);padding:8px 8px 8px 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .btn-purplle{background:var(--purplle);color:#fff;border:none;}
+  .btn-purplle:hover{background:var(--purplle-dark);color:#fff;}
+  .btn-pill{border-radius:40px;padding:10px 26px;font-weight:600;}
+  .note{font-size:.78rem;color:var(--muted);}
+  .hide{display:none!important;}
+  .prod{width:42px;height:42px;border-radius:9px;background:linear-gradient(135deg,#efe8f6,#e2d5ef);
+    display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex:0 0 auto;}
+  .tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+  .tabs button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 14px;
+    font-size:.83rem;color:var(--muted);display:flex;gap:7px;align-items:center;}
+  .tabs button.on{background:var(--purplle);border-color:var(--purplle);color:#fff;font-weight:600;}
+  .tabs button .ct{background:#eee;color:#666;border-radius:20px;padding:0 7px;font-size:.72rem;font-weight:700;}
+  .tabs button.on .ct{background:#fff;color:var(--purplle);}
+  .chev{cursor:pointer;color:var(--purplle);}
+  @media(max-width:576px){ .rail div{min-width:46%} }
+</style>
+</head>
+<body>
+
+<nav class="navbar py-2 px-3">
+  <div class="container-fluid d-flex justify-content-between align-items-center gap-2" style="max-width:1220px">
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-clipboard-check text-white fs-5"></i>
+      <div>
+        <div class="brand">QC Module</div>
+        <div class="sub" id="ctxLine">Phase 1 · Green Channel, QR-enabled vendors</div>
+      </div>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <div class="btn-group btn-group-sm role-switch" id="roleSwitch">
+        <button class="btn active" data-act="role" data-r="operator">QC operator</button>
+        <button class="btn" data-act="role" data-r="lead">Team lead</button>
+      </div>
+      <button class="btn btn-sm btn-light" data-act="openReg" title="Problems recorded"><i class="bi bi-journal-text"></i></button>
+      <button class="btn btn-sm btn-light" data-bs-toggle="offcanvas" data-bs-target="#cfg" title="Configuration"><i class="bi bi-sliders"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid px-3 mt-3" style="max-width:1220px">
+  <div id="rail"></div>
+  <div id="ws"></div>
+</div>
+
+<div class="footer"><div class="in" id="foot"></div></div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cfg">
+  <div class="offcanvas-header"><h6 class="mb-0">Configuration</h6><button class="btn-close" data-bs-dismiss="offcanvas"></button></div>
+  <div class="offcanvas-body">
+    <p class="note">Rules the module runs on, owned by the Ops team. Changing a value recomputes the flow immediately.</p>
+    <label class="form-label small fw-semibold">Sample cap (boxes)</label>
+    <input type="number" class="form-control mb-3" id="cCap" value="5" min="1">
+    <label class="form-label small fw-semibold">Sample percentage of SKU quantity</label>
+    <input type="number" class="form-control mb-3" id="cPct" value="10" min="1" max="100">
+    <label class="form-label small fw-semibold">Escalation threshold (% of sampled boxes with problems)</label>
+    <input type="number" class="form-control mb-3" id="cEsc" value="20" min="1" max="100">
+    <label class="form-label small fw-semibold">Freshness rule (minimum days to expiry)</label>
+    <input type="number" class="form-control mb-3" id="cFresh" value="90" min="1">
+    <label class="form-label small fw-semibold">Batch grouping window (days either side)</label>
+    <input type="number" class="form-control mb-1" id="cTol" value="15" min="0">
+    <p class="note">Boxes whose manufacture and expiry dates fall within this window of an existing batch join that batch. Anything outside it starts a new one.</p>
+    <button class="btn btn-purplle w-100 mt-2" data-act="applyCfg">Apply configuration</button>
+    <hr>
+    <div class="fw-semibold small mb-2">Green Channel list</div>
+    <p class="note">Vendor, plant and SKU combinations that skip inspection. This list is the only thing that routes a line to touchless receipt.</p>
+    <div id="eligList"></div>
+  </div>
+</div>
+
+<div class="toast-container position-fixed top-0 end-0 p-3" id="toasts" style="z-index:1200"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* ==========================================================
+   QC Module — Phase 1 working mockup v1.1
+   Single file, in-memory, no server.
+   Operator panel: screens 0-4 + problem reporting.
+   Team lead panel: pending / repush / completed, invoice-level.
+   Batches are derived from MFG+EXP with a tolerance window;
+   SAP batch ids are minted at posting time.
+   ========================================================== */
+
+const CFG = { cap:5, pct:10, esc:20, fresh:90, tol:15 };
+const USER = 'aditya.op';
+const TODAY = new Date();
+const dOff = n => { const d = new Date(TODAY); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); };
+const daysTo = iso => Math.round((new Date(iso) - TODAY)/86400000);
+const gap = (a,b) => Math.abs(Math.round((new Date(a) - new Date(b))/86400000));
+const fmt = iso => iso ? iso.split('-').reverse().join('/') : '—';
+
+/* the seven reason codes (PRD 8.3) */
+const CODES = [
+  { c:'EAN',         blocking:true,  identity:true,  hint:'EAN does not match the line, or is wrong or unreadable on the pack' },
+  { c:'SKU',         blocking:true,  identity:true,  hint:'Physical product is not the ordered SKU' },
+  { c:'MFG/EXP',     blocking:false, identity:true,  hint:'Manufacture or expiry date is wrong, illegible, or contradicts the QR' },
+  { c:'Image',       blocking:true,  identity:true,  hint:'Physical product does not match the master image' },
+  { c:'Description', blocking:true,  identity:true,  hint:'Pack text contradicts the master description' },
+  { c:'MRP',         blocking:true,  identity:true,  hint:'MRP on the pack does not match the order or the invoice' },
+  { c:'Damage',      blocking:false, identity:false, hint:'Physical damage to the product or the shipper. Photos required.', img:true }
+];
+const codeOf = c => CODES.find(x => x.c === c);
+const IDENTITY_KEYS = ['MRP','MFG/EXP','SKU','Image','Description'];
+
+let DISCREPANCIES = [];
+let USED_UIDS = new Set();
+let uidSeq = 4400, discSeq = 0, groupSeq = 0;
+
+function mkLine(o){
+  return Object.assign({
+    eligible:false, qcStatus:'pending', lockedBy:null, physMRP:'',
+    identity:{ 'MRP':null, 'MFG/EXP':null, 'SKU':null, 'Image':null, 'Description':null },
+    flags:[], boxes:[], batchGroups:[], escalated:false, selectedForGR:true,
+    forceError:false, gr:null, completedAt:null, e42Note:null
+  }, o);
+}
+function seed(){
+  return {
+    A:{ po:'4500098231', invoice:'INV-A-88123', plant:'DC-Bhiwandi', dock:'Dock 3',
+        vendor:{ name:'Marico Ltd', qrEnabled:true },
+        lines:[
+          mkLine({ id:'MRC-PCO-200', ean:'8901234000011', desc:'Parachute Coconut Oil 200ml', img:'💧',
+            masterMRP:99, invoiceMRP:99, poQty:60, invoiceQty:60, pack:10,
+            datePlan:[{ mfg:-120, exp:400 }] }),
+          mkLine({ id:'MRC-LVN-100', ean:'8901234000028', desc:'Livon Silk Serum 100ml', img:'✨',
+            masterMRP:245, invoiceMRP:245, poQty:120, invoiceQty:120, pack:12,
+            // first two plans are 5 days apart, so they join one batch; the third is far out
+            datePlan:[{ mfg:-300, exp:430 }, { mfg:-295, exp:435 }, { mfg:-380, exp:61 }] }),
+          mkLine({ id:'MRC-SWG-250', ean:'8901234000035', desc:'Set Wet Hair Gel 250ml', img:'🧴',
+            masterMRP:180, invoiceMRP:175, poQty:110, invoiceQty:120, pack:12,
+            datePlan:[{ mfg:-150, exp:380 }] }),
+          mkLine({ id:'MRC-NIH-100', ean:'8901234000042', desc:'Nihar Naturals Oil 100ml', img:'🥥',
+            masterMRP:55, invoiceMRP:55, poQty:30, invoiceQty:30, pack:6,
+            datePlan:[{ mfg:-90, exp:420 }] }),
+          mkLine({ id:'MRC-HRC-400', ean:'8901234000059', desc:'Hair & Care Oil 400ml', img:'🧴',
+            masterMRP:210, invoiceMRP:210, poQty:80, invoiceQty:80, pack:8,
+            datePlan:[{ mfg:-200, exp:360 }] })
+        ]},
+    B:{ po:'4500077310', invoice:'INV-B-4471', plant:'DC-Bhiwandi', dock:'Dock 3',
+        vendor:{ name:'Sunrise Traders', qrEnabled:false }, lines:[] }
+  };
+}
+let SCN = seed();
+let ELIG = { 'MRC-PCO-200':true, 'MRC-LVN-100':false, 'MRC-SWG-250':false, 'MRC-NIH-100':false, 'MRC-HRC-400':false };
+
+/* what E42 will report as changed when the operator refreshes */
+const E42_CHANGES = [
+  { lineId:'MRC-SWG-250', field:'Invoice quantity', from:120, to:96,  apply:l => { l.invoiceQty = 96; } },
+  { lineId:'MRC-LVN-100', field:'Invoice MRP',      from:245, to:249, apply:l => { l.invoiceMRP = 249; } }
+];
+let e42Pointer = 0;
+
+let S = { role:'operator', screen:'intake', key:'A', lineId:null, pendingQR:null,
+          returnTo:null, regFilter:'', started:false, tab:'pending', open:{}, refresh:null, draft:null };
+
+/* ---- derived rules ---- */
+const lines = () => SCN[S.key].lines;
+const line = id => { for(const k in SCN){ const f = SCN[k].lines.find(l => l.id === id); if(f) return f; } return null; };
+const cur = () => line(S.lineId);
+const expectedBoxes = l => Math.ceil(l.invoiceQty / l.pack);
+const sampleSize = l => Math.max(1, Math.min(CFG.cap, Math.ceil(l.invoiceQty * CFG.pct / 100)));
+const sampleTarget = l => l.escalated ? expectedBoxes(l) : sampleSize(l);
+const saleable = b => Math.max(0, b.qty - b.short + b.excess - b.damaged - b.rtv);
+const boxBad = b => b.short>0 || b.excess>0 || b.damaged>0 || b.rtv>0 || b.disc.length>0;
+const lineDisc = l => DISCREPANCIES.filter(d => d.lineId === l.id);
+const openBlocking = l => lineDisc(l).filter(d => codeOf(d.code).blocking && d.status === 'open');
+const identityDone = l => Object.values(l.identity).every(v => v === 'ok');
+
+function totals(l){
+  const t = { qty:0, sal:0, short:0, excess:0, dmg:0, rtv:0 };
+  l.boxes.forEach(b => { t.qty+=b.qty; t.sal+=saleable(b); t.short+=b.short; t.excess+=b.excess; t.dmg+=b.damaged; t.rtv+=b.rtv; });
+  return t;
+}
+const defectRate = l => {
+  const s = l.boxes.filter(b => b.sampled);
+  return s.length ? Math.round(100 * s.filter(boxBad).length / s.length) : 0;
+};
+
+/* ---- batch derivation: MFG/EXP within the window joins an existing batch ---- */
+function assignBatch(l, mfg, exp){
+  const hit = l.batchGroups.find(g => gap(g.mfg,mfg) <= CFG.tol && gap(g.exp,exp) <= CFG.tol);
+  if(hit) return { gid:hit.gid, isNew:false };
+  const g = { gid:'G'+(++groupSeq), mfg, exp, sapId:null };
+  l.batchGroups.push(g);
+  return { gid:g.gid, isNew:true };
+}
+const groupOf = (l,gid) => l.batchGroups.find(g => g.gid === gid);
+function regroupLine(l){
+  l.batchGroups = [];
+  l.boxes.forEach(b => { b.gid = assignBatch(l, b.mfg, b.exp).gid; });
+}
+
+/* ---- ui helpers ---- */
+const $ = s => document.querySelector(s);
+const all = s => [...document.querySelectorAll(s)];
+const ws = () => $('#ws');
+function toast(msg, kind){
+  const col = kind==='ok' ? '#2e7d32' : kind==='err' ? '#c62828' : '#662d91';
+  const ic  = kind==='ok' ? 'check-circle-fill' : kind==='err' ? 'exclamation-triangle-fill' : 'info-circle-fill';
+  const t = document.createElement('div');
+  t.className = 'toast show border-0 mb-2'; t.style.background = '#fff';
+  t.innerHTML = '<div class="d-flex"><div class="toast-body d-flex gap-2 align-items-center" style="color:'+col+'">'+
+    '<i class="bi bi-'+ic+'"></i><span>'+msg+'</span></div>'+
+    '<button class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button></div>';
+  $('#toasts').appendChild(t); setTimeout(() => t.remove(), 3600);
+}
+const STAT = {
+  pending:['Not started','s-pending'], progress:['In progress','s-progress'], disc:['Problem raised','s-disc'],
+  'qc-complete':['QC done, awaiting GR','s-done'], error:['SAP rejected','s-disc'], grn:['GR posted','s-grn']
+};
+const statPill = s => '<span class="pill '+STAT[s][1]+'">'+STAT[s][0]+'</span>';
+const head = (no, title, purpose) => '<div class="screen-head">'+(no!==null?'<div class="screen-no">'+no+'</div>':'')+
+  '<div><div class="screen-title">'+title+'</div><div class="screen-purpose">'+purpose+'</div></div></div>';
+const kpi = (v,l) => '<div class="col-6 col-md-3"><div class="kpi"><div class="v">'+v+'</div><div class="l">'+l+'</div></div></div>';
+const esc = s => String(s).replace(/"/g,'&quot;');
+
+/* ==========================================================
+   ROUTER
+   ========================================================== */
+function go(screen){ if(screen) S.screen = screen; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+function render(){ renderRail(); renderScreen(); renderFoot(); renderCtx(); renderElig(); }
+
+function renderCtx(){
+  const c = SCN[S.key];
+  $('#ctxLine').textContent = (S.screen==='intake' && S.role==='operator')
+    ? 'Phase 1 · Green Channel, QR-enabled vendors'
+    : 'PO '+c.po+' · '+c.vendor.name+' · '+c.dock;
+  all('#roleSwitch .btn').forEach(b => b.classList.toggle('active', b.dataset.r === S.role));
+}
+function renderRail(){
+  const r = $('#rail');
+  if(S.role !== 'operator' || S.screen === 'register'){ r.innerHTML=''; return; }
+  const steps = [['intake','Intake',0],['worklist','Worklist',1],['identity','Identity',2],['sample','Sample QC',3],['receiving','Receiving',4]];
+  const order = steps.map(s => s[0]);
+  const l = S.lineId ? cur() : null;
+  const skip = l && l.eligible;
+  const at = order.indexOf(S.screen === 'problem' ? (S.returnTo||'worklist') : S.screen);
+  r.innerHTML = '<div class="rail">' + steps.map(s => {
+    const i = order.indexOf(s[0]);
+    let cls = i === at ? 'on' : i < at ? 'done' : '';
+    if(skip && (s[0]==='identity' || s[0]==='sample')) cls += ' skip';
+    return '<div class="'+cls+'"><b>'+s[2]+'</b><span>'+s[1]+'</span></div>';
+  }).join('') + '</div>';
+}
+function renderScreen(){
+  if(S.screen === 'register') return renderRegister();
+  if(S.role === 'lead') return renderLead();
+  ({ intake:renderIntake, worklist:renderWorklist, identity:renderIdentity,
+     sample:renderSample, receiving:renderReceiving, problem:renderProblem }[S.screen] || renderIntake)();
+}
+function renderFoot(){
+  const f = $('#foot'); f.innerHTML = '';
+  if(S.screen === 'register'){ f.innerHTML = '<button class="btn btn-outline-secondary btn-pill" data-act="closeReg">Back</button>'; return; }
+  if(S.role === 'lead'){
+    if(S.tab === 'pending'){
+      const n = leadLines('pending').filter(l => l.selectedForGR).length;
+      f.innerHTML = '<span class="note">'+n+' line(s) selected</span>'+
+        '<button class="btn btn-purplle btn-pill" data-act="submitGR" '+(n?'':'disabled')+'>Post goods receipt</button>';
+    } else if(S.tab === 'repush'){
+      const n = leadLines('repush').length;
+      f.innerHTML = '<span class="note">'+n+' line(s) rejected by SAP</span>'+
+        '<button class="btn btn-purplle btn-pill" data-act="repushAll" '+(n?'':'disabled')+'>Post all again</button>';
+    } else {
+      f.innerHTML = '<span class="note">'+leadLines('completed').length+' line(s) posted</span>';
+    }
+    return;
+  }
+  if(S.screen === 'worklist'){
+    const done = lines().filter(l => ['qc-complete','error','grn'].includes(l.qcStatus)).length;
+    f.innerHTML = '<span class="note">'+done+' of '+lines().length+' lines with the team lead</span>'+
+      '<button class="btn btn-outline-secondary btn-pill" data-act="role" data-r="lead">Open team lead panel</button>';
+  } else if(['identity','sample','receiving'].includes(S.screen)){
+    f.innerHTML = '<button class="btn btn-outline-secondary btn-pill" data-act="release"><i class="bi bi-arrow-left me-1"></i>Back to worklist</button>';
+  }
+}
+
+/* ==========================================================
+   SCREEN 0 — intake
+   ========================================================== */
+function renderIntake(){
+  const opts = Object.keys(SCN).map(k =>
+    '<option value="'+k+'">'+SCN[k].po+' — '+SCN[k].vendor.name+(SCN[k].vendor.qrEnabled?'':' (QR not enabled)')+'</option>').join('');
+  ws().innerHTML = '<div class="card-soft p-3 p-md-4">'+
+    head(0,'Start a consignment','Check the invoice is gated in and the vendor is set up before any physical work begins.')+
+    '<div class="row g-3 align-items-end">'+
+      '<div class="col-md-4"><label class="form-label small fw-semibold">Consignment</label>'+
+        '<select class="form-select" id="pick">'+opts+'</select></div>'+
+      '<div class="col-md-3"><label class="form-label small fw-semibold">Purchase order</label>'+
+        '<div class="input-group"><span class="input-group-text bg-white text-secondary"><i class="bi bi-hash"></i></span>'+
+        '<input class="form-control" id="poIn"></div></div>'+
+      '<div class="col-md-3"><label class="form-label small fw-semibold">Invoice</label>'+
+        '<div class="input-group"><span class="input-group-text bg-white text-secondary"><i class="bi bi-receipt"></i></span>'+
+        '<input class="form-control" id="invIn"></div></div>'+
+      '<div class="col-md-2"><button class="btn btn-purplle w-100" data-act="checkIn">Check</button></div>'+
+    '</div><div id="intakeOut" class="mt-3"></div></div>';
+  const fill = () => { const c = SCN[$('#pick').value]; $('#poIn').value=c.po; $('#invIn').value=c.invoice; $('#intakeOut').innerHTML=''; };
+  $('#pick').onchange = fill; fill();
+}
+const chk = (ok,label) => '<div class="flag '+(ok?'f-ok':'f-block')+'" style="display:inline-flex;margin-right:7px">'+
+  '<i class="bi bi-'+(ok?'check-circle':'x-circle')+'"></i><span>'+label+'</span></div>';
+function checkIn(){
+  S.key = $('#pick').value;
+  const c = SCN[S.key];
+  let h = '<div class="d-flex flex-wrap mb-2">'+chk(true,'Invoice gated in')+chk(true,'Vendor found')+
+    chk(true,'GSTN matches')+chk(true,'PO belongs to this plant')+'</div>'+
+    '<div class="d-flex flex-wrap">'+chk(c.vendor.qrEnabled,'QR enabled for vendor (gate 1)')+'</div>';
+  if(!c.vendor.qrEnabled){
+    h += '<div class="flag f-block mt-2"><i class="bi bi-slash-circle"></i><div><b>This consignment cannot be received.</b><br>'+
+      'QR is not enabled for '+c.vendor.name+'. Phase 1 receives Green Channel, QR-enabled vendors only. '+
+      'Ask the Ops team to enable QR for this vendor, then check again.</div></div>';
+    $('#intakeOut').innerHTML = h; return;
+  }
+  const green = c.lines.filter(l => ELIG[l.id]).length;
+  h += '<div class="row g-2 mt-2">'+
+    kpi(c.lines.reduce((a,l)=>a+l.invoiceQty,0),'Units invoiced')+kpi(c.lines.length,'Lines')+
+    kpi(green,'Skip inspection')+kpi(c.lines.length-green,'Need QC')+'</div>'+
+    '<div class="text-end mt-3"><button class="btn btn-purplle btn-pill" data-act="startQC">Start QC</button></div>';
+  $('#intakeOut').innerHTML = h;
+}
+function startQC(){
+  S.started = true;
+  lines().forEach(l => { l.eligible = !!ELIG[l.id]; });
+  const busy = line('MRC-HRC-400');
+  if(busy && !busy.lockedBy && busy.qcStatus === 'pending') busy.lockedBy = 'rohit.op';
+  go('worklist');
+}
+
+/* ==========================================================
+   SCREEN 1 — worklist, with the E42 refresh
+   ========================================================== */
+function renderWorklist(){
+  lines().forEach(l => { if(l.qcStatus === 'pending') l.eligible = !!ELIG[l.id]; });
+  const rank = { pending:0, progress:1, disc:1, 'qc-complete':2, error:2, grn:3 };
+  const rows = lines().slice().sort((a,b) => rank[a.qcStatus]-rank[b.qcStatus]).map(l => {
+    const tag = l.eligible
+      ? '<span class="pill s-green"><i class="bi bi-lightning-charge"></i>Skips inspection</span>'
+      : '<span class="pill s-phys"><i class="bi bi-search"></i>Needs QC</span>';
+    const locked = l.lockedBy && l.lockedBy !== USER;
+    const d = lineDisc(l).filter(x => x.status === 'open').length;
+    let btn;
+    if(locked) btn = '<span class="pill s-lock"><i class="bi bi-lock"></i>'+l.lockedBy+'</span>';
+    else if(['qc-complete','error'].includes(l.qcStatus)) btn = '<span class="note">with team lead</span>';
+    else if(l.qcStatus === 'grn') btn = '<span class="note">posted</span>';
+    else btn = '<button class="btn btn-sm btn-purplle" data-act="open" data-id="'+l.id+'">'+
+      (l.qcStatus === 'pending' ? (l.eligible?'Receive':'Start QC') : 'Resume')+'</button>';
+    return '<tr><td><div class="d-flex gap-2 align-items-center"><div class="prod">'+l.img+'</div>'+
+      '<div><div class="fw-semibold" style="font-size:.85rem">'+l.desc+'</div>'+
+      '<div class="note">'+l.id+' · EAN '+l.ean+' · '+l.invoiceQty+' units'+
+      (l.boxes.length?' · '+l.boxes.length+' boxes scanned':'')+'</div>'+
+      (l.e42Note?'<div class="note text-danger"><i class="bi bi-exclamation-triangle me-1"></i>'+l.e42Note+'</div>':'')+
+      '</div></div></td>'+
+      '<td>'+tag+'</td><td>'+statPill(l.qcStatus)+
+      (l.escalated?'<div class="note text-danger">every box needs checking</div>':'')+'</td>'+
+      '<td>'+(d?'<span class="pill s-disc">'+d+'</span>':'<span class="note">none</span>')+'</td>'+
+      '<td class="text-end">'+btn+'</td></tr>';
+  }).join('');
+
+  ws().innerHTML = '<div class="card-soft p-3 p-md-4">'+
+    '<div class="d-flex justify-content-between align-items-start flex-wrap gap-2">'+
+      head(1,'Lines on this invoice','Each line is routed by the Green Channel list. You cannot change the route.')+
+      '<button class="btn btn-sm btn-outline-secondary" data-act="e42Refresh">'+
+      '<i class="bi bi-arrow-clockwise me-1"></i>Refresh from E42</button>'+
+    '</div>'+
+    (S.refresh ? refreshPanel() : '')+
+    '<div class="table-responsive"><table class="table mb-0"><thead><tr>'+
+    '<th>Line</th><th>Route</th><th>Status</th><th>Open problems</th><th class="text-end">Action</th>'+
+    '</tr></thead><tbody>'+rows+'</tbody></table></div>'+
+    '<div class="note mt-3"><i class="bi bi-info-circle me-1"></i>Two people can work this PO at the same time, but only one person per line.</div></div>';
+}
+function refreshPanel(){
+  const r = S.refresh;
+  if(r.none) return '<div class="flag f-ok mt-2"><i class="bi bi-check-circle"></i><div>'+
+    'E42 checked just now. Nothing has changed on this invoice.</div></div>';
+  const l = line(r.lineId);
+  const frozen = ['qc-complete','error','grn'].includes(l.qcStatus);
+  const work = l.boxes.length || Object.values(l.identity).some(v => v !== null);
+  return '<div class="flag f-block mt-2" style="align-items:flex-start"><i class="bi bi-exclamation-triangle"></i><div style="flex:1">'+
+    '<b>E42 has changed this line.</b><br>'+
+    l.id+' — '+r.field+' changed from '+r.from+' to '+r.to+'.<br>'+
+    (frozen
+      ? '<span class="d-inline-block mt-2">Part of this line is already with the team lead, so nothing recorded will be touched. '+
+        'It will be marked as out of step with E42 for the team lead to look at.</span>'
+      : (work
+        ? '<span class="d-inline-block mt-2"><b>Everything already recorded against '+l.id+' will be cleared</b> — '+
+          l.boxes.length+' scanned box(es) and the identity checks. Other lines are not affected. This cannot be undone.</span>'
+        : '<span class="d-inline-block mt-2">Nothing has been recorded against this line yet, so nothing will be lost.</span>'))+
+    '<div class="mt-2 d-flex gap-2 flex-wrap">'+
+      '<button class="btn btn-sm btn-purplle" data-act="e42Apply">'+(frozen?'Flag and refresh':'Refresh and clear this line')+'</button>'+
+      '<button class="btn btn-sm btn-outline-secondary" data-act="e42Cancel">Keep what I have</button>'+
+    '</div></div></div>';
+}
+function e42Refresh(){
+  const ch = E42_CHANGES[e42Pointer % E42_CHANGES.length];
+  const l = line(ch.lineId);
+  if(!l || l.qcStatus === 'grn'){ S.refresh = { none:true }; render(); return; }
+  S.refresh = Object.assign({}, ch);
+  render();
+}
+function e42Apply(){
+  const r = S.refresh;
+  const l = line(r.lineId);
+  const frozen = ['qc-complete','error','grn'].includes(l.qcStatus);
+  r.apply(l);
+  if(frozen){
+    l.e42Note = 'Out of step with E42 — '+r.field+' now '+r.to+'. Recorded data kept.';
+    toast(l.id+' flagged as out of step with E42','err');
+  } else {
+    l.boxes = []; l.batchGroups = []; l.escalated = false; l.physMRP = '';
+    IDENTITY_KEYS.forEach(k => l.identity[k] = null);
+    l.flags = []; l.qcStatus = 'pending'; l.e42Note = null;
+    DISCREPANCIES = DISCREPANCIES.filter(d => d.lineId !== l.id);
+    toast('Recorded data cleared for '+l.id+'. Start this line again.','err');
+  }
+  e42Pointer++; S.refresh = null;
+  if(S.lineId === l.id && !frozen){ S.lineId = null; go('worklist'); } else render();
+}
+function openLine(id){
+  const l = line(id);
+  if(l.lockedBy && l.lockedBy !== USER){ toast('That line is open on '+l.lockedBy+"'s device",'err'); return; }
+  l.lockedBy = USER;
+  if(l.qcStatus === 'pending') l.qcStatus = 'progress';
+  S.lineId = id; S.pendingQR = null;
+  go(l.eligible ? 'receiving' : 'identity');
+}
+function release(){
+  const l = cur();
+  if(l && l.lockedBy === USER && !['qc-complete','error','grn'].includes(l.qcStatus)) l.lockedBy = null;
+  S.pendingQR = null; go('worklist');
+}
+
+/* ==========================================================
+   SCREEN 2 — identity
+   ========================================================== */
+function renderIdentity(){
+  const l = cur();
+  const rows = [
+    ['MRP','Order says ₹'+l.masterMRP+' · invoice says ₹'+l.invoiceMRP],
+    ['MFG/EXP','Read the dates printed on the pack'],
+    ['SKU',l.id],
+    ['Image','Compare the pack with the master photo'],
+    ['Description',l.desc]
+  ].map(([k,exp]) => {
+    const st = l.identity[k];
+    const cls = st==='ok' ? 'ok' : st==='flagged' ? 'bad' : '';
+    let ctrl;
+    if(k === 'MRP' && st === null){
+      ctrl = '<div class="input-group input-group-sm" style="max-width:200px">'+
+        '<span class="input-group-text bg-white">₹</span>'+
+        '<input type="number" class="form-control" id="mrpIn" placeholder="MRP on the pack" value="'+l.physMRP+'">'+
+        '<button class="btn btn-purplle" data-act="mrpCheck">Check</button></div>';
+    } else if(st === null){
+      ctrl = '<div class="d-flex gap-2"><button class="btn btn-sm btn-outline-success" data-act="attrOk" data-k="'+k+'">Matches</button>'+
+        '<button class="btn btn-sm btn-outline-danger" data-act="attrBad" data-k="'+k+'">Does not match</button></div>';
+    } else if(st === 'ok'){
+      ctrl = '<span class="pill s-done"><i class="bi bi-check2"></i>Confirmed</span>'+
+        (k==='MRP'?'<span class="note ms-2">₹'+l.physMRP+' keyed</span>':'')+
+        ' <button class="btn btn-sm btn-link text-muted p-0 ms-2" data-act="attrReset" data-k="'+k+'">undo</button>';
+    } else {
+      ctrl = '<span class="pill s-disc"><i class="bi bi-flag"></i>Problem raised</span>'+
+        ' <button class="btn btn-sm btn-link text-muted p-0 ms-2" data-act="attrReset" data-k="'+k+'">undo</button>';
+    }
+    return '<div class="attr '+cls+'"><div class="name">'+k+'</div><div class="exp">'+exp+'</div><div>'+ctrl+'</div></div>';
+  }).join('');
+
+  const blocked = openBlocking(l).length > 0;
+  ws().innerHTML = '<div class="card-soft p-3 p-md-4">'+
+    head(2,'Check this is the right product','Confirm all five properties against what is physically in front of you.')+
+    '<div class="d-flex gap-3 flex-wrap mb-3">'+
+      '<div class="prod" style="width:56px;height:56px;font-size:1.4rem">'+l.img+'</div>'+
+      '<div class="row g-2 flex-grow-1 note">'+
+        '<div class="col-6 col-md-3">EAN<br><b class="text-dark">'+l.ean+'</b></div>'+
+        '<div class="col-6 col-md-3">Ordered<br><b class="text-dark">'+l.poQty+' units</b></div>'+
+        '<div class="col-6 col-md-3">Invoiced<br><b class="text-dark">'+l.invoiceQty+' units</b></div>'+
+        '<div class="col-6 col-md-3">Units per box<br><b class="text-dark">'+l.pack+'</b></div>'+
+      '</div></div>'+
+    rows +
+    '<div class="text-end mt-2"><button class="btn btn-sm btn-outline-danger" data-act="reportMulti">'+
+      '<i class="bi bi-flag me-1"></i>Report several problems at once</button></div>'+
+    '<div class="mt-3">'+flagsHtml(l)+'</div>'+
+    '<div class="d-flex justify-content-end mt-3">'+
+      '<button class="btn btn-purplle btn-pill" data-act="toSample" '+(identityDone(l) && !blocked ? '' : 'disabled')+'>Continue to sample check</button></div>'+
+    (blocked ? '<div class="note text-end mt-2">A problem is holding this line. Return the goods, or correct the invoice in E42 and refresh.</div>'
+             : (!identityDone(l) ? '<div class="note text-end mt-2">Confirm all five properties to continue.</div>' : ''))+
+    '</div>';
+}
+function flagsHtml(l){
+  let h = '';
+  l.flags.forEach(f => {
+    h += '<div class="flag '+(f.blocking?'f-block':'f-info')+'"><i class="bi bi-'+(f.blocking?'exclamation-octagon':'info-circle')+'"></i>'+
+      '<div><b>'+f.title+'</b><br>'+f.text+'</div></div>';
+  });
+  // group records raised together so a multi-issue report reads as one event
+  const byGroup = {};
+  lineDisc(l).forEach(d => { (byGroup[d.groupId] = byGroup[d.groupId] || []).push(d); });
+  Object.values(byGroup).forEach(g => {
+    const open = g.some(d => d.status === 'open');
+    const blocking = g.some(d => codeOf(d.code).blocking);
+    const scope = g[0].uid ? 'whole box '+g[0].uid : (g[0].scope === 'line' ? 'whole line' : g[0].qty+' units');
+    const state = open ? '' : ' <span class="pill '+(g[0].status==='rtv'?'s-disc':'s-done')+'">'+
+      (g[0].status==='rtv' ? 'returning to vendor' : 'invoice corrected in E42')+'</span>';
+    const actions = (open && blocking)
+      ? '<div class="mt-2 d-flex gap-2 flex-wrap">'+
+        '<button class="btn btn-sm btn-outline-danger" data-act="dRTV" data-g="'+g[0].groupId+'">Return to vendor</button>'+
+        '<button class="btn btn-sm btn-outline-primary" data-act="dE42" data-g="'+g[0].groupId+'">Correct in E42 and refresh</button></div>'
+      : '';
+    h += '<div class="flag '+(open && blocking ? 'f-block' : 'f-warn')+'"><i class="bi bi-flag"></i><div>'+
+      '<b>'+g.map(d => d.code).join(' + ')+'</b> <span class="note">('+scope+')</span>'+state+
+      (g[0].remarks ? '<br>'+g[0].remarks : '')+actions+'</div></div>';
+  });
+  return h;
+}
+function mrpCheck(){
+  const l = cur();
+  const v = parseFloat($('#mrpIn').value);
+  if(isNaN(v)){ toast('Enter the MRP printed on the pack','err'); return; }
+  l.physMRP = v; l.flags = [];
+  if(v !== l.masterMRP){
+    l.identity['MRP'] = 'flagged';
+    openProblem(['MRP'], null, 'line', 'Pack shows ₹'+v+' but the order says ₹'+l.masterMRP);
+    return;
+  }
+  if(l.invoiceMRP !== l.masterMRP){
+    l.flags.push({ blocking:true, title:'The invoice states the wrong MRP',
+      text:'Pack and order agree at ₹'+l.masterMRP+', but the invoice says ₹'+l.invoiceMRP+
+           '. The goods are right, the paperwork is not. Correct it in E42 and refresh, or return the goods.' });
+  }
+  if(l.invoiceQty > l.poQty){
+    l.flags.push({ blocking:false, title:'Invoiced more than ordered',
+      text:'The invoice covers '+l.invoiceQty+' units against an order of '+l.poQty+'. Noted for procurement; receiving continues.' });
+  }
+  l.identity['MRP'] = 'ok';
+  l.qcStatus = l.flags.some(f => f.blocking) ? 'disc' : 'progress';
+  render();
+}
+
+/* ==========================================================
+   scan strip + boxes
+   ========================================================== */
+function scanStrip(l, phase){
+  const q = S.pendingQR;
+  const target = phase === 'sample' ? sampleTarget(l) : expectedBoxes(l);
+  const done = phase === 'sample' ? l.boxes.filter(b => b.sampled).length : l.boxes.length;
+  const filled = !!q;
+  let preview = '<div class="meta">Nothing scanned yet</div>';
+  if(filled){
+    const a = assignBatchPreview(l, q.mfg, q.exp);
+    preview = '<div class="val">'+q.sku+'</div><div class="meta">MRP ₹'+q.mrp+' · '+q.pack+' units<br>'+
+      'MFG '+fmt(q.mfg)+' · EXP '+fmt(q.exp)+'<br>'+
+      (a.isNew ? '<span class="pill s-new">starts a new batch</span>'
+               : '<span class="pill s-batch">joins batch '+a.gid+'</span>')+'</div>';
+  }
+  return '<div class="scanstrip mb-3">'+
+    '<div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">'+
+      '<div class="fw-semibold" style="font-size:.9rem">Scan a box</div>'+
+      '<span class="note">'+done+' of '+target+' boxes done</span></div>'+
+    '<div class="slots">'+
+      '<div class="slot '+(filled?'filled':'')+'"><div class="lab">1. Box QR</div>'+preview+
+        '<div class="mt-2 d-flex gap-2 flex-wrap">'+
+          '<button class="btn btn-sm btn-purplle" data-act="scanQR">Scan QR</button>'+
+          '<button class="btn btn-sm btn-outline-secondary" data-act="scanQRBad">Scan a wrong box</button></div></div>'+
+      '<div class="joiner '+(filled?'live':'')+'"><i class="bi bi-arrow-right"></i></div>'+
+      '<div class="slot"><div class="lab">2. Box UID</div>'+
+        '<div class="meta">'+(filled ? 'Scan the UID to attach these details to the box.' : 'Scan the QR first.')+'</div>'+
+        '<div class="mt-2 d-flex gap-2 flex-wrap">'+
+          '<button class="btn btn-sm btn-purplle" data-act="scanUID" '+(filled?'':'disabled')+'>Scan UID</button>'+
+          '<button class="btn btn-sm btn-outline-secondary" data-act="scanUIDDup" '+(filled?'':'disabled')+'>Re-scan last UID</button></div></div>'+
+    '</div>'+
+    '<div class="note mt-2">A box exists only once both scans are paired. One scan on its own does nothing. '+
+    'The batch is worked out from the dates on the QR.</div></div>';
+}
+function assignBatchPreview(l, mfg, exp){
+  const hit = l.batchGroups.find(g => gap(g.mfg,mfg) <= CFG.tol && gap(g.exp,exp) <= CFG.tol);
+  return hit ? { gid:hit.gid, isNew:false } : { gid:null, isNew:true };
+}
+function nextDates(l){
+  const p = l.datePlan[l.boxes.length % l.datePlan.length];
+  return { mfg:dOff(p.mfg), exp:dOff(p.exp) };
+}
+function scanQR(bad){
+  const l = cur();
+  if(bad){
+    S.pendingQR = { sku:'MRC-XXX-999', ean:'8909999999999', mrp:0, mfg:dOff(-90), exp:dOff(300), pack:l.pack, wrong:true };
+    toast('QR read — this box holds a different SKU','info');
+  } else {
+    const d = nextDates(l);
+    S.pendingQR = { sku:l.id, ean:l.ean, mrp:l.masterMRP, mfg:d.mfg, exp:d.exp, pack:l.pack };
+  }
+  render();
+}
+function scanUID(dup){
+  const l = cur(), q = S.pendingQR;
+  if(!q){ toast('Scan the box QR first','err'); return; }
+  if(q.wrong){
+    S.pendingQR = null;
+    toast('This box holds '+q.sku+', not '+l.id,'err');
+    openProblem(['EAN'], null, 'box', 'Box contained '+q.sku+' instead of '+l.id);
+    return;
+  }
+  if(dup){
+    const last = [...USED_UIDS].pop();
+    if(!last){ toast('No previous UID to re-scan yet','info'); return; }
+    toast('UID '+last+' is already on a box. Nothing was counted twice.','err');
+    return;
+  }
+  const uid = 'UID-'+(++uidSeq);
+  USED_UIDS.add(uid);
+  const a = assignBatch(l, q.mfg, q.exp);
+  const inSample = S.screen === 'sample' && l.boxes.filter(b => b.sampled).length < sampleTarget(l);
+  l.boxes.push({ uid, gid:a.gid, mfg:q.mfg, exp:q.exp, qty:q.pack, short:0, excess:0, damaged:0, rtv:0, sampled:inSample, disc:[] });
+  toast(a.isNew ? 'New batch '+a.gid+' created from the dates on this box' : 'Box added to batch '+a.gid, 'ok');
+  S.pendingQR = null;
+  render();
+}
+function boxCard(l, b, editable){
+  const f = (k,lab) => '<div class="col-4 col-md-2"><label class="form-label small mb-0 note">'+lab+'</label>'+
+    '<input type="number" class="form-control form-control-sm mini" data-fld="'+k+'" data-uid="'+b.uid+'" value="'+b[k]+'" '+(editable?'':'disabled')+'></div>';
+  const g = groupOf(l, b.gid);
+  const ds = DISCREPANCIES.filter(d => d.uid === b.uid);
+  const sameBatch = l.boxes.filter(x => x.gid === b.gid).length;
+  return '<div class="boxrow '+(b.sampled?'sampled':'')+' '+(boxBad(b)?'bad':'')+'">'+
+    '<div class="d-flex justify-content-between align-items-center flex-wrap gap-2">'+
+      '<div><span class="fw-semibold" style="font-size:.85rem"><i class="bi bi-box-seam me-1"></i>'+b.uid+'</span> '+
+      '<span class="pill s-batch">batch '+b.gid+(g&&g.sapId?' · '+g.sapId:'')+'</span> '+
+      '<span class="note">'+sameBatch+' box(es) in this batch · '+b.qty+' units'+(b.sampled?' · inspected':'')+'</span></div>'+
+      (editable ? '<button class="btn btn-sm btn-outline-danger" data-act="discBox" data-uid="'+b.uid+'">Report a problem</button>' : '')+
+    '</div>'+
+    '<div class="row g-2 mt-1 align-items-end">'+f('short','Short')+f('excess','Extra')+f('damaged','Damaged')+f('rtv','Return')+
+      '<div class="col-4 col-md-2"><div class="note">Good stock</div><div class="fw-bold text-success">'+saleable(b)+'</div></div>'+
+      '<div class="col-4 col-md-2"><label class="form-label small mb-0 note">Expiry</label>'+
+      '<input type="date" class="form-control form-control-sm" data-fld="exp" data-uid="'+b.uid+'" value="'+b.exp+'" '+(editable?'':'disabled')+'></div>'+
+    '</div>'+
+    (ds.length ? '<div class="mt-2">'+ds.map(d => '<span class="pill s-disc me-1">'+d.code+'</span>').join('')+'</div>' : '')+
+    '</div>';
+}
+
+/* ==========================================================
+   SCREEN 3 — sample
+   ========================================================== */
+function renderSample(){
+  const l = cur();
+  const target = sampleTarget(l);
+  const sam = l.boxes.filter(b => b.sampled);
+  const rate = defectRate(l);
+  ws().innerHTML = '<div class="card-soft p-3 p-md-4">'+
+    head(3,'Sample check — '+l.desc,'Inspect a few boxes. If too many have problems, every box gets checked.')+
+    '<div class="row g-2 mb-3">'+kpi(target,'Boxes to inspect')+kpi(l.invoiceQty,'Units on this line')+
+      kpi(expectedBoxes(l),'Boxes expected')+kpi(rate+'%','Problem rate')+'</div>'+
+    '<div class="flag f-info"><i class="bi bi-calculator"></i><div>'+
+      'The sample is the lower of the cap ('+CFG.cap+' boxes) and '+CFG.pct+'% of '+l.invoiceQty+' units = '+
+      Math.ceil(l.invoiceQty*CFG.pct/100)+'. So inspect <b>'+sampleSize(l)+'</b> box(es).'+
+      (l.escalated ? ' Because the problem rate went over '+CFG.esc+'%, all '+expectedBoxes(l)+' boxes now need checking.' : '')+'</div></div>'+
+    (l.escalated ? '<div class="flag f-block"><i class="bi bi-arrow-up-circle"></i><div>'+
+      '<b>Every box on this line now needs checking.</b><br>'+rate+'% of the sample had problems. This happens before GR.</div></div>' : '')+
+    scanStrip(l,'sample')+
+    (sam.length ? sam.map(b => boxCard(l,b,true)).join('') : '<div class="note">No boxes inspected yet.</div>')+
+    '<div class="mt-2">'+flagsHtml(l)+'</div>'+
+    '<div class="d-flex justify-content-end mt-3">'+
+      '<button class="btn btn-purplle btn-pill" data-act="toReceiving" '+(sam.length>=target?'':'disabled')+'>Continue to receiving</button></div>'+
+    (sam.length<target ? '<div class="note text-end mt-2">Inspect '+(target-sam.length)+' more box(es) to continue.</div>' : '')+
+    '</div>';
+}
+
+/* ==========================================================
+   SCREEN 4 — receiving
+   ========================================================== */
+function renderReceiving(){
+  const l = cur();
+  const sam = l.boxes.filter(b => b.sampled), rec = l.boxes.filter(b => !b.sampled);
+  const t = totals(l);
+  const blocked = openBlocking(l).length > 0;
+  ws().innerHTML = '<div class="card-soft p-3 p-md-4">'+
+    head(4,'Receive the boxes — '+l.desc,'Scan every remaining box. This is your last step on this line.')+
+    (l.eligible ? '<div class="flag f-ok"><i class="bi bi-lightning-charge"></i><div><b>This line skips inspection.</b><br>'+
+      l.id+' is on the Green Channel list for this vendor and plant, so identity and sample checks were not needed.</div></div>' : '')+
+    '<div class="row g-2 mb-3">'+kpi(l.boxes.length+' / '+expectedBoxes(l),'Boxes scanned')+kpi(t.sal,'Good stock')+
+      kpi(t.dmg,'Damaged')+kpi(t.rtv,'To return')+'</div>'+
+    batchSummary(l)+
+    scanStrip(l,'receiving')+
+    (sam.length ? '<div class="note mb-1">Already inspected, carried over</div>'+sam.map(b => boxCard(l,b,false)).join('') : '')+
+    (rec.length ? '<div class="note mb-1">Received here</div>'+rec.map(b => boxCard(l,b,true)).join('') : '')+
+    (!l.boxes.length ? '<div class="note">No boxes scanned yet.</div>' : '')+
+    '<div class="mt-2">'+flagsHtml(l)+'</div>'+
+    '<div class="d-flex justify-content-between align-items-center gap-2 flex-wrap mt-3">'+
+      '<div class="blocker"><i class="bi bi-flag me-1"></i>Open question: whether a line can be received in more than one go '+
+      '(multi-GR per line) is not decided yet. Partial completion is allowed here for now.</div>'+
+      '<button class="btn btn-purplle btn-pill" data-act="finishLine" '+(l.boxes.length && !blocked ? '' : 'disabled')+'>Finish this line</button></div>'+
+    (blocked ? '<div class="note text-end mt-2">An unresolved problem is holding this line.</div>' : '')+
+    '</div>';
+}
+function batchSummary(l){
+  if(!l.batchGroups.length) return '';
+  const rows = l.batchGroups.map(g => {
+    const bs = l.boxes.filter(b => b.gid === g.gid);
+    const units = bs.reduce((a,b) => a+saleable(b)+b.damaged+b.rtv, 0);
+    const left = daysTo(g.exp);
+    return '<tr><td><span class="pill s-batch">'+g.gid+'</span></td>'+
+      '<td class="note">'+fmt(g.mfg)+'</td><td class="note">'+fmt(g.exp)+'</td>'+
+      '<td>'+bs.length+'</td><td>'+units+'</td>'+
+      '<td>'+(left < CFG.fresh
+        ? '<span class="pill s-disc">'+left+' days — fails freshness</span>'
+        : '<span class="pill s-done">'+left+' days</span>')+'</td></tr>';
+  }).join('');
+  return '<div class="mb-3"><div class="note mb-1">Batches worked out from the dates on the boxes '+
+    '(anything within '+CFG.tol+' days of an existing batch joins it). SAP batch numbers are created when the team lead posts.</div>'+
+    '<div class="table-responsive"><table class="table mb-0"><thead><tr>'+
+    '<th>Batch</th><th>Made</th><th>Expires</th><th>Boxes</th><th>Units</th><th>Shelf life</th>'+
+    '</tr></thead><tbody>'+rows+'</tbody></table></div></div>';
+}
+function finishLine(){
+  const l = cur();
+  if(openBlocking(l).length){ toast('Resolve the problem before finishing','err'); return; }
+  l.qcStatus = 'qc-complete'; l.completedAt = new Date(); l.lockedBy = null;
+  toast(l.id+' handed to the team lead','ok');
+  S.lineId = null; go('worklist');
+}
+
+/* ==========================================================
+   problem reporting — multiple codes, scoped
+   ========================================================== */
+function openProblem(codes, uid, scope, remarks){
+  S.returnTo = S.screen === 'problem' ? S.returnTo : S.screen;
+  S.draft = { codes:codes.slice(), uid:uid||null, scope:scope||'box', qty:1, remarks:remarks||'', images:0 };
+  go('problem');
+}
+function renderProblem(){
+  const l = cur(), d = S.draft;
+  const boxes = l.boxes;
+  const anyBlocking = d.codes.some(c => codeOf(c).blocking);
+  const needsImg = d.codes.some(c => codeOf(c).img);
+  const chips = CODES.map(c => {
+    const on = d.codes.includes(c.c);
+    return '<div class="col-md-6"><div class="codechip '+(on?'on':'')+'" data-act="pCode" data-c="'+c.c+'">'+
+      '<i class="bi bi-'+(on?'check-square-fill':'square')+'"></i>'+
+      '<div><b>'+c.c+'</b>'+(codeOf(c.c).blocking?' <span class="note">(stops the line)</span>':'')+
+      '<div class="note">'+c.hint+'</div></div></div></div>';
+  }).join('');
+  const scopeBtn = (v,lab,note) => '<div class="col-md-4"><div class="codechip '+(d.scope===v?'on':'')+'" data-act="pScope" data-s="'+v+'">'+
+    '<i class="bi bi-'+(d.scope===v?'record-circle-fill':'circle')+'"></i><div><b>'+lab+'</b><div class="note">'+note+'</div></div></div></div>';
+
+  ws().innerHTML = '<div class="card-soft p-3 p-md-4">'+
+    head(null,'Report a problem','Recorded against this line in Manage. Nothing goes to an outside system.')+
+    '<div class="note mb-3">'+l.desc+' · '+l.id+'</div>'+
+    '<div class="fw-semibold small mb-2">What is wrong — tick everything that applies</div>'+
+    '<div class="row g-2 mb-3">'+chips+'</div>'+
+    '<div class="fw-semibold small mb-2">How much is affected</div>'+
+    '<div class="row g-2 mb-2">'+
+      scopeBtn('box','The whole box','Every unit in one box')+
+      scopeBtn('line','The whole line','All '+l.invoiceQty+' units')+
+      scopeBtn('units','Some units','Enter a count')+
+    '</div>'+
+    (d.scope === 'box'
+      ? '<div class="row g-3 align-items-end mb-2"><div class="col-md-5">'+
+        '<label class="form-label small fw-semibold">Which box</label>'+
+        (boxes.length
+          ? '<select class="form-select" id="pUid">'+boxes.map(b => '<option value="'+b.uid+'" '+(d.uid===b.uid?'selected':'')+'>'+
+            b.uid+' · batch '+b.gid+' · '+b.qty+' units</option>').join('')+'</select>'
+          : '<div class="note">No box scanned for this line yet.</div>')+
+        '</div><div class="col-md-4">'+
+        (boxes.length ? '' : '<button class="btn btn-outline-secondary w-100" data-act="pScanBox">Scan the box now</button>')+
+        '</div></div>'
+      : '')+
+    (d.scope === 'units'
+      ? '<div class="row g-3 mb-2"><div class="col-md-3"><label class="form-label small fw-semibold">Units affected</label>'+
+        '<input type="number" class="form-control" id="pQty" value="'+d.qty+'" min="1"></div></div>'
+      : '')+
+    '<div class="mb-3"><label class="form-label small fw-semibold">Notes</label>'+
+      '<input class="form-control" id="pRem" value="'+esc(d.remarks)+'" placeholder="What did you see?"></div>'+
+    '<div class="mb-3"><label class="form-label small fw-semibold">Photos'+(needsImg?' (required for damage)':' (optional)')+'</label><div>'+
+      [1,2,3].map(n => '<i class="bi bi-image'+(n<=d.images?'-fill':'')+' me-2" data-act="pImg" '+
+        'style="cursor:pointer;font-size:1.5rem;color:'+(n<=d.images?'#662d91':'#c9c2d6')+'"></i>').join('')+
+      '<span class="note ms-2">'+d.images+' of 3 attached</span></div></div>'+
+    (anyBlocking ? '<div class="flag f-block"><i class="bi bi-exclamation-octagon"></i><div>'+
+      'At least one of these stops the line. After saving you will be asked either to return the goods, '+
+      'or to correct the invoice in E42 and pull the data again.</div></div>' : '')+
+    '<div class="d-flex justify-content-end gap-2 mt-3">'+
+      '<button class="btn btn-outline-secondary btn-pill" data-act="pCancel">Cancel</button>'+
+      '<button class="btn btn-purplle btn-pill" data-act="pSave" '+(d.codes.length?'':'disabled')+'>Save</button></div>'+
+    (d.codes.length ? '' : '<div class="note text-end mt-2">Tick at least one problem.</div>')+
+    '</div>';
+}
+function pStash(){
+  const d = S.draft;
+  if($('#pRem')) d.remarks = $('#pRem').value;
+  if($('#pQty')) d.qty = Math.max(1, parseInt($('#pQty').value)||1);
+  if($('#pUid')) d.uid = $('#pUid').value;
+}
+function saveProblem(){
+  const l = cur(), d = S.draft;
+  pStash();
+  if(d.codes.some(c => codeOf(c).img) && d.images === 0){ toast('Attach at least one photo for damage','err'); return; }
+  let uid = null, qty = d.qty;
+  if(d.scope === 'box'){
+    if(!d.uid && l.boxes.length) d.uid = l.boxes[0].uid;
+    uid = d.uid;
+    const b = l.boxes.find(x => x.uid === uid);
+    qty = b ? b.qty : d.qty;
+    if(!uid){ toast('Scan the box first, or change how much is affected','err'); return; }
+  } else if(d.scope === 'line'){
+    qty = l.invoiceQty;
+  }
+  const groupId = 'GRP-'+(++discSeq);
+  d.codes.forEach(c => {
+    DISCREPANCIES.push({ id:'D-'+(++discSeq), groupId, lineId:l.id, uid, scope:d.scope, code:c, qty,
+      remarks:d.remarks, images:d.images, raisedBy:USER, raisedAt:new Date(), screen:S.returnTo, status:'open' });
+    if(uid){ const b = l.boxes.find(x => x.uid === uid); if(b && !b.disc.includes(c)) b.disc.push(c); }
+    if(d.scope === 'line' && IDENTITY_KEYS.includes(c)) l.identity[c] = 'flagged';
+  });
+  if(d.codes.some(c => codeOf(c).blocking)) l.qcStatus = 'disc';
+  toast(d.codes.join(' + ')+' recorded against '+l.id,'ok');
+  go(S.returnTo || 'worklist');
+}
+function resolveGroup(groupId, outcome){
+  const recs = DISCREPANCIES.filter(x => x.groupId === groupId);
+  if(!recs.length) return;
+  const l = line(recs[0].lineId);
+  recs.forEach(r => { r.status = outcome; r.resolvedBy = USER; r.resolvedAt = new Date(); });
+  recs.forEach(r => {
+    if(r.scope === 'line' && IDENTITY_KEYS.includes(r.code)){
+      l.identity[r.code] = null;
+      if(r.code === 'MRP'){ l.physMRP = ''; l.flags = []; }
+    }
+    if(r.uid){ const b = l.boxes.find(x => x.uid === r.uid); if(b) b.disc = b.disc.filter(c => c !== r.code); }
+  });
+  if(outcome === 'e42'){
+    // pulling corrected data from E42 clears what was recorded against this line
+    l.boxes = []; l.batchGroups = []; l.escalated = false; l.physMRP = '';
+    IDENTITY_KEYS.forEach(k => l.identity[k] = null);
+    l.flags = []; l.invoiceMRP = l.masterMRP; l.qcStatus = 'pending';
+    toast('Corrected data pulled from E42. Recorded work on '+l.id+' was cleared — start the line again.','err');
+    S.lineId = null; go('worklist'); return;
+  }
+  if(!openBlocking(l).length && l.qcStatus === 'disc') l.qcStatus = 'progress';
+  toast(recs.map(r=>r.code).join(' + ')+' on '+l.id+' marked for return to vendor','ok');
+  render();
+}
+
+/* ==========================================================
+   TEAM LEAD PANEL — tabs, invoice level, expandable
+   ========================================================== */
+function leadLines(tab){
+  const out = [];
+  Object.keys(SCN).forEach(k => SCN[k].lines.forEach(l => {
+    if(tab === 'pending'   && l.qcStatus === 'qc-complete') out.push(l);
+    if(tab === 'repush'    && l.qcStatus === 'error')       out.push(l);
+    if(tab === 'completed' && l.qcStatus === 'grn')         out.push(l);
+  }));
+  return out;
+}
+function renderLead(){
+  const counts = { pending:leadLines('pending').length, repush:leadLines('repush').length, completed:leadLines('completed').length };
+  const tab = (id,lab) => '<button class="'+(S.tab===id?'on':'')+'" data-act="tab" data-t="'+id+'">'+lab+
+    '<span class="ct">'+counts[id]+'</span></button>';
+  ws().innerHTML = '<div class="card-soft p-3 p-md-4">'+
+    head(null,'Goods receipt — '+SCN[S.key].dock,'Review what the operators finished, then post it to SAP. You are the only team lead on this dock.')+
+    '<div class="tabs">'+tab('pending','Pending')+tab('repush','Repush')+tab('completed','Completed')+'</div>'+
+    '<div id="leadBody">'+leadBody()+'</div>'+
+    (S.tab === 'pending'
+      ? '<div class="blocker mt-3"><i class="bi bi-flag me-1"></i>Open question: the SAP interface (IDoc MBGMCR or BAPI) is still to be '+
+        'confirmed with the SAP team. This mockup simulates the response either way.</div>'+
+        '<div class="note mt-2">Short and extra quantities are settled on the line and never sent to SAP. '+
+        'Extra stock is capped at the invoiced quantity. SAP batch numbers are created at posting.</div>'
+      : '')+
+    '</div>';
+}
+function leadBody(){
+  const ls = leadLines(S.tab);
+  if(!ls.length){
+    const msg = S.tab === 'pending' ? 'Nothing waiting. Lines appear here once an operator finishes receiving them.'
+      : S.tab === 'repush' ? 'Nothing rejected. Lines SAP refuses will appear here.'
+      : 'Nothing posted yet.';
+    return '<div class="note">'+msg+'</div>';
+  }
+  // one row per invoice, expandable to its SKU lines
+  const byInv = {};
+  ls.forEach(l => {
+    const k = Object.keys(SCN).find(x => SCN[x].lines.includes(l));
+    (byInv[k] = byInv[k] || []).push(l);
+  });
+  const rows = Object.entries(byInv).map(([k,ils]) => {
+    const c = SCN[k];
+    const openRow = S.open[k+S.tab];
+    const t = ils.reduce((a,l) => { const x = totals(l); a.recv += x.sal+x.dmg+x.rtv; a.inv += l.invoiceQty;
+      a.disc += lineDisc(l).length; a.batches += l.batchGroups.length; return a; },
+      { recv:0, inv:0, disc:0, batches:0 });
+    const selN = ils.filter(l => l.selectedForGR).length;
+    const allSel = selN === ils.length;
+    const sel = S.tab === 'pending'
+      ? '<input type="checkbox" class="form-check-input" data-act="selInv" data-k="'+k+'" '+(allSel?'checked':'')+'>' : '';
+    let out = '<tr class="inv-row"><td>'+sel+'</td>'+
+      '<td><span class="chev" data-act="expand" data-k="'+k+'"><i class="bi bi-chevron-'+(openRow?'down':'right')+'"></i></span> '+
+      c.invoice+'<div class="note">'+c.vendor.name+' · PO '+c.po+' · '+ils.length+' line(s)'+
+      (S.tab==='pending'?' · '+selN+' selected':'')+'</div></td>'+
+      '<td>'+t.inv+'</td><td>'+t.recv+'</td><td>'+t.batches+'</td>'+
+      '<td>'+(t.disc?'<span class="pill s-disc">'+t.disc+'</span>':'<span class="note">none</span>')+'</td>'+
+      '<td class="text-end note">'+(S.tab==='completed'?'posted':S.tab==='repush'?'rejected':'awaiting GR')+'</td></tr>';
+    if(openRow){
+      out += ils.map(l => {
+        const x = totals(l);
+        const cb = S.tab === 'pending'
+          ? '<input type="checkbox" class="form-check-input" data-act="selLine" data-id="'+l.id+'" '+(l.selectedForGR?'checked':'')+'>' : '';
+        const err = S.tab === 'repush'
+          ? '<div class="mt-1"><button class="btn btn-sm btn-purplle" data-act="repush" data-id="'+l.id+'">Post again</button> '+
+            '<button class="btn btn-sm btn-outline-secondary" data-act="errFile" data-id="'+l.id+'">Error file</button></div>' : '';
+        return '<tr class="sku-row"><td>'+cb+'</td>'+
+          '<td style="padding-left:34px"><div class="fw-semibold" style="font-size:.84rem">'+l.id+'</div>'+
+          '<div class="note">'+l.desc+'</div>'+
+          (l.eligible?'<span class="pill s-green mt-1">skipped inspection</span>':'')+
+          (l.e42Note?'<div class="note text-danger mt-1"><i class="bi bi-exclamation-triangle me-1"></i>'+l.e42Note+'</div>':'')+
+          err+'</td>'+
+          '<td>'+l.invoiceQty+'</td>'+
+          '<td>'+(x.sal+x.dmg+x.rtv)+'<div class="note">good '+x.sal+' · dmg '+x.dmg+' · ret '+x.rtv+'</div>'+
+          (x.short||x.excess?'<div class="note">short '+x.short+' · extra '+x.excess+' (not posted)</div>':'')+'</td>'+
+          '<td>'+l.batchGroups.length+'<div class="note">'+l.batchGroups.map(g=>g.sapId||g.gid).join(', ')+'</div></td>'+
+          '<td>'+(lineDisc(l).length?'<span class="pill s-disc">'+lineDisc(l).length+'</span>':'<span class="note">none</span>')+'</td>'+
+          '<td class="text-end">'+(S.tab==='pending'
+            ? '<label class="note d-block"><input type="checkbox" data-act="forceErr" data-id="'+l.id+'" '+(l.forceError?'checked':'')+'> simulate SAP error</label>'
+            : '')+
+          '<span class="note" style="cursor:pointer;color:var(--purplle)" data-act="drill" data-id="'+l.id+'"><i class="bi bi-eye"></i> boxes</span></td></tr>'+
+          '<tr class="hide" id="dr-'+l.id+'"><td colspan="7">'+
+            (l.gr ? grCard(l) : batchSummary(l))+
+            l.boxes.map(b => boxCard(l,b,false)).join('')+'</td></tr>';
+      }).join('');
+    }
+    return out;
+  }).join('');
+  return '<div class="table-responsive"><table class="table mb-0"><thead><tr>'+
+    '<th style="width:32px"></th><th>Invoice / line</th><th>Invoiced</th><th>Received</th><th>Batches</th><th>Problems</th><th class="text-end"></th>'+
+    '</tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+function submitGR(){
+  const sel = leadLines('pending').filter(l => l.selectedForGR);
+  let ok = 0, bad = 0;
+  sel.forEach(l => { if(l.forceError){ l.qcStatus = 'error'; l.gr = { ok:false }; bad++; } else { postLine(l); ok++; } });
+  toast('Posted '+ok+' line(s)'+(bad?', '+bad+' rejected by SAP — see the repush tab':''), bad?'err':'ok');
+  if(bad && !ok) S.tab = 'repush';
+  render();
+}
+function postLine(l){
+  // SAP batch numbers are minted here, from the derived batch groups
+  l.batchGroups.forEach(g => {
+    if(!g.sapId) g.sapId = 'B'+g.mfg.slice(2).replace(/-/g,'')+'-'+g.gid.replace('G','');
+  });
+  const disp = { TGDC:0, IWDC:0, DMDC:0, RVDC:0 };
+  const batches = l.batchGroups.map(g => {
+    const bs = l.boxes.filter(b => b.gid === g.gid);
+    const sal = bs.reduce((a,b) => a+saleable(b), 0);
+    const dmg = bs.reduce((a,b) => a+b.damaged, 0);
+    const rtv = bs.reduce((a,b) => a+b.rtv, 0);
+    const left = daysTo(g.exp);
+    const fail = left < CFG.fresh;
+    if(fail) disp.RVDC += sal+dmg+rtv;
+    else { disp.TGDC += sal; disp.DMDC += dmg; disp.RVDC += rtv; }
+    return { gid:g.gid, sapId:g.sapId, mfg:g.mfg, exp:g.exp, boxes:bs.length, units:sal+dmg+rtv, left, fail };
+  });
+  const t = totals(l);
+  const cappedExcess = Math.min(t.excess, Math.max(0, l.invoiceQty - t.sal));
+  l.gr = { ok:true, matdoc:'49'+Math.floor(1000000+Math.random()*8999999), disp, batches,
+           short:t.short, excess:t.excess, rnb: t.excess > cappedExcess };
+  l.qcStatus = 'grn';
+}
+function grCard(l){
+  const g = l.gr;
+  if(!g || !g.ok) return '';
+  const tiles = [['TGDC',g.disp.TGDC,'d-tgdc','good stock'],['IWDC',g.disp.IWDC,'d-iwdc','cross-dock'],
+                 ['DMDC',g.disp.DMDC,'d-dmdc','damaged'],['RVDC',g.disp.RVDC,'d-rvdc','returned']]
+    .map(([s,v,c,lab]) => '<div class="col-6 col-md-3"><div class="disp '+c+'"><div style="font-size:1.25rem;font-weight:700">'+v+'</div>'+
+      '<div style="font-size:.7rem;opacity:.92">'+s+' · '+lab+'</div></div></div>').join('');
+  const rows = g.batches.map(b => '<tr><td><span class="pill s-batch">'+b.sapId+'</span><div class="note">was '+b.gid+'</div></td>'+
+    '<td class="note">'+fmt(b.mfg)+'</td><td class="note">'+fmt(b.exp)+'</td><td>'+b.boxes+'</td><td>'+b.units+'</td>'+
+    '<td>'+b.left+' days</td><td>'+(b.fail
+      ? '<span class="pill s-disc">whole batch returned</span>'
+      : '<span class="pill s-done">ready to rack</span>')+'</td></tr>').join('');
+  return '<div class="mb-3">'+
+    '<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">'+
+      '<div><b>'+l.id+'</b> <span class="note">material document '+g.matdoc+'</span></div>'+
+      (g.batches.some(b => b.fail) ? '<span class="pill s-disc">a batch failed the freshness check</span>'
+                                   : '<span class="pill s-done">all batches ready to rack</span>')+'</div>'+
+    '<div class="row g-2 mb-3">'+tiles+'</div>'+
+    '<div class="table-responsive"><table class="table mb-0"><thead><tr>'+
+    '<th>SAP batch</th><th>Made</th><th>Expires</th><th>Boxes</th><th>Units</th><th>Shelf life</th><th>Outcome</th>'+
+    '</tr></thead><tbody>'+rows+'</tbody></table></div>'+
+    (g.short||g.excess ? '<div class="note mt-2">Short '+g.short+' and extra '+g.excess+' were settled on the line, not sent to SAP.'+
+      (g.rnb?' Extra beyond the invoice is held as received but not billed.':'')+'</div>' : '')+
+    '<div class="note mt-1">Boxes were inwarded from the material document, then each batch was checked for freshness. '+
+    'Failing batches go back to the vendor as a return.</div></div>';
+}
+
+/* ==========================================================
+   problems recorded
+   ========================================================== */
+function renderRegister(){
+  const f = S.regFilter;
+  const rows = DISCREPANCIES.filter(d => !f || d.code === f).map(d =>
+    '<tr><td class="note">'+d.id+'</td><td><span class="pill s-disc">'+d.code+'</span></td>'+
+    '<td>'+d.lineId+'<div class="note">'+(d.uid ? 'box '+d.uid : d.scope === 'line' ? 'whole line' : 'part of the line')+'</div></td>'+
+    '<td>'+d.qty+'</td><td class="note">'+(d.remarks||'—')+'</td>'+
+    '<td>'+(d.status==='open' ? '<span class="pill s-disc">open</span>'
+      : d.status==='rtv' ? '<span class="pill s-disc">returning</span>'
+      : '<span class="pill s-done">corrected in E42</span>')+'</td>'+
+    '<td class="note">'+d.raisedBy+'<br>'+d.raisedAt.toLocaleTimeString()+'</td></tr>').join('');
+  ws().innerHTML = '<div class="card-soft p-3 p-md-4">'+
+    head(null,'Problems recorded','Everything raised on this dock, kept in Manage. Vendor quality reporting is built from this.')+
+    '<div class="d-flex flex-wrap gap-2 mb-3">'+
+      '<button class="btn btn-sm '+(!f?'btn-purplle':'btn-outline-secondary')+'" data-act="regF" data-c="">All</button>'+
+      CODES.map(c => '<button class="btn btn-sm '+(f===c.c?'btn-purplle':'btn-outline-secondary')+'" data-act="regF" data-c="'+c.c+'">'+c.c+'</button>').join('')+
+    '</div>'+
+    (rows ? '<div class="table-responsive"><table class="table mb-0"><thead><tr><th>Ref</th><th>Problem</th><th>Line</th>'+
+      '<th>Units</th><th>Notes</th><th>Status</th><th>Raised</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
+          : '<div class="note">Nothing recorded yet.</div>')+
+    '<div class="note mt-3">Short and extra quantities are not listed here. They are quantity outcomes on the line, not reported problems.</div></div>';
+}
+
+/* ==========================================================
+   config
+   ========================================================== */
+function renderElig(){
+  const el = $('#eligList'); if(!el) return;
+  el.innerHTML = SCN.A.lines.map(l =>
+    '<div class="form-check"><input class="form-check-input" type="checkbox" data-act="elig" data-id="'+l.id+'" id="e-'+l.id+'" '+(ELIG[l.id]?'checked':'')+'>'+
+    '<label class="form-check-label small" for="e-'+l.id+'">'+l.id+' <span class="note">'+l.desc+'</span></label></div>').join('');
+}
+function applyCfg(){
+  CFG.cap = +$('#cCap').value||5; CFG.pct = +$('#cPct').value||10;
+  CFG.esc = +$('#cEsc').value||20; CFG.fresh = +$('#cFresh').value||90;
+  const tol = +$('#cTol').value; CFG.tol = isNaN(tol) ? 15 : tol;
+  // the batch window changed, so regroup every line that has not been posted
+  Object.keys(SCN).forEach(k => SCN[k].lines.forEach(l => { if(l.qcStatus !== 'grn' && l.boxes.length) regroupLine(l); }));
+  toast('Configuration applied','ok');
+  const oc = bootstrap.Offcanvas.getInstance('#cfg'); if(oc) oc.hide();
+  render();
+}
+
+/* ==========================================================
+   events
+   ========================================================== */
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-act]'); if(!t) return;
+  const a = t.dataset.act, id = t.dataset.id, uid = t.dataset.uid, k = t.dataset.k, c = t.dataset.c;
+  const l = S.lineId ? cur() : null;
+  switch(a){
+    case 'role':
+      S.role = t.dataset.r;
+      S.screen = S.role === 'lead' ? 'lead' : (!S.started ? 'intake' : (S.lineId ? S.screen : 'worklist'));
+      render(); break;
+    case 'openReg': S.prevScreen = S.screen; S.screen = 'register'; render(); break;
+    case 'closeReg': S.screen = S.prevScreen || (S.role==='lead'?'lead':'worklist'); render(); break;
+    case 'regF': S.regFilter = c; render(); break;
+    case 'checkIn': checkIn(); break;
+    case 'startQC': startQC(); break;
+    case 'e42Refresh': e42Refresh(); break;
+    case 'e42Apply': e42Apply(); break;
+    case 'e42Cancel': S.refresh = null; render(); break;
+    case 'open': openLine(id); break;
+    case 'release': release(); break;
+    case 'mrpCheck': mrpCheck(); break;
+    case 'attrOk': l.identity[k] = 'ok'; render(); break;
+    case 'attrBad': openProblem([k], null, 'line', ''); break;
+    case 'attrReset': l.identity[k] = null; if(k==='MRP'){ l.physMRP=''; l.flags=[]; } render(); break;
+    case 'reportMulti': openProblem([], null, 'line', ''); break;
+    case 'toSample': go('sample'); break;
+    case 'toReceiving': go('receiving'); break;
+    case 'scanQR': scanQR(false); break;
+    case 'scanQRBad': scanQR(true); break;
+    case 'scanUID': scanUID(false); break;
+    case 'scanUIDDup': scanUID(true); break;
+    case 'discBox': openProblem(['Damage'], uid, 'box', ''); break;
+    case 'pCode': { pStash(); const i = S.draft.codes.indexOf(c);
+      if(i >= 0) S.draft.codes.splice(i,1); else S.draft.codes.push(c); render(); } break;
+    case 'pScope': pStash(); S.draft.scope = t.dataset.s; render(); break;
+    case 'pScanBox': { pStash(); const q = nextDates(l); const u = 'UID-'+(++uidSeq); USED_UIDS.add(u);
+      const g = assignBatch(l, q.mfg, q.exp);
+      l.boxes.push({ uid:u, gid:g.gid, mfg:q.mfg, exp:q.exp, qty:l.pack, short:0, excess:0, damaged:0, rtv:0, sampled:false, disc:[] });
+      S.draft.uid = u; toast('Box '+u+' scanned for this report','ok'); render(); } break;
+    case 'pImg': pStash(); S.draft.images = S.draft.images >= 3 ? 0 : S.draft.images+1; render(); break;
+    case 'pCancel': go(S.returnTo || 'worklist'); break;
+    case 'pSave': saveProblem(); break;
+    case 'dRTV': resolveGroup(t.dataset.g, 'rtv'); break;
+    case 'dE42': resolveGroup(t.dataset.g, 'e42'); break;
+    case 'finishLine': finishLine(); break;
+    case 'tab': S.tab = t.dataset.t; render(); break;
+    case 'expand': S.open[k+S.tab] = !S.open[k+S.tab]; render(); break;
+    case 'selInv': { const ils = leadLines(S.tab).filter(x => SCN[k].lines.includes(x));
+      ils.forEach(x => x.selectedForGR = t.checked); render(); } break;
+    case 'selLine': line(id).selectedForGR = t.checked; render(); break;
+    case 'forceErr': line(id).forceError = t.checked; break;
+    case 'drill': { const d = $('#dr-'+id); if(d) d.classList.toggle('hide'); } break;
+    case 'submitGR': submitGR(); break;
+    case 'repush': { const ln = line(id); ln.forceError = false; postLine(ln); toast(ln.id+' posted','ok'); render(); } break;
+    case 'repushAll': { leadLines('repush').forEach(ln => { ln.forceError = false; postLine(ln); });
+      toast('All rejected lines posted again','ok'); S.tab = 'completed'; render(); } break;
+    case 'errFile': toast('Error file generated for '+id+' (box-level remarks)','info'); break;
+    case 'elig': ELIG[id] = t.checked; toast(id+(t.checked?' added to':' removed from')+' the Green Channel list','info'); render(); break;
+    case 'applyCfg': applyCfg(); break;
+  }
+});
+document.addEventListener('input', e => {
+  const el = e.target; if(!el.dataset.fld) return;
+  const l = cur(); if(!l) return;
+  const b = l.boxes.find(x => x.uid === el.dataset.uid); if(!b) return;
+  if(el.dataset.fld === 'exp'){ b.exp = el.value; regroupLine(l); }
+  else b[el.dataset.fld] = Math.max(0, parseInt(el.value)||0);
+  if(S.screen === 'sample'){
+    const rate = defectRate(l);
+    if(!l.escalated && rate > CFG.esc){ l.escalated = true; toast('Problem rate '+rate+'% — every box on this line now needs checking','err'); }
+  }
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
