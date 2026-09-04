@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QC Module — Phase 1 Prototype (PRD v2.4)</title>
+<title>QC Module — Working Prototype (PRD v2.6)</title>
 <style>
 :root{
   --brand:#662d91; --brand-d:#4a148c; --brand-t:#f4e9fa; --accent:#e91e63;
@@ -14,32 +14,25 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI",Roboto,system-ui,sans-serif;padding-bottom:96px}
-h1,h2,h3,h4{margin:0}
+h3,h4{margin:0}
 button{font:inherit;cursor:pointer}
-input,select,textarea{font:inherit}
-
-/* nav */
+input,select{font:inherit}
 .nav{background:var(--brand);border-bottom:3px solid var(--accent);padding:8px 16px;display:flex;
   align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:50}
 .nav .brand{color:#fff;font-weight:700;font-size:15px}
 .nav .sub{color:#e2d3f0;font-size:11px}
-.roles{display:flex;gap:0;border:1px solid rgba(255,255,255,.5);border-radius:8px;overflow:hidden}
+.roles{display:flex;border:1px solid rgba(255,255,255,.5);border-radius:8px;overflow:hidden}
 .roles button{background:transparent;color:#fff;border:0;padding:6px 12px;font-size:12px}
 .roles button.on{background:#fff;color:var(--brand);font-weight:600}
-.navbtn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);
-  border-radius:8px;padding:6px 10px;font-size:12px}
+.navbtn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:6px 10px;font-size:12px}
 .navbtn:hover{background:rgba(255,255,255,.28)}
-
 .wrap{max-width:1180px;margin:0 auto;padding:16px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
 .hd{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;flex-wrap:wrap}
 .hd .n{width:30px;height:30px;border-radius:8px;background:var(--brand);color:#fff;display:flex;
   align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:0 0 auto}
-.hd h3{font-size:16px}
-.hd p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+.hd h3{font-size:16px}.hd p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
 .spacer{flex:1}
-
-/* rail */
 .rail{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .rail div{flex:1 1 0;min-width:104px;background:#fff;border:1px solid var(--line);border-radius:8px;
   padding:7px 9px;font-size:12px;color:var(--muted);display:flex;gap:7px;align-items:center}
@@ -50,22 +43,17 @@ input,select,textarea{font:inherit}
 .rail div.done{background:var(--ok-bg);border-color:#cfe6d6;color:var(--ok)}
 .rail div.done b{background:var(--ok);color:#fff}
 .rail div.skip{opacity:.4}
-
-/* table */
 table{width:100%;border-collapse:collapse}
 th{background:var(--brand-t);color:var(--brand-d);font-size:11px;text-align:left;padding:9px;font-weight:600}
 td{padding:9px;border-bottom:1px solid #f2eff7;font-size:13px;vertical-align:middle}
 tr.inv td{background:#faf8fc;font-weight:600}
-tr.sku td{background:#fff}
-
-/* bits */
 .pill{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
-.p-grey{background:var(--grey-bg);color:var(--grey)} .p-ok{background:var(--ok-bg);color:var(--ok)}
-.p-warn{background:var(--warn-bg);color:var(--warn)} .p-err{background:var(--err-bg);color:var(--err)}
-.p-info{background:var(--info-bg);color:var(--info)} .p-brand{background:var(--brand-t);color:var(--brand-d)}
+.p-grey{background:var(--grey-bg);color:var(--grey)}.p-ok{background:var(--ok-bg);color:var(--ok)}
+.p-warn{background:var(--warn-bg);color:var(--warn)}.p-err{background:var(--err-bg);color:var(--err)}
+.p-info{background:var(--info-bg);color:var(--info)}.p-brand{background:var(--brand-t);color:var(--brand-d)}
 .msg{display:flex;gap:8px;padding:9px 11px;border-radius:9px;font-size:12.5px;margin-bottom:8px;align-items:flex-start}
-.m-ok{background:var(--ok-bg);color:var(--ok)} .m-err{background:var(--err-bg);color:var(--err)}
-.m-warn{background:var(--warn-bg);color:var(--warn)} .m-info{background:var(--info-bg);color:var(--info)}
+.m-ok{background:var(--ok-bg);color:var(--ok)}.m-err{background:var(--err-bg);color:var(--err)}
+.m-warn{background:var(--warn-bg);color:var(--warn)}.m-info{background:var(--info-bg);color:var(--info)}
 .open-pt{font-size:11.5px;background:#fffbea;border:1px dashed #d8b100;color:#6b5200;border-radius:8px;padding:7px 10px}
 .btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 13px;font-size:13px}
 .btn:hover{background:#f7f5fa}
@@ -77,30 +65,27 @@ tr.sku td{background:#fff}
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
 .f{display:flex;flex-direction:column;gap:4px}
 .f label{font-size:11.5px;font-weight:600;color:var(--muted)}
-.f input,.f select{border:1px solid var(--line);border-radius:8px;padding:7px 9px;min-width:120px;background:#fff}
-.f input.bad{border-color:var(--err);background:#fffafa}
+.f input,.f select{border:1px solid var(--line);border-radius:8px;padding:7px 9px;min-width:110px;background:#fff}
 .f .err{font-size:11px;color:var(--err)}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:10px 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:10px 0}
 .kpi{border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;background:#fff}
-.kpi b{display:block;font-size:19px;color:var(--brand-d)}
-.kpi span{font-size:11px;color:var(--muted)}
+.kpi b{display:block;font-size:19px;color:var(--brand-d)}.kpi span{font-size:11px;color:var(--muted)}
 .note{font-size:12px;color:var(--muted)}
 .mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
 .box{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px;background:#fff}
 .box.insp{background:#faf6fd;border-color:#e2d4f0}
-.box.dmg{background:#fdf5f5;border-color:#f0cfcf}
-.mini{width:64px}
-.attr{border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin-bottom:7px;display:flex;
-  gap:10px;align-items:center;flex-wrap:wrap}
-.attr .nm{font-weight:600;min-width:120px;font-size:13px}
-.attr .ex{flex:1 1 180px;font-size:12px;color:var(--muted)}
-.attr.ok{background:#f5faf6;border-color:#d4e8da} .attr.bad{background:#fdf5f5;border-color:#f0cfcf}
+.box.iss{background:#fdf5f5;border-color:#f0cfcf}
+.mini{width:70px}
+.attr{border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin-bottom:7px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.attr .nm{font-weight:600;min-width:118px;font-size:13px}
+.attr .ex{flex:1 1 170px;font-size:12px;color:var(--muted)}
+.attr.ok{background:#f5faf6;border-color:#d4e8da}.attr.bad{background:#fdf5f5;border-color:#f0cfcf}
 .tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
 .tabs button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 14px;font-size:13px;color:var(--muted)}
 .tabs button.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
 .tabs .ct{background:#eee;color:#666;border-radius:20px;padding:0 6px;font-size:11px;font-weight:700;margin-left:6px}
 .tabs button.on .ct{background:#fff;color:var(--brand)}
-.chev{cursor:pointer;color:var(--brand);font-weight:700;user-select:none}
+.chev{cursor:pointer;color:var(--brand);font-weight:700}
 .disp{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:10px 0}
 .d{border-radius:9px;padding:10px;color:#fff;text-align:center}
 .d b{display:block;font-size:18px}.d span{font-size:10.5px;opacity:.92}
@@ -109,7 +94,6 @@ tr.sku td{background:#fff}
 .chip{border:1px solid var(--line);border-radius:9px;padding:8px 10px;cursor:pointer;background:#fff;display:flex;gap:8px}
 .chip.on{border-color:var(--brand);background:#faf6fd}
 .chip b{font-size:12.5px}.chip .h{font-size:11.5px;color:var(--muted)}
-/* E42 change colour classes — colour + label + icon, never colour alone */
 .ch-crit{background:var(--err-bg);border-left:4px solid var(--err)}
 .ch-mat{background:var(--warn-bg);border-left:4px solid var(--warn)}
 .ch-info{background:var(--info-bg);border-left:4px solid var(--info)}
@@ -121,888 +105,812 @@ tr.sku td{background:#fff}
 .toast{background:#fff;border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:8px;
   padding:9px 12px;font-size:12.5px;box-shadow:0 6px 18px rgba(0,0,0,.1)}
 .toast.ok{border-left-color:var(--ok)}.toast.err{border-left-color:var(--err)}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:min(460px,94vw);background:#fff;border-left:1px solid var(--line);
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(470px,94vw);background:#fff;border-left:1px solid var(--line);
   box-shadow:-8px 0 26px rgba(0,0,0,.12);z-index:80;padding:16px;overflow:auto}
-.drawer.hide{display:none}
-.ovl{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:70}
-.ovl.hide{display:none}
+.ovl{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:70}
+.modal{position:fixed;z-index:90;top:50%;left:50%;transform:translate(-50%,-50%);width:min(520px,94vw);
+  background:#fff;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.25);padding:18px;max-height:88vh;overflow:auto}
 .hide{display:none!important}
 .sec{font-size:11.5px;font-weight:700;color:var(--muted);margin:14px 0 7px}
 pre{background:#f7f5fa;border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;font-size:11.5px;margin:0}
+.bx{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:8px;
+  padding:5px 9px;margin:0 6px 6px 0;background:#fff;cursor:pointer;font-size:12px}
+.bx:hover{background:#f7f5fa}
+.bx.ok{border-color:#cfe6d6;background:#f4fbf6}
+.bx.iss{border-color:#f0cfcf;background:#fdf5f5}
+.bx.insp{box-shadow:inset 3px 0 0 var(--brand)}
 </style>
 </head>
 <body>
 
 <div class="nav">
-  <div>
-    <div class="brand">QC Module — Inbound GR &amp; Quality Control</div>
-    <div class="sub" id="ctx">Phase 1 prototype · PRD v2.4</div>
-  </div>
+  <div><div class="brand">QC Module — Inbound GR &amp; Quality Control</div>
+    <div class="sub" id="ctx">Working prototype · PRD v2.6</div></div>
   <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
     <div class="roles" id="roles">
       <button data-a="role" data-r="op" class="on">QC Operator</button>
-      <button data-a="role" data-r="tl">Team Lead</button>
-    </div>
+      <button data-a="role" data-r="tl">Team Lead</button></div>
     <button class="navbtn" data-a="toIntake">Consignments</button>
-      <button class="navbtn" data-a="openReg">Problems</button>
+    <button class="navbtn" data-a="openReg">Problems</button>
     <button class="navbtn" data-a="openSap">SAP log</button>
     <button class="navbtn" data-a="openCfg">Config</button>
   </div>
 </div>
 
-<div class="wrap">
-  <div id="rail"></div>
-  <div id="app"></div>
-</div>
-
+<div class="wrap"><div id="rail"></div><div id="app"></div></div>
 <div class="foot" id="foot"></div>
 <div class="toasts" id="toasts"></div>
-<div class="ovl hide" id="ovl" data-a="closeDrawer"></div>
+<div class="ovl hide" id="ovl" data-a="closeAll"></div>
 <div class="drawer hide" id="drawer"></div>
+<div class="modal hide" id="modal"></div>
 
 <script>
 /* ==========================================================================
-   QC Module — Phase 1 working prototype, built to PRD v2.4
-   Single file, in-memory. Simulates E42, the Receipt Panel and SAP.
+   QC Module — working prototype, PRD v2.6
+   IMPORTANT BUSINESS RULE HONOURED THROUGHOUT:
+   the total number of boxes is never known, assumed or calculated.
+   Every metric in Sample QC and Receiving derives only from boxes actually
+   scanned. The inspection target is derived from QUANTITY / units-per-box,
+   which is legitimate, and is never expressed as a share of a total.
    ========================================================================== */
 
-/* ---------- configuration (PRD 6.14, dc_qc_config_green_channel) ---------- */
-const CFG = {
-  samplePct: 10,      // % of SKU invoiced quantity
-  sampleCap: 5,       // BOXES — applied after unit->box conversion (6.6.1)
-  escPct: 20,         // % of inspected boxes with a problem -> 100% inspection
-  windowDays: 15,     // batch date-consistency window (6.6.2)
-  lockMins: 15        // line lock idle timeout (OI-23)
-};
+const CFG = { samplePct:10, sampleCap:5, escPct:20, windowDays:15, lockMins:15, mfgFloorDays:900 };
 const CFG_AUDIT = [];
-
-/* ---------- dates ---------- */
 const TODAY = new Date();
-const dOff = n => { const d = new Date(TODAY); d.setDate(d.getDate() + n); return d.toISOString().slice(0,10); };
-const daysTo = iso => Math.round((new Date(iso) - TODAY) / 86400000);
-const gap = (a,b) => Math.abs(Math.round((new Date(a) - new Date(b)) / 86400000));
+const dOff = n => { const d=new Date(TODAY); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); };
+const daysTo = iso => Math.round((new Date(iso)-TODAY)/86400000);
+const gap = (a,b) => Math.abs(Math.round((new Date(a)-new Date(b))/86400000));
 const fmt = iso => iso ? iso.split('-').reverse().join('/') : '—';
 
-/* ---------- EAN / UPC check digit (PRD 6.4.2 — all symbologies) ---------- */
-function genCheck(data){ let s=0,w=3; for(let i=data.length-1;i>=0;i--){ s += (+data[i])*w; w = w===3?1:3; } return (10-(s%10))%10; }
-function upceBody(e){
-  const N=e[0], d=e.slice(1,7), l=d[5];
+/* ---- EAN / UPC check digit — all supported symbologies ---- */
+function genCheck(d){ let s=0,w=3; for(let i=d.length-1;i>=0;i--){ s+=(+d[i])*w; w=w===3?1:3; } return (10-(s%10))%10; }
+function upceBody(e){ const N=e[0],d=e.slice(1,7),l=d[5];
   if('012'.includes(l)) return N+d[0]+d[1]+l+'0000'+d[2]+d[3]+d[4];
   if(l==='3') return N+d[0]+d[1]+d[2]+'00000'+d[3]+d[4];
   if(l==='4') return N+d[0]+d[1]+d[2]+d[3]+'00000'+d[4];
-  return N+d[0]+d[1]+d[2]+d[3]+d[4]+'0000'+l;
-}
+  return N+d[0]+d[1]+d[2]+d[3]+d[4]+'0000'+l; }
 function validateEan(raw){
-  const c = String(raw||'').trim();
-  if(!c) return {ok:false, why:'Enter or scan an EAN'};
-  if(!/^\d+$/.test(c)) return {ok:false, why:'Not a valid EAN — non-numeric characters'};
-  if(c.length===13) return genCheck(c.slice(0,12))===+c[12] ? {ok:true,sym:'EAN-13'} : {ok:false,sym:'EAN-13',why:'Not a valid EAN — check digit failed (EAN-13)'};
-  if(c.length===12) return genCheck(c.slice(0,11))===+c[11] ? {ok:true,sym:'UPC-A'} : {ok:false,sym:'UPC-A',why:'Not a valid EAN — check digit failed (UPC-A)'};
-  if(c.length===8){
-    if(genCheck(c.slice(0,7))===+c[7]) return {ok:true,sym:'EAN-8'};
+  const c=String(raw||'').trim();
+  if(!c) return {ok:false,why:'Enter or scan an EAN'};
+  if(!/^\d+$/.test(c)) return {ok:false,why:'Not a valid EAN — non-numeric characters'};
+  if(c.length===13) return genCheck(c.slice(0,12))===+c[12]?{ok:true,sym:'EAN-13'}:{ok:false,why:'Not a valid EAN — check digit failed (EAN-13)'};
+  if(c.length===12) return genCheck(c.slice(0,11))===+c[11]?{ok:true,sym:'UPC-A'}:{ok:false,why:'Not a valid EAN — check digit failed (UPC-A)'};
+  if(c.length===8){ if(genCheck(c.slice(0,7))===+c[7]) return {ok:true,sym:'EAN-8'};
     if(genCheck(upceBody(c))===+c[7]) return {ok:true,sym:'UPC-E'};
-    return {ok:false,sym:'EAN-8/UPC-E',why:'Not a valid EAN — check digit failed (EAN-8 / UPC-E)'};
-  }
-  return {ok:false, why:`Not a valid EAN — length ${c.length} matches no supported symbology`};
+    return {ok:false,why:'Not a valid EAN — check digit failed (EAN-8 / UPC-E)'}; }
+  return {ok:false,why:`Not a valid EAN — length ${c.length} matches no supported symbology`};
 }
-const mkEan = base12 => base12 + genCheck(base12);
-
-/* ---------- seed masters ---------- */
-const E = {
-  PCO: mkEan('890123400001'), LVN: mkEan('890123400002'), SWG: mkEan('890123400003'),
-  NIH: mkEan('890123400004'), HRC: mkEan('890123400005'), SHM: mkEan('700111000001'),
-  OIL: mkEan('700111000002'), MULTI: mkEan('890123450001'), UPCA: mkEan('03600029145'),
-  ORPHAN: mkEan('890123499999')
-};
-/* dc_qc_ean_sku_map — internal, one EAN may map to several SKUs (EAN-05) */
+const mkEan = b => b+genCheck(b);
+const E = { PCO:mkEan('890123400001'), LVN:mkEan('890123400002'), SWG:mkEan('890123400003'),
+  NIH:mkEan('890123400004'), HRC:mkEan('890123400005'), SHM:mkEan('700111000001'),
+  OIL:mkEan('700111000002'), DAB:mkEan('810222000001'), MULTI:mkEan('890123450001'),
+  UPCA:mkEan('03600029145'), ORPHAN:mkEan('890123499999') };
 const EAN_MAP = [
-  {ean:E.PCO, sku:'MRC-PCO-200'}, {ean:E.LVN, sku:'MRC-LVN-100'}, {ean:E.SWG, sku:'MRC-SWG-250'},
-  {ean:E.NIH, sku:'MRC-NIH-100'}, {ean:E.HRC, sku:'MRC-HRC-400'}, {ean:E.SHM, sku:'SUN-SHM-200'},
-  {ean:E.OIL, sku:'SUN-OIL-500'}, {ean:E.UPCA, sku:'MRC-LVN-100'},
-  {ean:E.MULTI, sku:'MRC-NIH-100'}, {ean:E.MULTI, sku:'MRC-NIH-200'}
-];
-const SKU_MASTER = {
-  'MRC-PCO-200':{desc:'Parachute Coconut Oil 200ml', mrp:99,  img:'🥥', gram:'200ml'},
-  'MRC-LVN-100':{desc:'Livon Silk Serum 100ml',      mrp:245, img:'✨', gram:'100ml'},
-  'MRC-SWG-250':{desc:'Set Wet Hair Gel 250ml',      mrp:180, img:'🧴', gram:'250ml'},
-  'MRC-NIH-100':{desc:'Nihar Naturals Oil 100ml',    mrp:55,  img:'🌿', gram:'100ml'},
-  'MRC-NIH-200':{desc:'Nihar Naturals Oil 200ml',    mrp:95,  img:'🌿', gram:'200ml'},
-  'MRC-HRC-400':{desc:'Hair & Care Oil 400ml',       mrp:210, img:'🧴', gram:'400ml'},
-  'SUN-SHM-200':{desc:'Herbal Shampoo 200ml',        mrp:145, img:'🧼', gram:'200ml'},
-  'SUN-OIL-500':{desc:'Herbal Hair Oil 500ml',       mrp:260, img:'🫗', gram:'500ml'},
-  'MRC-BOD-150':{desc:'Body Lotion 150ml',           mrp:175, img:'🧴', gram:'150ml'}
-};
-/* freshness criteria — existing API works on module month|days (OI-20) */
-const FRESHNESS = {
-  'MRC-PCO-200':{module:'month', value:3},
-  'MRC-LVN-100':{module:'days',  value:90},
-  'MRC-SWG-250':{module:'month', value:2},
-  'SUN-SHM-200':{module:'days',  value:60},
-  'SUN-OIL-500':{module:'month', value:2}
-  /* MRC-NIH-100 deliberately absent -> default pass (BR-29) */
-};
-/* Green Channel eligibility — dc_qc_config_green_channel (Gate 2) */
+  {ean:E.PCO,sku:'MRC-PCO-200'},{ean:E.LVN,sku:'MRC-LVN-100'},{ean:E.SWG,sku:'MRC-SWG-250'},
+  {ean:E.NIH,sku:'MRC-NIH-100'},{ean:E.HRC,sku:'MRC-HRC-400'},{ean:E.SHM,sku:'SUN-SHM-200'},
+  {ean:E.OIL,sku:'SUN-OIL-500'},{ean:E.DAB,sku:'DAB-HNY-250'},{ean:E.UPCA,sku:'MRC-LVN-100'},
+  {ean:E.MULTI,sku:'MRC-NIH-100'},{ean:E.MULTI,sku:'MRC-NIH-200'} ];
+const SKU = {
+  'MRC-PCO-200':{d:'Parachute Coconut Oil 200ml',mrp:99,i:'🥥'}, 'MRC-LVN-100':{d:'Livon Silk Serum 100ml',mrp:245,i:'✨'},
+  'MRC-SWG-250':{d:'Set Wet Hair Gel 250ml',mrp:180,i:'🧴'},     'MRC-NIH-100':{d:'Nihar Naturals Oil 100ml',mrp:55,i:'🌿'},
+  'MRC-NIH-200':{d:'Nihar Naturals Oil 200ml',mrp:95,i:'🌿'},    'MRC-HRC-400':{d:'Hair & Care Oil 400ml',mrp:210,i:'🧴'},
+  'SUN-SHM-200':{d:'Herbal Shampoo 200ml',mrp:145,i:'🧼'},       'SUN-OIL-500':{d:'Herbal Hair Oil 500ml',mrp:260,i:'🫗'},
+  'DAB-HNY-250':{d:'Honey 250g',mrp:180,i:'🍯'},                 'MRC-BOD-150':{d:'Body Lotion 150ml',mrp:175,i:'🧴'} };
+const FRESH = { 'MRC-PCO-200':{module:'month',value:3}, 'MRC-LVN-100':{module:'days',value:90},
+  'MRC-SWG-250':{module:'month',value:2}, 'SUN-SHM-200':{module:'days',value:60},
+  'SUN-OIL-500':{module:'month',value:2}, 'DAB-HNY-250':{module:'month',value:4} };
 const ELIG = {'MRC-PCO-200':true,'MRC-LVN-100':false,'MRC-SWG-250':false,'MRC-NIH-100':false,
-              'MRC-HRC-400':false,'SUN-SHM-200':false,'SUN-OIL-500':false,'MRC-BOD-150':false};
+  'MRC-HRC-400':false,'SUN-SHM-200':false,'SUN-OIL-500':false,'DAB-HNY-250':true,'MRC-BOD-150':false};
 
-/* ---------- simulated externals ---------- */
 const RECEIPT_PANEL = new Set();     // UIDs flagged damaged at unloading (box level, status only)
-const SAP_BATCH_REG = {};            // 'SKU|VENDORBATCH' -> batch_id  (SAP owns this)
-const SAP_LOG = [];                  // payload / response log for the demo
-let sapBatchSeq = 700;
-let uidSeq = 88400, evtSeq = 0, subSeq = 0;
+const SAP_BATCH_REG = {};            // 'SKU|VB' -> batch_id, owned by SAP
+const SAP_LOG = [];
+let sapSeq=700, uidSeq=88400, evtSeq=0, subSeq=0, ibdSeq=0;
 
-/* ---------- seed lines / consignments ---------- */
 function mkLine(o){
-  const m = SKU_MASTER[o.sku];
-  const L = Object.assign({
-    desc:m.desc, img:m.img, gram:m.gram, masterMRP:m.mrp, invoiceMRP:m.mrp,
+  const m=SKU[o.sku];
+  const L=Object.assign({desc:m.d, img:m.i, masterMRP:m.mrp, invoiceMRP:m.mrp,
     eligible:false, status:'new', lockedBy:null, physMRP:'', rekeyed:false,
     ident:{MRP:null,'MFG/EXP':null,SKU:null,Image:null,Description:null},
     flags:[], batches:[], boxes:[], escalated:false, nsm:null, e42Note:null,
-    postedQty:0, shortClosed:null, grns:[], selected:true, forceErr:false, ackChange:false, change:null
-  }, o);
-  L.expBoxes = Math.ceil(L.invQty / L.pack);
-  L.uidPool = Array.from({length:L.expBoxes+2}, () => 'UID-' + (++uidSeq));
+    postedQty:0, shortClosed:null, grns:[], selected:true, forceErr:false,
+    ackChange:false, change:null, ackShortQty:false}, o);
+  // generous UID pool; its length is never surfaced and never used in a metric
+  L.uidPool = Array.from({length:40},()=>'UID-'+(++uidSeq));
   return L;
 }
 function seed(){
-  const S = {
-    A:{po:'4500098231', inv:'INV-A-88123', plant:'DC-Bhiwandi', dock:'Dock 3',
-       vendor:{name:'Marico Ltd', configured:true, qr:true}, lines:[
-      mkLine({sku:'MRC-PCO-200', ean:E.PCO, invQty:60,  poQty:60,  pack:10,
-              plan:[{vb:'VB-7781', mfg:-120, exp:400}]}),
-      mkLine({sku:'MRC-LVN-100', ean:E.LVN, invQty:120, poQty:120, pack:4,
-              /* two vendor batches; VB-3311 breaches 90-day freshness; one box date-divergent */
-              plan:[{vb:'VB-3310', mfg:-300, exp:430},{vb:'VB-3311', mfg:-380, exp:61},
-                    {vb:'VB-3310', mfg:-250, exp:380}]}),
-      mkLine({sku:'MRC-SWG-250', ean:E.SWG, invQty:120, poQty:110, pack:12, invoiceMRP:175,
-              plan:[{vb:'VB-5502', mfg:-150, exp:380}]}),
-      mkLine({sku:'MRC-NIH-100', ean:E.NIH, invQty:2000, poQty:2000, pack:20,
-              plan:[{vb:'VB-9004', mfg:-90, exp:420}]}),
-      mkLine({sku:'MRC-HRC-400', ean:E.HRC, invQty:80, poQty:80, pack:8,
-              plan:[{vb:'VB-6620', mfg:-200, exp:360}]})
-    ]},
-    B:{po:'4500077310', inv:'INV-B-4471', plant:'DC-Bhiwandi', dock:'Dock 3',
-       vendor:{name:'Sunrise Traders', configured:true, qr:false}, lines:[
-      mkLine({sku:'SUN-SHM-200', ean:E.SHM, invQty:96,  poQty:96,  pack:8,  plan:[]}),
-      mkLine({sku:'SUN-OIL-500', ean:E.OIL, invQty:120, poQty:120, pack:12, plan:[]})
-    ]},
-    C:{po:'4500000111', inv:'INV-C-0001', plant:'DC-Bhiwandi', dock:'Dock 3',
-       vendor:{name:'Unregistered Vendor', configured:false, qr:false}, lines:[]}
+  const S={
+    A:{po:'4500098231',inv:'INV-A-88123',plant:'DC-Bhiwandi',dock:'Dock 3',whse:'DC-BHIWANDI',
+       vendor:{name:'Marico Ltd',configured:true,qr:true},
+       ibdConfirm:true, ibds:[
+         /* open quantities chosen so both IWDC IBDs fill, each leaves a shortfall
+            because a box cannot be split, and a remainder still reaches TGDC */
+         {id:'IBD-1001',loc:'IWDC',open:38, whse:'CROSS-DOCK-A'},
+         {id:'IBD-1002',loc:'IWDC',open:30, whse:'CROSS-DOCK-B'},
+         {id:'IBD-1003',loc:'TGDC',open:300,whse:'DC-BHIWANDI'}],
+       lines:[
+      mkLine({sku:'MRC-PCO-200',ean:E.PCO,invQty:60,poQty:60,pack:10,plan:[{vb:'VB-7781',mfg:-120,exp:400}]}),
+      mkLine({sku:'MRC-LVN-100',ean:E.LVN,invQty:120,poQty:120,pack:4,
+              plan:[{vb:'VB-3310',mfg:-300,exp:430},{vb:'VB-3311',mfg:-380,exp:61},{vb:'VB-3310',mfg:-250,exp:380}]}),
+      mkLine({sku:'MRC-SWG-250',ean:E.SWG,invQty:120,poQty:110,pack:12,invoiceMRP:175,plan:[{vb:'VB-5502',mfg:-150,exp:380}]}),
+      mkLine({sku:'MRC-NIH-100',ean:E.NIH,invQty:2000,poQty:2000,pack:20,plan:[{vb:'VB-9004',mfg:-90,exp:420}]}),
+      mkLine({sku:'MRC-HRC-400',ean:E.HRC,invQty:80,poQty:80,pack:8,plan:[{vb:'VB-6620',mfg:-200,exp:360}]})]},
+    B:{po:'4500077310',inv:'INV-B-4471',plant:'DC-Bhiwandi',dock:'Dock 3',whse:'DC-BHIWANDI',
+       vendor:{name:'Sunrise Traders',configured:true,qr:false},
+       ibdConfirm:true, ibds:[],                       /* scenario 2 — confirmation, no IBD */
+       lines:[
+      mkLine({sku:'SUN-SHM-200',ean:E.SHM,invQty:96,poQty:96,pack:8,plan:[]}),
+      mkLine({sku:'SUN-OIL-500',ean:E.OIL,invQty:120,poQty:120,pack:12,plan:[]})]},
+    D:{po:'4500066220',inv:'INV-D-7781',plant:'DC-Bhiwandi',dock:'Dock 3',whse:'DC-BHIWANDI',
+       vendor:{name:'Dabur India',configured:true,qr:true},
+       ibdConfirm:false, ibds:[],                      /* scenario 1 — no confirmation, no IBD */
+       lines:[ mkLine({sku:'DAB-HNY-250',ean:E.DAB,invQty:72,poQty:72,pack:12,plan:[{vb:'VB-2200',mfg:-60,exp:500}]}) ]},
+    C:{po:'4500000111',inv:'INV-C-0001',plant:'DC-Bhiwandi',dock:'Dock 3',whse:'DC-BHIWANDI',
+       vendor:{name:'Unregistered Vendor',configured:false,qr:false}, ibdConfirm:false, ibds:[], lines:[]}
   };
-  // flag some UIDs damaged at unloading (Receipt Panel — box level, status only)
   RECEIPT_PANEL.add(S.A.lines[1].uidPool[1]);
   RECEIPT_PANEL.add(S.A.lines[0].uidPool[2]);
-  RECEIPT_PANEL.add(S.B.lines[0].uidPool[0]);
+  RECEIPT_PANEL.add(S.B.lines[0].uidPool[1]);
   return S;
 }
 let SCN = seed();
 
-/* E42 change queue — revealed one refresh at a time (PRD 6.3) */
-let E42_QUEUE = [
-  {key:'A', sku:'MRC-SWG-250', cls:'mat',  field:'Invoice quantity', from:120, to:96, apply:l=>{l.invQty=96;l.expBoxes=Math.ceil(96/l.pack);}},
-  {key:'A', sku:'MRC-LVN-100', cls:'mat',  field:'Invoice MRP', from:245, to:249, apply:l=>{l.invoiceMRP=249;}},
-  {key:'A', sku:null, cls:'add', field:'New line', from:'—', to:'MRC-BOD-150', add:true},
-  {key:'A', sku:'MRC-NIH-100', cls:'crit', field:'SKU / material code', from:'MRC-NIH-100', to:'MRC-NIH-200', apply:l=>{l.sku='MRC-NIH-200';const m=SKU_MASTER['MRC-NIH-200'];l.desc=m.desc;l.masterMRP=m.mrp;l.invoiceMRP=m.mrp;}},
-  {key:'A', sku:'MRC-PCO-200', cls:'del',  field:'Line removed in E42', from:'present', to:'removed', del:true}
-];
-const CH_META = {
-  crit:{cls:'ch-crit', label:'Critical change', icon:'!', pill:'p-err'},
-  mat: {cls:'ch-mat',  label:'Material change', icon:'~', pill:'p-warn'},
-  info:{cls:'ch-info', label:'Informational',   icon:'i', pill:'p-info'},
-  add: {cls:'ch-add',  label:'New line',        icon:'+', pill:'p-ok'},
-  del: {cls:'ch-del',  label:'Removed in E42',  icon:'x', pill:'p-grey'}
-};
+let E42_QUEUE=[
+  {key:'A',sku:'MRC-SWG-250',cls:'mat',field:'Invoice quantity',from:120,to:96,apply:l=>{l.invQty=96;}},
+  {key:'A',sku:'MRC-LVN-100',cls:'mat',field:'Invoice MRP',from:245,to:249,apply:l=>{l.invoiceMRP=249;}},
+  {key:'A',sku:null,cls:'add',field:'New line',from:'—',to:'MRC-BOD-150',add:true},
+  {key:'A',sku:'MRC-NIH-100',cls:'crit',field:'SKU / material code',from:'MRC-NIH-100',to:'MRC-NIH-200',
+   apply:l=>{l.sku='MRC-NIH-200';const m=SKU['MRC-NIH-200'];l.desc=m.d;l.masterMRP=m.mrp;l.invoiceMRP=m.mrp;}},
+  {key:'A',sku:'MRC-PCO-200',cls:'del',field:'Line removed in E42',from:'present',to:'removed',del:true}];
+const CH={crit:{c:'ch-crit',l:'Critical change',i:'!',p:'p-err'},mat:{c:'ch-mat',l:'Material change',i:'~',p:'p-warn'},
+  info:{c:'ch-info',l:'Informational',i:'i',p:'p-info'},add:{c:'ch-add',l:'New line',i:'+',p:'p-ok'},
+  del:{c:'ch-del',l:'Removed in E42',i:'x',p:'p-grey'}};
 
-/* ---------- problems (PRD 6.12) ---------- */
-const CODES = [
-  {c:'EAN',        blk:true,  h:'EAN does not match the line, or is wrong/unreadable on the pack'},
-  {c:'SKU',        blk:true,  h:'Physical product is not the ordered SKU'},
-  {c:'MFG/EXP',    blk:false, h:'Dates wrong, illegible, or contradicting the QR'},
-  {c:'Image',      blk:true,  h:'Product does not match the master image'},
-  {c:'Description',blk:true,  h:'Pack text contradicts the master description'},
-  {c:'MRP',        blk:true,  h:'MRP on pack does not match the order or invoice'},
-  {c:'Damage',     blk:false, h:'Physical damage to product or shipper. Photo required.', img:true}
-];
-const codeOf = c => CODES.find(x=>x.c===c);
-const IDENT_KEYS = ['MRP','MFG/EXP','SKU','Image','Description'];
-let PROBLEMS = [];   // dc_qc_problem_event + code + status_history
-let SUBS = [];       // dc_qc_gr_submission
+const CODES=[{c:'EAN',blk:true,h:'EAN does not match the line, or is wrong/unreadable on the pack'},
+  {c:'SKU',blk:true,h:'Physical product is not the ordered SKU'},
+  {c:'MFG/EXP',blk:false,h:'Dates wrong, illegible, or contradicting the QR'},
+  {c:'Image',blk:true,h:'Product does not match the master image'},
+  {c:'Description',blk:true,h:'Pack text contradicts the master description'},
+  {c:'MRP',blk:true,h:'MRP on pack does not match the order or invoice'},
+  {c:'Damage',blk:false,h:'Physical damage to product or shipper. Photo required.',img:true}];
+const codeOf=c=>CODES.find(x=>x.c===c);
+const IDENT=['MRP','MFG/EXP','SKU','Image','Description'];
+let PROBLEMS=[], SUBS=[];
 
-/* ---------- state ---------- */
-let S = {role:'op', screen:'intake', key:'A', lineId:null, started:false,
-         tab:'pending', open:{}, refresh:null, draft:null, back:null, regFilter:'',
-         pendingQR:null, nqForm:null, editBatch:null, user:'aditya.op'};
+let S={role:'op',screen:'intake',key:'A',lineId:null,started:false,tab:'pending',open:{},
+  refresh:null,draft:null,back:null,regFilter:'',pendingQR:null,nqForm:null,boxModal:null,
+  delConfirm:null,user:'aditya.op',alloc:null};
 
-/* ---------- derived ---------- */
-const cons = () => SCN[S.key];
-const lines = () => cons().lines;
-const line = id => { for(const k in SCN){ const f=SCN[k].lines.find(l=>l.id===id); if(f) return f; } return null; };
-const cur = () => line(S.lineId);
-const isQR = l => SCN[l.ckey].vendor.qr;
-const remaining = l => Math.max(0, l.invQty - l.postedQty);
-const sal = b => Math.max(0, b.qty - b.short + b.excess - b.dmg - b.rtv);
-const lineProbs = l => PROBLEMS.filter(p=>p.lineId===l.id);
-const openProbs = l => lineProbs(l).filter(p=>p.status==='open');
-const identDone = l => IDENT_KEYS.every(k=>l.ident[k]==='ok');
+/* ---- derived ---- */
+const cons=()=>SCN[S.key];
+const lines=()=>cons().lines;
+const line=id=>{for(const k in SCN){const f=SCN[k].lines.find(l=>l.id===id);if(f)return f;}return null;};
+const cur=()=>line(S.lineId);
+const isQR=l=>SCN[l.ckey].vendor.qr;
+const remaining=l=>Math.max(0,l.invQty-l.postedQty);
+const live=l=>l.boxes.filter(b=>!b.deleted);
+const boxIssues=b=>b.issues.length||b.dmg>0||b.rtv>0||b.short>0||b.excess>0;
+const lineProbs=l=>PROBLEMS.filter(p=>p.lineId===l.id);
+const openProbs=l=>lineProbs(l).filter(p=>p.status==='open');
+const identDone=l=>IDENT.every(k=>l.ident[k]==='ok');
+const sal=b=>Math.max(0,b.qty-b.short+b.excess-b.dmg-b.rtv);
 
-/* sampling — PRD 6.6.1: qc_qty -> boxes -> cap */
+/* units per box: QR -> pack from the label; Non-QR -> the declared Saleable Qty */
+function unitsPerBox(l){
+  if(isQR(l)) return l.pack;
+  return l.batches.length ? l.batches[0].saleableQty : null;   // undetermined until a batch exists
+}
+/* inspection target — derived from QUANTITY, never from a count of boxes */
 function sampling(l){
-  const qcQty = l.invQty * CFG.samplePct/100;
-  const boxesFor = Math.max(1, Math.ceil(qcQty / l.pack));
-  const target = l.escalated ? l.expBoxes : Math.min(boxesFor, CFG.sampleCap);
-  return {qcQty, boxesFor, target, cap:CFG.sampleCap, capBinds: boxesFor > CFG.sampleCap};
+  const u=unitsPerBox(l);
+  if(!u) return {undetermined:true};
+  const qcQty=l.invQty*CFG.samplePct/100;
+  const boxesFor=Math.max(1,Math.ceil(qcQty/u));
+  return {qcQty,boxesFor,u,cap:CFG.sampleCap,target:Math.min(boxesFor,CFG.sampleCap),capBinds:boxesFor>CFG.sampleCap};
 }
-const inspected = l => l.boxes.filter(b=>b.insp);
-const defectRate = l => { const i=inspected(l); return i.length ? Math.round(100*i.filter(b=>b.short||b.excess||b.dmg||b.rtv||b.probs.length).length/i.length) : 0; };
-
-/* freshness — calls the "existing built API" (module month|days) */
-function freshnessAPI(sku, exp){
-  const c = FRESHNESS[sku];
-  if(!c) return {pass:true, reason:'no criteria maintained — default pass', criteria:'—'};
-  const need = c.module==='month' ? c.value*30 : c.value;
-  const left = daysTo(exp);
-  return {pass: left >= need, left, need, criteria:`${c.value} ${c.module}`,
-          reason: left>=need ? `${left}d left vs ${need}d required` : `only ${left}d left, ${need}d required`};
+const inspected=l=>live(l).filter(b=>b.insp);
+function defectRate(l){ const i=inspected(l); return i.length?Math.round(100*i.filter(boxIssues).length/i.length):0; }
+/* metrics — derived only from boxes actually scanned */
+function metrics(l){
+  const b=live(l), iss=b.filter(boxIssues).length;
+  return {scanned:b.length, issues:iss, accepted:b.length-iss,
+          qty:b.reduce((a,x)=>a+sal(x),0), dmg:b.reduce((a,x)=>a+x.dmg,0), rtv:b.reduce((a,x)=>a+x.rtv,0)};
 }
-/* batch key = SKU + Vendor Batch (PRD 6.16) */
-const bkey = (sku,vb) => sku+'|'+vb;
-function getBatch(l, vb){ return l.batches.find(b=>b.vb===vb); }
-function addBatch(l, vb, mfg, exp, extra){
-  let b = getBatch(l, vb);
-  if(b) return b;
-  b = Object.assign({vb, mfg, exp, sapBatchId:null, dmgQty:0, rtvQty:0, unresolved:false}, extra||{});
+function freshnessAPI(sku,exp){
+  const c=FRESH[sku];
+  if(!c) return {pass:true,reason:'no criteria maintained — default pass',criteria:'—'};
+  const need=c.module==='month'?c.value*30:c.value, left=daysTo(exp);
+  return {pass:left>=need,left,need,criteria:`${c.value} ${c.module}`,
+    reason:left>=need?`${left}d left vs ${need}d required`:`only ${left}d left, ${need}d required`};
+}
+const getBatch=(l,vb)=>l.batches.find(b=>b.vb===vb);
+function addBatch(l,vb,mfg,exp,saleableQty,extra){
+  let b=getBatch(l,vb); if(b) return b;
+  b=Object.assign({vb,mfg,exp,saleableQty,sapBatchId:null,dmgQty:0,rtvQty:0,unresolved:false},extra||{});
   l.batches.push(b); return b;
 }
-function batchQty(l,b){ return l.boxes.filter(x=>x.vb===b.vb).reduce((a,x)=>a+sal(x)+x.dmg+x.rtv,0); }
-function batchBoxes(l,b){ return l.boxes.filter(x=>x.vb===b.vb); }
+const batchBoxes=(l,b)=>live(l).filter(x=>x.vb===b.vb);
+const batchQty=(l,b)=>batchBoxes(l,b).reduce((a,x)=>a+sal(x)+x.dmg+x.rtv,0);
 
-/* ---------- ui helpers ---------- */
-const $ = s => document.querySelector(s);
-const all = s => [...document.querySelectorAll(s)];
-const app = () => $('#app');
-const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-function toast(m, k){ const t=document.createElement('div'); t.className='toast '+(k||''); t.textContent=m;
-  $('#toasts').appendChild(t); setTimeout(()=>t.remove(), 4200); }
-const STAT = {
-  new:['Not started','p-grey'], prog:['In progress','p-warn'], nsm:['No SKU Match','p-err'],
-  prob:['Problem raised','p-err'], qc:['QC complete, awaiting GR','p-ok'],
-  failed:['In a failed submission','p-err'], part:['Partially posted','p-info'],
-  full:['Fully posted','p-grey'], short:['Short-closed','p-grey'], removed:['Removed in E42','p-grey']
-};
-const statPill = s => `<span class="pill ${STAT[s][1]}">${STAT[s][0]}</span>`;
-const hd = (n,t,p) => `<div class="hd">${n!==null?`<div class="n">${n}</div>`:''}<div><h3>${t}</h3><p>${p}</p></div></div>`;
-const kpi = (v,l) => `<div class="kpi"><b>${v}</b><span>${l}</span></div>`;
+/* ---- ui helpers ---- */
+const $=s=>document.querySelector(s), all=s=>[...document.querySelectorAll(s)];
+const app=()=>$('#app');
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function toast(m,k){const t=document.createElement('div');t.className='toast '+(k||'');t.textContent=m;
+  $('#toasts').appendChild(t);setTimeout(()=>t.remove(),4200);}
+const STAT={new:['Not started','p-grey'],prog:['In progress','p-warn'],nsm:['No SKU Match','p-err'],
+  prob:['Problem raised','p-err'],qc:['QC complete, awaiting GR','p-ok'],failed:['In a failed submission','p-err'],
+  part:['Partially posted','p-info'],full:['Fully posted','p-grey'],short:['Short-closed','p-grey'],removed:['Removed in E42','p-grey']};
+const statPill=s=>`<span class="pill ${STAT[s][1]}">${STAT[s][0]}</span>`;
+const hd=(n,t,p)=>`<div class="hd">${n!==null?`<div class="n">${n}</div>`:''}<div><h3>${t}</h3><p>${p}</p></div></div>`;
+const kpi=(v,l)=>`<div class="kpi"><b>${v}</b><span>${l}</span></div>`;
 
 /* ==========================================================================
    ROUTER
    ========================================================================== */
-function go(scr){ if(scr) S.screen=scr; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+function go(s){ if(s) S.screen=s; render(); window.scrollTo({top:0,behavior:'smooth'}); }
 function render(){
-  all('#roles button').forEach(b=>b.classList.toggle('on', b.dataset.r===S.role));
-  $('#ctx').textContent = (S.role==='op' && S.screen==='intake')
-    ? 'Phase 1 prototype · PRD v2.4'
-    : `PO ${cons().po} · ${cons().vendor.name} · ${cons().dock} · ${cons().vendor.qr?'QR flow':'Non-QR flow'}`;
-  renderRail(); renderScreen(); renderFoot();
+  all('#roles button').forEach(b=>b.classList.toggle('on',b.dataset.r===S.role));
+  $('#ctx').textContent=(S.role==='op'&&S.screen==='intake')?'Working prototype · PRD v2.6'
+    :`PO ${cons().po} · ${cons().vendor.name} · ${cons().vendor.qr?'QR flow':'Non-QR flow'}`;
+  renderRail(); renderScreen(); renderFoot(); renderModal();
 }
 function renderRail(){
   const r=$('#rail');
-  if(S.role!=='op' || ['reg'].includes(S.screen)){ r.innerHTML=''; return; }
-  const steps=[['intake','Intake',0],['worklist','Worklist',1],['ident','Identity',2],['sample','Sample QC',3],['recv','Receiving',4]];
-  const order=steps.map(s=>s[0]);
-  const l = S.lineId?cur():null, skip = l&&l.eligible;
-  const at = order.indexOf(['prob','nsm'].includes(S.screen) ? (S.back||'worklist') : S.screen);
-  r.innerHTML = '<div class="rail">'+steps.map(s=>{
-    const i=order.indexOf(s[0]); let c = i===at?'on': i<at?'done':'';
-    if(skip && ['ident','sample'].includes(s[0])) c+=' skip';
-    return `<div class="${c}"><b>${s[2]}</b><span>${s[1]}</span></div>`;
-  }).join('')+'</div>';
+  if(S.role!=='op'||S.screen==='reg'){r.innerHTML='';return;}
+  const st=[['intake','Intake',0],['worklist','Worklist',1],['ident','Identity',2],['sample','Sample QC',3],['recv','Receiving',4]];
+  const o=st.map(x=>x[0]), l=S.lineId?cur():null, skip=l&&l.eligible;
+  const at=o.indexOf(['prob','nsm'].includes(S.screen)?(S.back||'worklist'):S.screen);
+  r.innerHTML='<div class="rail">'+st.map(x=>{const i=o.indexOf(x[0]);
+    let c=i===at?'on':i<at?'done':''; if(skip&&['ident','sample'].includes(x[0]))c+=' skip';
+    return `<div class="${c}"><b>${x[2]}</b><span>${x[1]}</span></div>`;}).join('')+'</div>';
 }
 function renderScreen(){
-  if(S.screen==='reg') return renderRegister();
+  if(S.screen==='reg') return renderReg();
   if(S.role==='tl') return renderTL();
-  ({intake:renderIntake, worklist:renderWorklist, ident:renderIdent, sample:renderSample,
-    recv:renderRecv, prob:renderProblem, nsm:renderNSM}[S.screen]||renderIntake)();
+  ({intake:renderIntake,worklist:renderWork,ident:renderIdent,sample:renderSample,
+    recv:renderRecv,prob:renderProb,nsm:renderNSM}[S.screen]||renderIntake)();
 }
 function renderFoot(){
   const f=$('#foot'); f.innerHTML='';
-  if(S.screen==='reg'){ f.innerHTML=`<button class="btn" data-a="closeReg">Back</button>`; return; }
+  if(S.screen==='reg'){f.innerHTML='<button class="btn" data-a="closeReg">Back</button>';return;}
   if(S.role==='tl'){
-    if(S.tab==='pending'){
-      const n = tlLines('pending').filter(l=>l.selected).length;
-      f.innerHTML = `<span class="note">${n} line(s) selected · submission is all-or-nothing</span>
+    if(S.tab==='pending'){const n=tlLines('pending').filter(l=>l.selected).length;
+      f.innerHTML=`<span class="note">${n} line(s) selected · submission is all-or-nothing (native in SAP)</span>
+        <button class="btn" data-a="ibdCheck">Run IBD check</button>
         <button class="btn pri" data-a="submit" ${n?'':'disabled'}>Post goods receipt</button>`;
-    } else if(S.tab==='repush'){
-      const n = SUBS.filter(x=>x.state==='rejected').length;
-      f.innerHTML = `<span class="note">${n} rejected submission(s)</span>
-        <button class="btn pri" data-a="repushAll" ${n?'':'disabled'}>Repush all</button>`;
-    } else f.innerHTML = `<span class="note">${SUBS.filter(x=>x.state==='posted').length} posted submission(s)</span>`;
+    } else if(S.tab==='repush'){const n=SUBS.filter(x=>x.state==='rejected').length;
+      f.innerHTML=`<span class="note">${n} rejected submission(s)</span><button class="btn pri" data-a="repushAll" ${n?'':'disabled'}>Repush all</button>`;
+    } else f.innerHTML=`<span class="note">${SUBS.filter(x=>x.state==='posted').length} posted submission(s)</span>`;
     return;
   }
-  if(S.screen==='worklist'){
-    const d = lines().filter(l=>['qc','failed','part','full','short'].includes(l.status)).length;
-    f.innerHTML = `<span class="note">${d} of ${lines().length} lines with the Team Lead</span>
+  if(S.screen==='worklist'){const d=lines().filter(l=>['qc','failed','part','full','short'].includes(l.status)).length;
+    f.innerHTML=`<span class="note">${d} of ${lines().length} lines with the Team Lead</span>
       <button class="btn" data-a="role" data-r="tl">Open Team Lead panel →</button>`;
-  } else if(['ident','sample','recv'].includes(S.screen)){
-    f.innerHTML = `<button class="btn" data-a="release">← Back to worklist</button>`;
-  }
+  } else if(['ident','sample','recv'].includes(S.screen))
+    f.innerHTML='<button class="btn" data-a="release">← Back to worklist</button>';
 }
 
 /* ==========================================================================
    SCREEN 0 — INTAKE
    ========================================================================== */
 function renderIntake(){
-  const opts = Object.keys(SCN).map(k=>`<option value="${k}">${SCN[k].po} — ${SCN[k].vendor.name}${SCN[k].vendor.configured?(SCN[k].vendor.qr?' (QR)':' (Non-QR)'):' (not configured)'}</option>`).join('');
-  app().innerHTML = `<div class="card">
-    ${hd(0,'Start a consignment','Gate 1 checks the vendor is configured. The QR flag then selects the flow. Nothing physical starts until both pass.')}
+  const o=Object.keys(SCN).map(k=>{const c=SCN[k];
+    return `<option value="${k}">${c.po} — ${c.vendor.name}${c.vendor.configured?(c.vendor.qr?' (QR)':' (Non-QR)'):' (not configured)'}</option>`;}).join('');
+  app().innerHTML=`<div class="card">
+    ${hd(0,'Start a consignment','Gate 1 checks the vendor is configured. The QR flag then selects the flow.')}
     <div class="row">
-      <div class="f"><label>Consignment</label><select id="pick">${opts}</select></div>
+      <div class="f"><label>Consignment</label><select id="pick">${o}</select></div>
       <div class="f"><label>Purchase order</label><input id="po"></div>
       <div class="f"><label>Invoice</label><input id="inv"></div>
-      <button class="btn pri" data-a="check">Run checks</button>
-    </div>
+      <button class="btn pri" data-a="check">Run checks</button></div>
     <div id="out" style="margin-top:14px"></div></div>`;
-  const fill=()=>{const c=SCN[$('#pick').value]; $('#po').value=c.po; $('#inv').value=c.inv; $('#out').innerHTML='';};
+  const fill=()=>{const c=SCN[$('#pick').value];$('#po').value=c.po;$('#inv').value=c.inv;$('#out').innerHTML='';};
   $('#pick').onchange=fill; fill();
 }
 const chk=(ok,t)=>`<span class="pill ${ok?'p-ok':'p-err'}" style="margin:0 6px 6px 0">${ok?'✓':'✕'} ${t}</span>`;
 function doCheck(){
   S.key=$('#pick').value; const c=cons();
-  let h = `<div class="sec">E42 gate-in &amp; sanity</div><div>${chk(true,'Invoice gated in')}${chk(true,'Vendor found')}${chk(true,'BU found')}${chk(true,'GSTN match')}${chk(true,'PO ↔ location')}</div>
+  let h=`<div class="sec">E42 gate-in &amp; sanity</div><div>${chk(1,'Invoice gated in')}${chk(1,'Vendor found')}${chk(1,'GSTN match')}${chk(1,'PO ↔ location')}</div>
     <div class="sec">Gate 1 — Green Channel configuration</div><div>${chk(c.vendor.configured,'Vendor maintained in dc_qc_config_green_channel')}</div>`;
   if(!c.vendor.configured){
-    h += `<div class="msg m-err"><b>✕</b><div><b>Hard block — this consignment cannot be received.</b><br>
-      ${c.vendor.name} is not maintained in the Green Channel configuration. Configuration gaps fail closed, never open (CFG-06).
-      Ask the Ops team to configure the vendor, then run the checks again.</div></div>`;
-    $('#out').innerHTML=h; return;
-  }
-  h += `<div class="sec">Flow type</div><div>${chk(true, c.vendor.qr?'QR enabled → QR flow':'QR not enabled → Non-QR flow (Phase 1)')}</div>`;
-  c.lines.forEach(l=>{ l.ckey=S.key; l.eligible = !!ELIG[l.sku]; l.id = l.id || (S.key+'-'+l.sku); });
-  const g = c.lines.filter(l=>l.eligible).length;
-  h += `<div class="kpis">${kpi(c.lines.reduce((a,l)=>a+l.invQty,0),'Units invoiced')}${kpi(c.lines.length,'Lines')}
+    h+=`<div class="msg m-err"><b>✕</b><div><b>Hard block — this consignment cannot be received.</b><br>
+      ${c.vendor.name} is not in the Green Channel configuration. Configuration gaps fail closed, never open.</div></div>`;
+    $('#out').innerHTML=h; return; }
+  h+=`<div class="sec">Flow type</div><div>${chk(1,c.vendor.qr?'QR enabled → QR flow':'QR not enabled → Non-QR flow (Phase 1)')}</div>`;
+  c.lines.forEach(l=>{l.ckey=S.key;l.eligible=!!ELIG[l.sku];l.id=l.id||(S.key+'-'+l.sku);});
+  const g=c.lines.filter(l=>l.eligible).length;
+  h+=`<div class="kpis">${kpi(c.lines.reduce((a,l)=>a+l.invQty,0),'Units invoiced')}${kpi(c.lines.length,'Lines')}
     ${kpi(g,'Skip inspection')}${kpi(c.lines.length-g,'Need QC')}</div>
-    <div style="text-align:right"><button class="btn pri" data-a="startQC">Start QC →</button></div>`;
+    <div class="note">No box counts appear here or anywhere downstream — the total number of boxes is not known to the system.</div>
+    <div style="text-align:right;margin-top:8px"><button class="btn pri" data-a="startQC">Start QC →</button></div>`;
   $('#out').innerHTML=h;
 }
-function startQC(){
-  S.started=true;
-  const hrc = lines().find(l=>l.sku==='MRC-HRC-400');
-  if(hrc && !hrc.lockedBy && hrc.status==='new') hrc.lockedBy='rohit.op';
-  go('worklist');
-}
+function startQC(){ S.started=true;
+  const h=lines().find(l=>l.sku==='MRC-HRC-400');
+  if(h&&!h.lockedBy&&h.status==='new') h.lockedBy='rohit.op';
+  go('worklist'); }
 
 /* ==========================================================================
-   SCREEN 1 — WORKLIST + E42 refresh with colour coding
+   SCREEN 1 — WORKLIST + E42 refresh
    ========================================================================== */
-function renderWorklist(){
-  lines().forEach(l=>{ if(l.status==='new') l.eligible=!!ELIG[l.sku]; });
+function renderWork(){
+  lines().forEach(l=>{if(l.status==='new')l.eligible=!!ELIG[l.sku];});
   const rank={new:0,prog:1,prob:1,nsm:1,part:1,qc:2,failed:2,full:3,short:3,removed:4};
-  const rows = lines().slice().sort((a,b)=>rank[a.status]-rank[b.status]).map(l=>{
-    const ch = l.change && !l.ackChange ? CH_META[l.change.cls] : null;
-    const lock = l.lockedBy && l.lockedBy!==S.user;
-    const op = openProbs(l).length;
+  const rows=lines().slice().sort((a,b)=>rank[a.status]-rank[b.status]).map(l=>{
+    const ch=l.change&&!l.ackChange?CH[l.change.cls]:null, lock=l.lockedBy&&l.lockedBy!==S.user, op=openProbs(l).length;
     let act;
-    if(l.status==='removed') act = `<span class="note">not receivable</span>`;
-    else if(lock) act = `<span class="pill p-grey">🔒 ${l.lockedBy}</span>`;
-    else if(['qc','failed'].includes(l.status)) act = `<span class="note">with Team Lead</span>`;
-    else if(['full','short'].includes(l.status)) act = `<span class="note">closed</span>`;
-    else act = `<button class="btn sm pri" data-a="open" data-id="${l.id}">${l.status==='new'?(l.eligible?'Receive':'Start QC'):'Resume'}</button>`;
-    return `<tr class="${ch?ch.cls:''}">
-      <td><div style="display:flex;gap:8px;align-items:center">
-        <div style="font-size:20px">${l.img}</div>
-        <div><div style="font-weight:600">${esc(l.desc)}</div>
-        <div class="note">${l.sku} · EAN ${l.ean} · ${l.invQty} units · ${l.pack}/box${l.postedQty?` · posted ${l.postedQty}, remaining ${remaining(l)}`:''}</div>
-        ${ch?`<div class="note" style="font-weight:600">${ch.icon} ${ch.label}: ${esc(l.change.field)} ${esc(l.change.from)} → ${esc(l.change.to)}
+    if(l.status==='removed') act='<span class="note">not receivable</span>';
+    else if(lock) act=`<span class="pill p-grey">🔒 ${l.lockedBy}</span>`;
+    else if(['qc','failed'].includes(l.status)) act='<span class="note">with Team Lead</span>';
+    else if(['full','short'].includes(l.status)) act='<span class="note">closed</span>';
+    else act=`<button class="btn sm pri" data-a="open" data-id="${l.id}">${l.status==='new'?(l.eligible?'Receive':'Start QC'):'Resume'}</button>`;
+    const m=metrics(l);
+    return `<tr class="${ch?ch.c:''}"><td><div style="display:flex;gap:8px;align-items:center">
+      <div style="font-size:20px">${l.img}</div><div>
+        <div style="font-weight:600">${esc(l.desc)}</div>
+        <div class="note">${l.sku} · EAN ${l.ean} · ${l.invQty} units invoiced${m.scanned?` · ${m.scanned} box(es) scanned`:''}${l.postedQty?` · posted ${l.postedQty}, remaining ${remaining(l)}`:''}</div>
+        ${ch?`<div class="note" style="font-weight:600">${ch.i} ${ch.l}: ${esc(l.change.field)} ${esc(l.change.from)} → ${esc(l.change.to)}
           <button class="btn sm" data-a="ack" data-id="${l.id}" style="margin-left:6px">Acknowledge</button></div>`:''}
         ${l.e42Note?`<div class="note" style="color:var(--err)">⚠ ${esc(l.e42Note)}</div>`:''}
         ${l.nsm?`<div class="note" style="color:var(--err)">⚠ No SKU Match — ${esc(l.nsm.reason)}</div>`:''}
       </div></div></td>
       <td>${l.eligible?'<span class="pill p-ok">⚡ Skips inspection</span>':'<span class="pill p-warn">🔍 Needs QC</span>'}</td>
-      <td>${statPill(l.status)}${l.escalated?'<div class="note" style="color:var(--err)">escalated to 100%</div>':''}</td>
+      <td>${statPill(l.status)}${l.escalated?'<div class="note" style="color:var(--err)">escalated — every box must be inspected</div>':''}</td>
       <td>${op?`<span class="pill p-err">${op}</span>`:'<span class="note">none</span>'}</td>
-      <td style="text-align:right">${act}</td></tr>`;
-  }).join('');
-
-  app().innerHTML = `<div class="card">
+      <td style="text-align:right">${act}</td></tr>`;}).join('');
+  app().innerHTML=`<div class="card">
     <div class="hd"><div class="n">1</div><div><h3>Lines on this invoice</h3>
-      <p>Routing comes from configuration — it is never an operator choice. One line, one owner at a time.</p></div>
+      <p>Routing comes from configuration. One line, one owner at a time (partition by line, 15-minute idle release).</p></div>
       <div class="spacer"></div><button class="btn" data-a="refresh">↻ Refresh from E42</button></div>
     ${S.refresh?refreshPanel():''}
     <table><thead><tr><th>Line</th><th>Route (Gate 2)</th><th>Status</th><th>Open problems</th><th style="text-align:right">Action</th></tr></thead>
     <tbody>${rows}</tbody></table>
     <div class="sec">E42 change legend — colour is never the only signal</div>
-    <div>${Object.values(CH_META).map(m=>`<span class="pill ${m.pill}" style="margin:0 6px 6px 0">${m.icon} ${m.label}</span>`).join('')}</div>
-    <div class="note">Refresh is manual only (OI-12). Acknowledgement is per line, per user and session-scoped (E42-10).</div>
-  </div>`;
+    <div>${Object.values(CH).map(m=>`<span class="pill ${m.p}" style="margin:0 6px 6px 0">${m.i} ${m.l}</span>`).join('')}</div>
+    <div class="note">Refresh is manual only. Acknowledgement is per line, per user and session-scoped.</div></div>`;
 }
 function refreshPanel(){
   const r=S.refresh;
-  if(r.none) return `<div class="msg m-ok"><b>✓</b><div>E42 checked just now. Nothing has changed on this invoice.</div></div>`;
-  const m=CH_META[r.cls];
-  const l = r.add ? null : line(S.key+'-'+r.sku);
-  const frozen = l && ['qc','failed','part','full','short'].includes(l.status);
-  const work = l && (l.boxes.length || IDENT_KEYS.some(k=>l.ident[k]!==null) || l.batches.length);
+  if(r.none) return '<div class="msg m-ok"><b>✓</b><div>E42 checked just now. Nothing has changed on this invoice.</div></div>';
+  const m=CH[r.cls], l=r.add?null:line(S.key+'-'+r.sku);
+  const frozen=l&&['qc','failed','part','full','short'].includes(l.status);
+  const work=l&&(live(l).length||IDENT.some(k=>l.ident[k]!==null)||l.batches.length);
   let body;
-  if(r.add) body = `A new line <b>${r.to}</b> has appeared in E42. It will be added as Not started with Gate 2 evaluated from configuration.`;
-  else if(r.del) body = `<b>${r.sku}</b> has been removed in E42. It will be blocked from further QC and cannot be received.${work?' Recorded work is retained for audit.':''}`;
-  else if(frozen) body = `<b>${r.sku}</b> — ${r.field} changed ${r.from} → ${r.to}.<br>This line is already with the Team Lead, so <b>nothing recorded will be cleared</b>. It will be flagged as out of step with E42.`;
-  else if(work) body = `<b>${r.sku}</b> — ${r.field} changed ${r.from} → ${r.to}.<br><b>Everything recorded against this line will be cleared</b> — ${l.boxes.length} box(es), ${l.batches.length} batch(es), identity checks and its problem records. Other lines are unaffected. This cannot be undone.`;
-  else body = `<b>${r.sku}</b> — ${r.field} changed ${r.from} → ${r.to}.<br>Nothing has been recorded against this line yet, so nothing will be lost.`;
+  if(r.add) body=`A new line <b>${r.to}</b> has appeared in E42. It will be added as Not started.`;
+  else if(r.del) body=`<b>${r.sku}</b> has been removed in E42 and cannot be received.${work?' Recorded work is retained for audit.':''}`;
+  else if(frozen) body=`<b>${r.sku}</b> — ${r.field} changed ${r.from} → ${r.to}.<br>Already with the Team Lead, so <b>nothing recorded will be cleared</b>; it will be flagged out of step with E42.`;
+  else if(work) body=`<b>${r.sku}</b> — ${r.field} changed ${r.from} → ${r.to}.<br><b>Everything recorded against this line will be cleared</b> — ${live(l).length} box(es), ${l.batches.length} batch(es), identity checks and problem records. Other lines are unaffected.`;
+  else body=`<b>${r.sku}</b> — ${r.field} changed ${r.from} → ${r.to}.<br>Nothing recorded yet, so nothing will be lost.`;
   return `<div class="msg m-warn" style="flex-direction:column;align-items:stretch">
-    <div><b>${m.icon} ${m.label} detected.</b> Nothing has been applied yet.</div>
+    <div><b>${m.i} ${m.l} detected.</b> Nothing has been applied yet.</div>
     <div style="margin-top:6px">${body}</div>
     <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
       <button class="btn pri sm" data-a="applyRefresh">${frozen?'Flag and refresh':(r.del?'Apply removal':'Apply and clear this line')}</button>
       <button class="btn sm" data-a="cancelRefresh">Keep what I have</button></div></div>`;
 }
-function doRefresh(){
-  const nxt = E42_QUEUE.find(c=>c.key===S.key);
-  if(!nxt){ S.refresh={none:true}; render(); return; }
-  S.refresh=nxt; render();
-}
+function doRefresh(){ const n=E42_QUEUE.find(c=>c.key===S.key); S.refresh=n||{none:true}; render(); }
 function applyRefresh(){
-  const r=S.refresh;
-  E42_QUEUE = E42_QUEUE.filter(c=>c!==r);
-  if(r.add){
-    const nl = mkLine({sku:'MRC-BOD-150', ean:mkEan('890123400009'), invQty:48, poQty:48, pack:12,
-                       plan:[{vb:'VB-4400', mfg:-100, exp:410}]});
+  const r=S.refresh; E42_QUEUE=E42_QUEUE.filter(c=>c!==r);
+  if(r.add){ const nl=mkLine({sku:'MRC-BOD-150',ean:mkEan('890123400009'),invQty:48,poQty:48,pack:12,plan:[{vb:'VB-4400',mfg:-100,exp:410}]});
     nl.ckey=S.key; nl.id=S.key+'-MRC-BOD-150'; nl.eligible=!!ELIG['MRC-BOD-150'];
-    nl.change={cls:'add', field:'New line', from:'—', to:'MRC-BOD-150'};
-    lines().push(nl); toast('New line MRC-BOD-150 added from E42','ok');
+    nl.change={cls:'add',field:'New line',from:'—',to:'MRC-BOD-150'}; lines().push(nl);
+    toast('New line MRC-BOD-150 added from E42','ok');
   } else {
-    const l = line(S.key+'-'+r.sku);
-    const frozen = ['qc','failed','part','full','short'].includes(l.status);
-    if(r.del){ l.status='removed'; l.change={cls:'del',field:r.field,from:r.from,to:r.to};
-      toast(`${r.sku} removed in E42 — blocked from receiving`,'err'); }
-    else if(frozen){ r.apply && r.apply(l); l.e42Note=`Out of step with E42 — ${r.field} now ${r.to}. Recorded data kept.`;
-      l.change={cls:r.cls,field:r.field,from:r.from,to:r.to}; toast(`${r.sku} flagged out of step with E42`,'err'); }
-    else {
-      r.apply && r.apply(l);
-      const nb=l.boxes.length, nba=l.batches.length;
-      l.boxes=[]; l.batches=[]; l.escalated=false; l.physMRP=''; l.rekeyed=false; l.flags=[];
-      IDENT_KEYS.forEach(k=>l.ident[k]=null); l.status='new'; l.nsm=null;
-      PROBLEMS = PROBLEMS.filter(p=>p.lineId!==l.id);
+    const l=line(S.key+'-'+r.sku), frozen=['qc','failed','part','full','short'].includes(l.status);
+    if(r.del){ l.status='removed'; l.change={cls:'del',field:r.field,from:r.from,to:r.to}; toast(`${r.sku} removed in E42`,'err'); }
+    else if(frozen){ r.apply&&r.apply(l); l.e42Note=`Out of step with E42 — ${r.field} now ${r.to}. Recorded data kept.`;
+      l.change={cls:r.cls,field:r.field,from:r.from,to:r.to}; toast(`${r.sku} flagged out of step`,'err'); }
+    else { r.apply&&r.apply(l); const nb=live(l).length,na=l.batches.length;
+      l.boxes=[];l.batches=[];l.escalated=false;l.physMRP='';l.rekeyed=false;l.flags=[];
+      IDENT.forEach(k=>l.ident[k]=null); l.status='new'; l.nsm=null; l.ackShortQty=false;
+      PROBLEMS=PROBLEMS.filter(p=>p.lineId!==l.id);
       l.change={cls:r.cls,field:r.field,from:r.from,to:r.to};
-      toast(`${r.sku}: ${nb} box(es) and ${nba} batch(es) cleared — start the line again`,'err');
-      if(S.lineId===l.id){ S.lineId=null; }
-    }
-  }
+      toast(`${r.sku}: ${nb} box(es) and ${na} batch(es) cleared`,'err');
+      if(S.lineId===l.id) S.lineId=null; } }
   S.refresh=null; go('worklist');
 }
 function openLine(id){
   const l=line(id);
-  if(l.status==='removed'){ toast('This line was removed in E42 and cannot be received','err'); return; }
-  if(l.lockedBy && l.lockedBy!==S.user){ toast(`Line is open on ${l.lockedBy}'s device`,'err'); return; }
-  if(l.nsm){ toast('No SKU Match — resolve identification first','err'); S.lineId=id; go('nsm'); return; }
-  l.lockedBy=S.user; if(l.status==='new'||l.status==='part') l.status='prog';
-  S.lineId=id; S.pendingQR=null; S.nqForm=null;
-  go(l.eligible?'recv':'ident');
+  if(l.status==='removed'){toast('Removed in E42 — cannot be received','err');return;}
+  if(l.lockedBy&&l.lockedBy!==S.user){toast(`Open on ${l.lockedBy}'s device`,'err');return;}
+  if(l.nsm){S.lineId=id;go('nsm');return;}
+  l.lockedBy=S.user; if(['new','part'].includes(l.status)) l.status='prog';
+  S.lineId=id; S.pendingQR=null; S.nqForm=null; go(l.eligible?'recv':'ident');
 }
-function release(){ const l=cur(); if(l&&l.lockedBy===S.user&&!['qc','failed','full','short'].includes(l.status)) l.lockedBy=null;
-  S.pendingQR=null; S.nqForm=null; go('worklist'); }
+function release(){ const l=cur();
+  if(l&&l.lockedBy===S.user&&!['qc','failed','full','short'].includes(l.status)) l.lockedBy=null;
+  S.pendingQR=null;S.nqForm=null;go('worklist'); }
 
 /* ==========================================================================
-   SCREEN 2 — IDENTITY (5 properties, 3-way MRP, EAN scan, No SKU Match)
+   SCREEN 2 — IDENTITY
    ========================================================================== */
 function renderIdent(){
   const l=cur();
-  const rows=[['MRP',`Order ₹${l.masterMRP} · invoice ₹${l.invoiceMRP}`],
-              ['MFG/EXP','Read the dates printed on the pack'],
-              ['SKU',l.sku],['Image','Compare the pack with the master photo'],
-              ['Description',esc(l.desc)]].map(([k,ex])=>{
-    const st=l.ident[k]; const cls = st==='ok'?'ok': st==='flagged'?'bad':'';
-    let ctl;
-    if(k==='MRP' && st===null){
-      ctl = `<div style="display:flex;gap:6px;align-items:center">₹
-        <input class="mini" id="mrpIn" value="${l.physMRP}" placeholder="on pack" style="width:90px">
-        <button class="btn sm pri" data-a="mrpChk">Check</button></div>`;
-    } else if(st===null){
-      ctl = `<button class="btn sm" data-a="attrOk" data-k="${k}">Matches</button>
-             <button class="btn sm dan" data-a="attrBad" data-k="${k}">Does not match</button>`;
-    } else if(st==='ok'){
-      ctl = `<span class="pill p-ok">✓ Confirmed</span>${k==='MRP'?`<span class="note"> ₹${l.physMRP} keyed</span>`:''}
-             <button class="btn sm" data-a="attrRst" data-k="${k}">undo</button>`;
-    } else {
-      ctl = `<span class="pill p-err">⚑ Problem raised</span><button class="btn sm" data-a="attrRst" data-k="${k}">undo</button>`;
-    }
-    return `<div class="attr ${cls}"><div class="nm">${k}</div><div class="ex">${ex}</div><div>${ctl}</div></div>`;
-  }).join('');
-
-  app().innerHTML = `<div class="card">
-    ${hd(2,'Check this is the right product','Confirm all five properties against what is physically in front of you. Identical for QR and Non-QR flows.')}
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
-      <div style="font-size:34px">${l.img}</div>
-      <div class="kpis" style="flex:1;margin:0">
-        ${kpi(l.ean,'EAN')}${kpi(l.poQty,'Ordered')}${kpi(l.invQty,'Invoiced')}${kpi(l.pack,'Units per box')}
-      </div></div>
-
-    <div class="sec">EAN scan — additional identification mechanism</div>
-    <div class="row">
-      <div class="f"><label>Scan or key an EAN / UPC</label><input id="eanIn" placeholder="EAN-13, EAN-8, UPC-A or UPC-E" style="min-width:250px"></div>
+  const rows=[['MRP',`Order ₹${l.masterMRP} · invoice ₹${l.invoiceMRP}`],['MFG/EXP','Read the dates printed on the pack'],
+    ['SKU',l.sku],['Image','Compare with the master photo'],['Description',esc(l.desc)]].map(([k,ex])=>{
+    const st=l.ident[k], cls=st==='ok'?'ok':st==='flagged'?'bad':'';
+    let c;
+    if(k==='MRP'&&st===null) c=`<div style="display:flex;gap:6px;align-items:center">₹<input class="mini" id="mrpIn" value="${l.physMRP}" placeholder="on pack">
+      <button class="btn sm pri" data-a="mrpChk">Check</button></div>`;
+    else if(st===null) c=`<button class="btn sm" data-a="attrOk" data-k="${k}">Matches</button>
+      <button class="btn sm dan" data-a="attrBad" data-k="${k}">Does not match</button>`;
+    else if(st==='ok') c=`<span class="pill p-ok">✓ Confirmed</span>${k==='MRP'?`<span class="note"> ₹${l.physMRP}</span>`:''}
+      <button class="btn sm" data-a="attrRst" data-k="${k}">undo</button>`;
+    else c=`<span class="pill p-err">⚑ Problem raised</span><button class="btn sm" data-a="attrRst" data-k="${k}">undo</button>`;
+    return `<div class="attr ${cls}"><div class="nm">${k}</div><div class="ex">${ex}</div><div>${c}</div></div>`;}).join('');
+  app().innerHTML=`<div class="card">
+    ${hd(2,'Check this is the right product','All five properties, against what is physically in front of you.')}
+    <div class="kpis">${kpi(l.ean,'EAN')}${kpi(l.poQty,'Ordered')}${kpi(l.invQty,'Invoiced')}${kpi(isQR(l)?l.pack:'—',isQR(l)?'Units per box (QR)':'Units per box (declared at batch)')}</div>
+    <div class="sec">EAN scan — all supported symbologies</div>
+    <div class="row"><div class="f"><label>Scan or key an EAN / UPC</label>
+      <input id="eanIn" placeholder="EAN-13, EAN-8, UPC-A or UPC-E" style="min-width:240px"></div>
       <button class="btn pri" data-a="eanScan">Scan EAN</button>
-      <button class="btn sm" data-a="eanFill" data-v="${l.ean}">use correct</button>
+      <button class="btn sm" data-a="eanFill" data-v="${l.ean}">correct</button>
       <button class="btn sm" data-a="eanFill" data-v="${E.MULTI}">multi-mapped</button>
       <button class="btn sm" data-a="eanFill" data-v="${E.ORPHAN}">unmapped</button>
-      <button class="btn sm" data-a="eanFill" data-v="8901234000018">bad check digit</button>
-      <button class="btn sm" data-a="eanFill" data-v="${E.UPCA}">UPC-A of another line</button>
-    </div>
+      <button class="btn sm" data-a="eanFill" data-v="8901234000018">bad check digit</button></div>
     <div id="eanOut" style="margin-top:10px"></div>
-
     <div class="sec">Five properties</div>${rows}
     <div style="text-align:right;margin:6px 0"><button class="btn sm dan" data-a="multiProb">⚑ Report several problems at once</button></div>
-    <div id="flags">${flagsHtml(l)}</div>
-    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:10px">
-      <button class="btn pri" data-a="toSample" ${identDone(l)?'':'disabled'}>Continue to Sample QC →</button></div>
-    ${!identDone(l)?`<div class="note" style="text-align:right">Confirm all five properties to continue. An open blocking problem no longer prevents closure (RC-10a) but does hold the line here.</div>`:''}
-  </div>`;
+    <div>${flagsHtml(l)}</div>
+    <div style="display:flex;justify-content:flex-end;margin-top:10px">
+      <button class="btn pri" data-a="toSample" ${identDone(l)?'':'disabled'}>Continue to Sample QC →</button></div></div>`;
 }
 function flagsHtml(l){
   let h='';
-  l.flags.forEach(f=>{ h+=`<div class="msg ${f.blk?'m-err':'m-info'}"><b>${f.blk?'!':'i'}</b><div><b>${esc(f.t)}</b><br>${esc(f.x)}</div></div>`; });
-  const grp={}; lineProbs(l).forEach(p=>{ (grp[p.gid]=grp[p.gid]||[]).push(p); });
-  Object.values(grp).forEach(g=>{
-    const p=g[0], blk=g.some(x=>codeOf(x.code).blk), open=p.status==='open';
-    const scope = p.uid?`box ${p.uid}` : p.scope==='line'?'whole line':`${p.qty} units`;
-    const st = open?'' : `<span class="pill ${p.status==='rtv'?'p-err':'p-ok'}">${p.status==='rtv'?'returning to vendor':p.status==='e42'?'corrected in E42':'closed'}</span>`;
-    const acts = open&&blk ? `<div style="margin-top:7px;display:flex;gap:7px;flex-wrap:wrap">
-        <button class="btn sm dan" data-a="pRTV" data-g="${p.gid}">Return to vendor</button>
-        <button class="btn sm" data-a="pE42" data-g="${p.gid}">Correct in E42 and refresh</button></div>` : '';
-    h+=`<div class="msg ${open&&blk?'m-err':'m-warn'}"><b>⚑</b><div>
-      <b>${g.map(x=>x.code).join(' + ')}</b> <span class="note">(${scope})</span> ${st}
-      ${p.remarks?`<br>${esc(p.remarks)}`:''}${acts}</div></div>`;
-  });
+  l.flags.forEach(f=>h+=`<div class="msg ${f.blk?'m-err':'m-info'}"><b>${f.blk?'!':'i'}</b><div><b>${esc(f.t)}</b><br>${esc(f.x)}</div></div>`);
+  const g={}; lineProbs(l).forEach(p=>(g[p.gid]=g[p.gid]||[]).push(p));
+  Object.values(g).forEach(gr=>{
+    const p=gr[0], blk=gr.some(x=>codeOf(x.code).blk), open=p.status==='open';
+    const sc=p.uid?`box ${p.uid}`:p.scope==='line'?'whole line':`${p.qty} units`;
+    const st=open?'':`<span class="pill ${p.status==='rtv'?'p-err':'p-ok'}">${p.status==='rtv'?'returning to vendor':p.status==='e42'?'corrected in E42':'closed'+(p.closedReason?' · '+p.closedReason:'')}</span>`;
+    const ac=open&&blk?`<div style="margin-top:7px;display:flex;gap:7px;flex-wrap:wrap">
+      <button class="btn sm dan" data-a="pRTV" data-g="${p.gid}">Return to vendor</button>
+      <button class="btn sm" data-a="pE42" data-g="${p.gid}">Correct in E42 and refresh</button></div>`:'';
+    h+=`<div class="msg ${open&&blk?'m-err':'m-warn'}"><b>⚑</b><div><b>${gr.map(x=>x.code).join(' + ')}</b>
+      <span class="note">(${sc})</span> ${st}${p.remarks?`<br>${esc(p.remarks)}`:''}${ac}</div></div>`;});
   return h;
 }
 function eanScan(){
-  const l=cur(), raw=$('#eanIn').value.trim();
-  const v = validateEan(raw);
-  const log = o => SAP_LOG.push(Object.assign({t:new Date(), kind:'EAN scan'}, o));
-  if(!v.ok){
-    log({raw, outcome:'invalid', why:v.why});
-    $('#eanOut').innerHTML=`<div class="msg m-err"><b>✕</b><div><b>${esc(v.why)}</b><br>
-      This is a <b>format</b> failure, not an unmapped code — re-scan or key it again. Logged either way (EAN-09).</div></div>`;
-    return;
-  }
-  const hits = EAN_MAP.filter(m=>m.ean===raw);
-  if(!hits.length){
-    log({raw, sym:v.sym, outcome:'unmapped'});
-    $('#eanOut').innerHTML=`<div class="msg m-err"><b>✕</b><div><b>Valid ${v.sym}, but no SKU found for this EAN.</b><br>
-      The mapping is held in <span class="mono">dc_qc_ean_sku_map</span>. The line now enters No SKU Match.</div></div>`;
-    setNSM(l,'EAN not mapped'); setTimeout(()=>go('nsm'),700); return;
-  }
-  if(hits.length>1){
-    log({raw, sym:v.sym, outcome:'multi-mapped', skus:hits.map(h=>h.sku)});
-    $('#eanOut').innerHTML=`<div class="msg m-warn"><b>?</b><div><b>This ${v.sym} maps to more than one SKU.</b> Select the product in front of you — nothing is auto-selected.
-      <div style="margin-top:7px;display:flex;gap:7px;flex-wrap:wrap">
-      ${hits.map(h=>`<button class="btn sm" data-a="eanPick" data-sku="${h.sku}">${h.sku} — ${esc(SKU_MASTER[h.sku].desc)}</button>`).join('')}
-      </div></div></div>`;
-    return;
-  }
+  const l=cur(), raw=$('#eanIn').value.trim(), v=validateEan(raw);
+  const log=o=>SAP_LOG.push(Object.assign({t:new Date(),kind:'EAN scan'},o));
+  if(!v.ok){ log({raw,outcome:'invalid',why:v.why});
+    $('#eanOut').innerHTML=`<div class="msg m-err"><b>✕</b><div><b>${esc(v.why)}</b><br>A <b>format</b> failure, distinct from an unmapped code. Logged either way.</div></div>`; return; }
+  const hits=EAN_MAP.filter(m=>m.ean===raw);
+  if(!hits.length){ log({raw,sym:v.sym,outcome:'unmapped'});
+    $('#eanOut').innerHTML=`<div class="msg m-err"><b>✕</b><div><b>Valid ${v.sym}, but no SKU mapped.</b><br>Mapping lives in <span class="mono">dc_qc_ean_sku_map</span>. Entering No SKU Match.</div></div>`;
+    setNSM(l,'EAN not mapped'); setTimeout(()=>go('nsm'),700); return; }
+  if(hits.length>1){ log({raw,sym:v.sym,outcome:'multi-mapped',skus:hits.map(h=>h.sku)});
+    $('#eanOut').innerHTML=`<div class="msg m-warn"><b>?</b><div><b>This ${v.sym} maps to more than one SKU.</b> Nothing is auto-selected.
+      <div style="margin-top:7px;display:flex;gap:7px;flex-wrap:wrap">${hits.map(h=>`<button class="btn sm" data-a="eanPick" data-sku="${h.sku}">${h.sku}</button>`).join('')}</div></div></div>`; return; }
   const sku=hits[0].sku;
-  if(sku!==l.sku){
-    log({raw, sym:v.sym, outcome:'line mismatch', resolved:sku, line:l.sku});
-    $('#eanOut').innerHTML=`<div class="msg m-err"><b>✕</b><div><b>This EAN belongs to ${sku}, not ${l.sku}.</b><br>
-      Identity data was not populated. Raise reason code <b>EAN</b>, or focus the correct line.
-      <div style="margin-top:7px"><button class="btn sm dan" data-a="openProb" data-c="EAN">Raise EAN problem</button></div></div></div>`;
-    return;
-  }
-  if(l.eanResolved===raw){
-    $('#eanOut').innerHTML=`<div class="msg m-info"><b>i</b><div><b>Already scanned.</b> Re-scanning the same EAN on the same line is an idempotent no-op (EAN-07).</div></div>`;
-    return;
-  }
-  l.eanResolved=raw;
-  log({raw, sym:v.sym, outcome:'resolved', sku});
-  const m=SKU_MASTER[sku];
+  if(sku!==l.sku){ log({raw,sym:v.sym,outcome:'line mismatch',resolved:sku});
+    $('#eanOut').innerHTML=`<div class="msg m-err"><b>✕</b><div><b>This EAN belongs to ${sku}, not ${l.sku}.</b>
+      <div style="margin-top:7px"><button class="btn sm dan" data-a="openProb" data-c="EAN">Raise EAN problem</button></div></div></div>`; return; }
+  if(l.eanResolved===raw){ $('#eanOut').innerHTML='<div class="msg m-info"><b>i</b><div><b>Already scanned.</b> Idempotent no-op.</div></div>'; return; }
+  l.eanResolved=raw; log({raw,sym:v.sym,outcome:'resolved',sku});
   $('#eanOut').innerHTML=`<div class="msg m-ok"><b>✓</b><div><b>SKU identified from ${v.sym}.</b>
-    <div class="note" style="margin-top:4px">${sku} · ${esc(m.desc)} · master MRP ₹${m.mrp} · ${m.gram} · ${l.pack} units per box</div></div></div>`;
+    <div class="note">${sku} · ${esc(SKU[sku].d)} · master MRP ₹${SKU[sku].mrp}</div></div></div>`;
 }
-function setNSM(l, reason){
-  l.nsm={reason, at:new Date(), tries:[]}; l.status='nsm';
-  addProblem(l, ['SKU'], null, 'line', l.invQty, `No SKU Match — ${reason}`, 1);
-}
+function setNSM(l,r){ l.nsm={reason:r,tries:[]}; l.status='nsm'; addProblem(l,['SKU'],null,'line',l.invQty,`No SKU Match — ${r}`,1); }
 function renderNSM(){
-  const l=cur(); const reasons=['EAN not mapped','SKU not in master','Physical product not identifiable',
+  const l=cur(), rs=['EAN not mapped','SKU not in master','Physical product not identifiable',
     'Product does not match any line on this invoice','Master data incomplete'];
-  app().innerHTML=`<div class="card">
-    ${hd(null,'No SKU Match','A tracked, auditable blocked state. SKU-dependent progression is prevented until it is resolved.')}
-    <div class="msg m-err"><b>✕</b><div><b>${l.sku} — No SKU Match.</b><br>
-      Reason: <b>${esc(l.nsm.reason)}</b>. Sample QC, box scanning, batch capture and Receiving are all unavailable for this line.
-      Other lines on this invoice are unaffected (NSM-08).</div></div>
-    <div class="row"><div class="f"><label>Failure reason (mandatory, controlled list)</label>
-      <select id="nsmR">${reasons.map(r=>`<option ${r===l.nsm.reason?'selected':''}>${r}</option>`).join('')}</select></div>
-      <button class="btn sm" data-a="nsmReason">Update reason</button></div>
+  app().innerHTML=`<div class="card">${hd(null,'No SKU Match','A tracked, auditable blocked state.')}
+    <div class="msg m-err"><b>✕</b><div><b>${l.sku} — No SKU Match.</b> Reason: <b>${esc(l.nsm.reason)}</b>.<br>
+      Sample QC, box scanning, batch capture and Receiving are unavailable. Other lines are unaffected.</div></div>
+    <div class="row"><div class="f"><label>Failure reason (mandatory)</label>
+      <select id="nsmR">${rs.map(r=>`<option ${r===l.nsm.reason?'selected':''}>${r}</option>`).join('')}</select></div>
+      <button class="btn sm" data-a="nsmReason">Update</button></div>
     <div class="sec">Recovery actions</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn pri" data-a="nsmRetry" data-ok="1">Retry — scan the correct EAN</button>
-      <button class="btn" data-a="nsmRetry" data-ok="0">Retry — fails again</button>
+      <button class="btn pri" data-a="nsmRetry" data-ok="1">Retry — resolves</button>
+      <button class="btn" data-a="nsmRetry" data-ok="0">Retry — fails</button>
       <button class="btn" data-a="nsmEsc">Escalate to Team Lead</button>
       <button class="btn dan" data-a="nsmRTV">Return to vendor</button>
-      <button class="btn" data-a="nsmE42">Correct in E42 and refresh</button>
-      <button class="btn" data-a="nsmMD">Raise master-data request</button>
-    </div>
-    <div class="sec">Attempt log (dc_qc_no_sku_match_log)</div>
+      <button class="btn" data-a="nsmMD">Raise master-data request</button></div>
+    <div class="sec">Attempt log</div>
     ${l.nsm.tries.length?l.nsm.tries.map((t,i)=>`<div class="note">${i+1}. ${t}</div>`).join(''):'<div class="note">No retries yet.</div>'}
-    <div class="open-pt" style="margin-top:12px">A master-data request is a <b>manual off-system step</b> (OI-05) — the module raises no tracked request.</div>
-  </div>`;
+    <div class="open-pt" style="margin-top:12px">A master-data request is a manual off-system step — no tracked request is created.</div></div>`;
 }
-
-/* ---------- 3-way MRP ---------- */
 function mrpChk(){
   const l=cur(), v=parseFloat($('#mrpIn').value);
-  if(isNaN(v)){ toast('Enter the MRP printed on the pack','err'); return; }
+  if(isNaN(v)){toast('Enter the MRP printed on the pack','err');return;}
   l.physMRP=v; l.flags=[];
   if(v!==l.masterMRP){
-    if(!l.rekeyed){ l.rekeyed=true;
-      toast(`₹${v} does not match the order (₹${l.masterMRP}). Re-key to confirm before it holds the line (ID-05).`,'err');
-      render(); return; }
-    l.ident.MRP='flagged';
-    openProblem(['MRP'], null, 'line', `Pack shows ₹${v} but the order says ₹${l.masterMRP}`);
-    return;
-  }
-  if(l.invoiceMRP!==l.masterMRP)
-    l.flags.push({blk:true, t:'The invoice states the wrong MRP',
-      x:`Pack and order agree at ₹${l.masterMRP}, but the invoice says ₹${l.invoiceMRP}. The goods are right, the paperwork is not — correct it in E42, or return the goods.`});
-  if(l.invQty>l.poQty)
-    l.flags.push({blk:false, t:'Invoiced more than ordered',
-      x:`Invoice covers ${l.invQty} units against an order of ${l.poQty}. Noted for procurement; receiving continues.`});
-  l.ident.MRP='ok'; l.rekeyed=false;
-  if(l.flags.some(f=>f.blk)) l.status='prob';
-  render();
+    if(!l.rekeyed){l.rekeyed=true;toast(`₹${v} does not match the order (₹${l.masterMRP}). Re-key to confirm.`,'err');render();return;}
+    l.ident.MRP='flagged'; openProblem(['MRP'],null,'line',`Pack shows ₹${v} but the order says ₹${l.masterMRP}`); return; }
+  if(l.invoiceMRP!==l.masterMRP) l.flags.push({blk:true,t:'The invoice states the wrong MRP',
+    x:`Pack and order agree at ₹${l.masterMRP}, invoice says ₹${l.invoiceMRP}. Correct in E42, or return the goods.`});
+  if(l.invQty>l.poQty) l.flags.push({blk:false,t:'Invoiced more than ordered',
+    x:`Invoice covers ${l.invQty} units against an order of ${l.poQty}. Noted for procurement.`});
+  l.ident.MRP='ok'; l.rekeyed=false; if(l.flags.some(f=>f.blk)) l.status='prob'; render();
 }
 
 /* ==========================================================================
-   SCREEN 3 — SAMPLE QC (QR and Non-QR)
+   SCREEN 3 — SAMPLE QC
    ========================================================================== */
-function renderSample(){ isQR(cur()) ? renderSampleQR() : renderSampleNQ(); }
-
-function samplingBox(l){
+function renderSample(){ isQR(cur())?renderSampleQR():renderSampleNQ(); }
+function targetBox(l){
   const s=sampling(l);
-  return `<div class="msg m-info"><b>=</b><div>
-    <b>Sampling target — PRD 6.6.1</b><br>
-    Step 1 &nbsp; qc_qty = ${CFG.samplePct}% × ${l.invQty} = <b>${s.qcQty}</b> units<br>
-    Step 2 &nbsp; boxes_for_qc = ⌈${s.qcQty} ÷ ${l.pack}⌉ = <b>${s.boxesFor}</b> boxes<br>
-    Step 3 &nbsp; target_boxes = min(${s.boxesFor}, cap ${s.cap}) = <b>${s.target}</b> box(es)
-    ${s.capBinds?`<br><span class="pill p-warn">cap binds — coverage is below ${CFG.samplePct}% by design</span>`:''}
-    ${l.escalated?`<br><span class="pill p-err">escalated — all ${l.expBoxes} boxes must be inspected</span>`:''}
-    <div class="note" style="margin-top:4px">A started box is always completed in full, so coverage lands on or above the target.</div>
-  </div></div>`;
+  if(s.undetermined) return `<div class="msg m-warn"><b>=</b><div><b>Inspection target not yet determined.</b><br>
+    In the Non-QR flow the units per box comes from the <b>Saleable Qty declared on the batch</b>. Declare a batch to compute the target.</div></div>`;
+  return `<div class="msg m-info"><b>=</b><div><b>Inspection target</b> — derived from quantity, not from any count of boxes<br>
+    Step 1 &nbsp; qc_qty = ${CFG.samplePct}% × ${l.invQty} invoiced = <b>${s.qcQty}</b> units<br>
+    Step 2 &nbsp; boxes_for_qc = ⌈${s.qcQty} ÷ ${s.u} per box⌉ = <b>${s.boxesFor}</b><br>
+    Step 3 &nbsp; target = min(${s.boxesFor}, cap ${s.cap}) = <b>${s.target}</b> box(es) to inspect
+    ${s.capBinds?'<br><span class="pill p-warn">cap binds</span>':''}
+    ${l.escalated?'<br><span class="pill p-err">escalated — every box scanned must be inspected</span>':''}
+    <div class="note" style="margin-top:4px">A started box is inspected in full. No metric here uses a total box count.</div></div></div>`;
+}
+function metricRow(l){
+  const m=metrics(l), s=sampling(l);
+  return `<div class="kpis">${kpi(m.scanned,'Boxes scanned')}${kpi(m.issues,'Boxes with issues')}
+    ${kpi(m.accepted,'Boxes accepted')}${kpi(inspected(l).length+(s.undetermined?'':' / '+s.target),'Boxes inspected'+(s.undetermined?'':' vs target'))}</div>`;
 }
 function renderSampleQR(){
-  const l=cur(), s=sampling(l), ins=inspected(l), q=S.pendingQR;
-  const slot = q ? `<div><b>${q.sku}</b> · MRP ₹${q.mrp} · ${q.pack} units<br>
-      <span class="note">Vendor Batch <b>${q.vb}</b> · MFG ${fmt(q.mfg)} · EXP ${fmt(q.exp)}</span><br>
-      ${(()=>{const b=getBatch(l,q.vb); if(!b) return '<span class="pill p-brand">starts a new batch</span>';
-        const dv = gap(b.mfg,q.mfg)>CFG.windowDays || gap(b.exp,q.exp)>CFG.windowDays;
-        return `<span class="pill p-info">joins batch ${q.vb}</span>${dv?` <span class="pill p-warn">⚠ dates diverge &gt; ${CFG.windowDays}d — raises MFG/EXP</span>`:''}`;})()}
-    </div>` : `<span class="note">Nothing scanned yet.</span>`;
-
+  const l=cur(), s=sampling(l), q=S.pendingQR, ins=inspected(l);
+  const slot=q?`<div><b>${q.sku}</b> · MRP ₹${q.mrp} · ${q.pack} units<br>
+    <span class="note">Vendor Batch <b>${q.vb}</b> · MFG ${fmt(q.mfg)} · EXP ${fmt(q.exp)}</span><br>
+    ${(()=>{const b=getBatch(l,q.vb); if(!b) return '<span class="pill p-brand">starts a new batch</span>';
+      const dv=gap(b.mfg,q.mfg)>CFG.windowDays||gap(b.exp,q.exp)>CFG.windowDays;
+      return `<span class="pill p-info">joins batch ${q.vb}</span>${dv?` <span class="pill p-warn">⚠ dates diverge &gt; ${CFG.windowDays}d — raises MFG/EXP</span>`:''}`;})()}</div>`
+    :'<span class="note">Nothing scanned yet.</span>';
   app().innerHTML=`<div class="card">
     ${hd(3,'Sample QC — QR flow','Scan the box QR, then the UID. Vendor Batch is read from the label and is the batch key.')}
-    ${samplingBox(l)}
-    <div class="kpis">${kpi(`${ins.length} / ${s.target}`,'Boxes inspected')}${kpi(l.expBoxes,'Boxes expected')}
-      ${kpi(defectRate(l)+'%','Problem rate')}${kpi(l.batches.length,'Batches')}</div>
+    ${targetBox(l)}${metricRow(l)}
     <div class="sec">Scan a box — two scans, paired</div>
-    <div class="card" style="margin:0 0 10px;background:#fcfbfd">
-      <div class="row" style="align-items:flex-start">
-        <div style="flex:1 1 260px"><label class="note"><b>1 · Box QR</b></label><div style="margin-top:5px">${slot}</div>
-          <div style="margin-top:8px;display:flex;gap:7px;flex-wrap:wrap">
-            <button class="btn sm pri" data-a="scanQR">Scan QR</button>
-            <button class="btn sm" data-a="scanQR" data-bad="1">Scan a wrong-SKU box</button></div></div>
-        <div style="flex:1 1 220px"><label class="note"><b>2 · Box UID</b></label>
-          <div class="note" style="margin-top:5px">${q?'Scan the UID to attach the QR details to this box.':'Scan the QR first — one scan alone creates nothing.'}</div>
-          <div style="margin-top:8px;display:flex;gap:7px;flex-wrap:wrap">
-            <button class="btn sm pri" data-a="scanUID" ${q?'':'disabled'}>Scan UID</button>
-            <button class="btn sm" data-a="scanUID" data-dup="1" ${q?'':'disabled'}>Re-scan last UID</button></div></div>
-      </div></div>
+    <div class="card" style="margin:0 0 10px;background:#fcfbfd"><div class="row" style="align-items:flex-start">
+      <div style="flex:1 1 250px"><label class="note"><b>1 · Box QR</b></label><div style="margin-top:5px">${slot}</div>
+        <div style="margin-top:8px;display:flex;gap:7px;flex-wrap:wrap">
+          <button class="btn sm pri" data-a="scanQR">Scan QR</button>
+          <button class="btn sm" data-a="scanQR" data-bad="1">Scan a wrong-SKU box</button></div></div>
+      <div style="flex:1 1 220px"><label class="note"><b>2 · Box UID</b></label>
+        <div class="note" style="margin-top:5px">${q?'Scan the UID to attach the QR details.':'Scan the QR first — one scan alone creates nothing.'}</div>
+        <div style="margin-top:8px;display:flex;gap:7px;flex-wrap:wrap">
+          <button class="btn sm pri" data-a="scanUID" ${q?'':'disabled'}>Scan UID</button>
+          <button class="btn sm" data-a="scanUID" data-dup="1" ${q?'':'disabled'}>Re-scan last UID</button></div></div>
+    </div></div>
     ${batchTable(l)}
     <div class="sec">Inspected boxes</div>
     ${ins.length?ins.map(b=>boxCard(l,b,true)).join(''):'<div class="note">No boxes inspected yet.</div>'}
-    <div id="flags">${flagsHtml(l)}</div>
+    <div>${flagsHtml(l)}</div>
     <div style="display:flex;justify-content:flex-end;margin-top:10px">
       <button class="btn pri" data-a="toRecv" ${ins.length>=s.target?'':'disabled'}>Continue to Receiving →</button></div>
-    ${ins.length<s.target?`<div class="note" style="text-align:right">Inspect ${s.target-ins.length} more box(es) to continue.</div>`:''}
-  </div>`;
+    ${ins.length<s.target?`<div class="note" style="text-align:right">Inspect ${s.target-ins.length} more box(es).</div>`:''}</div>`;
 }
 function batchTable(l){
   if(!l.batches.length) return '';
   return `<div class="sec">Batches — key is SKU + Vendor Batch</div>
-  <table><thead><tr><th>Vendor Batch</th><th>MFG</th><th>EXP</th><th>Boxes</th><th>Qty</th><th>Freshness</th><th>SAP Batch ID</th></tr></thead><tbody>
+  <table><thead><tr><th>Vendor Batch</th><th>MFG</th><th>EXP</th><th>Std saleable qty</th><th>Boxes</th><th>Qty</th><th>Freshness</th><th>SAP Batch ID</th></tr></thead><tbody>
   ${l.batches.map(b=>{const f=freshnessAPI(l.sku,b.exp);
     return `<tr><td><span class="pill p-info">${b.vb}</span></td><td class="note">${fmt(b.mfg)}</td><td class="note">${fmt(b.exp)}</td>
-    <td>${batchBoxes(l,b).length}</td><td>${batchQty(l,b)}</td>
+    <td>${b.saleableQty!=null?b.saleableQty:'—'}</td><td>${batchBoxes(l,b).length}</td><td>${batchQty(l,b)}</td>
     <td>${f.pass?`<span class="pill p-ok">pass · ${esc(f.reason)}</span>`:`<span class="pill p-err">FAIL → RVDC · ${esc(f.reason)}</span>`}
       <div class="note">criteria ${esc(f.criteria)}</div></td>
-    <td>${b.sapBatchId?`<span class="mono">${b.sapBatchId}</span>`:b.unresolved?`<span class="pill p-warn">unresolved</span>`:`<span class="note">pending — SAP assigns</span>`}</td></tr>`;}).join('')}
-  </tbody></table>
-  <div class="note">Freshness is evaluated by the existing API on module = month|days. Batch IDs are created by SAP, never by Manage (§6.16).</div>`;
+    <td>${b.sapBatchId?`<span class="mono">${b.sapBatchId}</span>`:b.unresolved?'<span class="pill p-warn">unresolved</span>':'<span class="note">pending — SAP assigns</span>'}</td></tr>`;}).join('')}
+  </tbody></table><div class="note">Freshness uses the existing API (module = month|days). Batch IDs are created by SAP, never by Manage.</div>`;
 }
-function nextPlan(l){ return l.plan[l.boxes.length % l.plan.length]; }
+const nextPlan=l=>l.plan[live(l).length%l.plan.length];
 function scanQR(bad){
   const l=cur();
-  if(bad){ S.pendingQR={sku:'MRC-XXX-999', ean:E.ORPHAN, mrp:0, vb:'VB-0000', mfg:dOff(-90), exp:dOff(300), pack:l.pack, wrong:true};
-    toast('QR read — this box holds a different SKU'); render(); return; }
+  if(bad){S.pendingQR={sku:'MRC-XXX-999',mrp:0,vb:'VB-0000',mfg:dOff(-90),exp:dOff(300),pack:l.pack,wrong:true};
+    toast('QR read — this box holds a different SKU');render();return;}
   const p=nextPlan(l);
-  S.pendingQR={sku:l.sku, ean:l.ean, mrp:l.masterMRP, vb:p.vb, mfg:dOff(p.mfg), exp:dOff(p.exp), pack:l.pack};
-  render();
+  S.pendingQR={sku:l.sku,mrp:l.masterMRP,vb:p.vb,mfg:dOff(p.mfg),exp:dOff(p.exp),pack:l.pack}; render();
 }
 function scanUID(dup){
   const l=cur(), q=S.pendingQR;
-  if(!q){ toast('Scan the box QR first','err'); return; }
-  if(q.wrong){ S.pendingQR=null; toast(`This box holds ${q.sku}, not ${l.sku}`,'err');
-    openProblem(['EAN'], null, 'box', `Box contained ${q.sku} instead of ${l.sku}`); return; }
-  if(dup){ const last=l.boxes[l.boxes.length-1];
-    if(!last){ toast('No previous UID to re-scan yet'); return; }
-    toast(`UID ${last.uid} is already on a box — nothing counted twice (SQ-04)`,'err'); return; }
-  const uid = l.uidPool[l.boxes.length];
-  if(!uid){ toast('No further boxes expected on this line'); return; }
-  const b = getBatch(l,q.vb);
-  const divergent = b && (gap(b.mfg,q.mfg)>CFG.windowDays || gap(b.exp,q.exp)>CFG.windowDays);
-  const bt = addBatch(l, q.vb, q.mfg, q.exp);
-  // batch carries the earliest MFG and EXP (BR-13b)
-  if(q.mfg<bt.mfg) bt.mfg=q.mfg; if(q.exp<bt.exp) bt.exp=q.exp;
+  if(!q){toast('Scan the box QR first','err');return;}
+  if(q.wrong){S.pendingQR=null;toast(`This box holds ${q.sku}, not ${l.sku}`,'err');
+    openProblem(['EAN'],null,'box',`Box contained ${q.sku} instead of ${l.sku}`);return;}
+  if(dup){const last=live(l).slice(-1)[0];
+    if(!last){toast('No previous UID yet');return;}
+    toast(`UID ${last.uid} is already on a box — nothing counted twice`,'err');return;}
+  const uid=l.uidPool[l.boxes.length];
+  const ex=getBatch(l,q.vb);
+  const dv=ex&&(gap(ex.mfg,q.mfg)>CFG.windowDays||gap(ex.exp,q.exp)>CFG.windowDays);
+  const b=addBatch(l,q.vb,q.mfg,q.exp,q.pack);
+  if(q.mfg<b.mfg)b.mfg=q.mfg; if(q.exp<b.exp)b.exp=q.exp;
   const s=sampling(l);
-  const box={uid, vb:q.vb, mfg:q.mfg, exp:q.exp, qty:q.pack, short:0, excess:0, dmg:0, rtv:0,
-             insp: inspected(l).length < s.target, probs:[], dmgSrc:null};
-  applyPanelDamage(box);
-  l.boxes.push(box);
-  S.pendingQR=null;
-  toast(b?`Box added to batch ${q.vb}`:`New batch ${q.vb} created`, 'ok');
-  if(divergent) openProblem(['MFG/EXP'], uid, 'box', `Dates diverge more than ${CFG.windowDays} days from batch ${q.vb} — box stays in the batch (BR-13a)`);
+  const box={uid,vb:q.vb,qty:q.pack,short:0,excess:0,dmg:0,rtv:0,
+    insp:inspected(l).length<s.target,issues:[],dmgSrc:null,deleted:false};
+  if(RECEIPT_PANEL.has(uid)){box.dmgSrc='unloading';box.panelFlag=true;}
+  l.boxes.push(box); S.pendingQR=null;
+  toast(ex?`Box added to batch ${q.vb}`:`New batch ${q.vb} created`,'ok');
+  if(dv) openProblem(['MFG/EXP'],uid,'box',`Dates diverge more than ${CFG.windowDays} days from batch ${q.vb} — the box stays in the batch`);
   else render();
 }
-function applyPanelDamage(box){
-  if(RECEIPT_PANEL.has(box.uid)){ box.dmgSrc='unloading'; box.panelFlag=true; }
-}
 
-/* ---------- Non-QR sample QC ---------- */
+/* ---------- Non-QR Sample QC ---------- */
 function renderSampleNQ(){
-  const l=cur(), s=sampling(l);
-  const totalBatchQty = l.batches.reduce((a,b)=>a+batchQty(l,b),0);
-  const varTxt = totalBatchQty===l.invQty ? `<span class="pill p-ok">reconciled</span>`
-    : totalBatchQty<l.invQty ? `<span class="pill p-warn">short by ${l.invQty-totalBatchQty}</span>`
-    : `<span class="pill p-warn">excess ${totalBatchQty-l.invQty} — netted and capped at invoiced</span>`;
-
+  const l=cur(), s=sampling(l), m=metrics(l);
+  const totalBatchQty=l.batches.reduce((a,b)=>a+batchQty(l,b),0);
+  const v=totalBatchQty===l.invQty?'<span class="pill p-ok">reconciled</span>'
+    :totalBatchQty<l.invQty?`<span class="pill p-warn">short by ${l.invQty-totalBatchQty} units</span>`
+    :`<span class="pill p-warn">excess ${totalBatchQty-l.invQty} units — netted and capped at invoiced</span>`;
   app().innerHTML=`<div class="card">
-    ${hd(3,'Sample QC — Non-QR flow','Scan the UID, declare the batch, then scan the boxes belonging to that SKU and batch. Multiple batches per SKU are supported.')}
-    ${samplingBox(l)}
-    <div class="kpis">${kpi(`${inspected(l).length} / ${s.target}`,'Boxes inspected')}${kpi(l.boxes.length+' / '+l.expBoxes,'Boxes associated')}
-      ${kpi(l.batches.length,'Batches')}${kpi(defectRate(l)+'%','Problem rate')}</div>
-    <div class="note">Association covers <b>all</b> boxes; inspection covers <b>${s.target}</b> (§6.7.5). The first ${s.target} scanned are the sample.</div>
-
+    ${hd(3,'Sample QC — Non-QR flow','Scan the UID, declare the batch with its standard Saleable Qty, then scan the boxes belonging to that SKU and batch.')}
+    ${targetBox(l)}${metricRow(l)}
+    <div class="note">Metrics above come only from boxes actually scanned. No total, remaining or percentage-complete figure is shown, because the system does not know how many boxes exist.</div>
     <div class="sec">Batches on this SKU</div>
-    ${l.batches.length?l.batches.map(b=>nqBatchCard(l,b)).join(''):'<div class="note">No batch declared yet.</div>'}
-    ${S.nqForm?nqForm(l):`<div style="margin-top:8px"><button class="btn pri" data-a="nqAdd">+ Add batch</button></div>`}
-    <div class="note" style="margin-top:8px">Quantity across batches: <b>${totalBatchQty}</b> of ${l.invQty} invoiced ${varTxt}</div>
-    <div id="flags" style="margin-top:10px">${flagsHtml(l)}</div>
+    ${l.batches.length?l.batches.map(b=>nqCard(l,b)).join(''):'<div class="msg m-info"><b>i</b><div>No batch declared yet. Add a batch to begin — the Saleable Qty you enter becomes the standard quantity for every box scanned under it.</div></div>'}
+    ${S.nqForm?nqForm(l):'<div style="margin-top:8px"><button class="btn pri" data-a="nqAdd">+ Add batch</button></div>'}
+    <div class="note" style="margin-top:8px">Quantity across batches: <b>${totalBatchQty}</b> of ${l.invQty} invoiced ${v}</div>
+    <div style="margin-top:10px">${flagsHtml(l)}</div>
     <div style="display:flex;justify-content:flex-end;margin-top:10px">
-      <button class="btn pri" data-a="toRecv" ${(l.batches.length&&l.boxes.length&&inspected(l).length>=s.target)?'':'disabled'}>Continue to Receiving →</button></div>
-    ${!l.batches.length?'<div class="note" style="text-align:right">At least one batch with one box is required (NQ-18).</div>'
-      : inspected(l).length<s.target?`<div class="note" style="text-align:right">Inspect ${s.target-inspected(l).length} more box(es) — the sampling rule applies to all flows (NQ-19).</div>`:''}
-  </div>`;
+      <button class="btn pri" data-a="toRecv" ${(l.batches.length&&m.scanned&&!s.undetermined&&inspected(l).length>=s.target)?'':'disabled'}>Continue to Receiving →</button></div>
+    ${!l.batches.length?'<div class="note" style="text-align:right">At least one batch with one box is required.</div>'
+      :!m.scanned?'<div class="note" style="text-align:right">Scan at least one box.</div>'
+      :(!s.undetermined&&inspected(l).length<s.target)?`<div class="note" style="text-align:right">Inspect ${s.target-inspected(l).length} more box(es) — the sampling rule applies to all flows.</div>`:''}</div>`;
 }
-function nqBatchCard(l,b){
+function nqCard(l,b){
   const f=freshnessAPI(l.sku,b.exp), bx=batchBoxes(l,b);
   return `<div class="card" style="margin:0 0 10px;background:#fcfbfd">
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
       <span class="pill p-info">${b.vb}</span>
-      <span class="note">MFG ${fmt(b.mfg)} · EXP ${fmt(b.exp)} · damaged ${b.dmgQty} · return ${b.rtvQty}</span>
+      <span class="pill p-brand">Std saleable qty ${b.saleableQty}</span>
+      <span class="note">MFG ${fmt(b.mfg)} · EXP ${fmt(b.exp)} · declared damaged ${b.dmgQty} · return ${b.rtvQty}</span>
       ${f.pass?`<span class="pill p-ok">fresh · ${esc(f.reason)}</span>`:`<span class="pill p-err">FAIL → RVDC · ${esc(f.reason)}</span>`}
       <div class="spacer"></div>
       <button class="btn sm" data-a="nqEdit" data-vb="${b.vb}">Edit</button>
-      <button class="btn sm dan" data-a="nqDel" data-vb="${b.vb}">Delete</button>
-    </div>
+      <button class="btn sm dan" data-a="nqDel" data-vb="${b.vb}">Delete batch</button></div>
+    <div class="note" style="margin-top:6px">Every box scanned under this batch takes <b>${b.saleableQty}</b> units as its standard quantity — it is never entered per box.</div>
     <div style="margin-top:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-      <button class="btn sm pri" data-a="nqScanBox" data-vb="${b.vb}">Scan box into this batch</button>
-      <button class="btn sm" data-a="nqScanBox" data-vb="${b.vb}" data-dup="1">Re-scan last box</button>
-      <button class="btn sm" data-a="nqScanBox" data-vb="${b.vb}" data-other="1">Scan a box from another batch</button>
-      <span class="note">${bx.length} box(es) · ${batchQty(l,b)} units</span>
-    </div>
-    ${bx.length?`<div style="margin-top:8px">${bx.map(x=>`<span class="pill ${x.insp?'p-brand':'p-grey'}" style="margin:0 5px 5px 0">${x.uid}${x.insp?' · inspected':''}${x.panelFlag?' ⚠dmg':''}</span>`).join('')}</div>`:''}
-  </div>`;
+      <button class="btn sm pri" data-a="nqScan" data-vb="${b.vb}">Scan box into this batch</button>
+      <button class="btn sm" data-a="nqScan" data-vb="${b.vb}" data-dup="1">Re-scan last box (opens details)</button>
+      <button class="btn sm" data-a="nqScan" data-vb="${b.vb}" data-other="1">Scan a box from another batch</button>
+      <span class="note">${bx.length} box(es) scanned · ${batchQty(l,b)} units</span></div>
+    ${bx.length?`<div style="margin-top:8px">${bx.map(x=>{
+      const iss=boxIssues(x);
+      return `<span class="bx ${iss?'iss':'ok'} ${x.insp?'insp':''}" data-a="boxOpen" data-uid="${x.uid}">
+        ${iss?'⚑':'✓'} <span class="mono">${x.uid}</span>${x.insp?' <span class="note">inspected</span>':''}
+        ${x.issues.length?`<span class="pill p-err">${x.issues.length} issue</span>`:''}</span>`;}).join('')}
+      <div class="note">Click a box to view details, delete it, or raise an issue.</div></div>`:''}</div>`;
 }
 function nqForm(l){
   const f=S.nqForm;
   return `<div class="card" style="margin:8px 0 0;border-color:var(--brand)">
     <div class="sec">${f.editing?'Edit batch':'Add a batch'}</div>
     <div class="row">
-      <div class="f"><label>Vendor Batch (max 20 chars, mandatory)</label><input id="nqVB" value="${esc(f.vb)}" maxlength="24"><div class="err" id="e_vb"></div></div>
+      <div class="f"><label>Vendor Batch (max 20, mandatory)</label><input id="nqVB" value="${esc(f.vb)}" maxlength="24"><div class="err" id="e_vb"></div></div>
       <div class="f"><label>MFG date (mandatory)</label><input type="date" id="nqMFG" value="${f.mfg}"><div class="err" id="e_mfg"></div></div>
       <div class="f"><label>EXP date (mandatory)</label><input type="date" id="nqEXP" value="${f.exp}"><div class="err" id="e_exp"></div></div>
+      <div class="f"><label><b>Saleable Qty (mandatory)</b></label><input class="mini" id="nqSal" value="${f.saleableQty}"><div class="err" id="e_sal"></div></div>
       <div class="f"><label>Damaged qty</label><input class="mini" id="nqDmg" value="${f.dmgQty}"><div class="err" id="e_dmg"></div></div>
       <div class="f"><label>Return qty</label><input class="mini" id="nqRtv" value="${f.rtvQty}"><div class="err" id="e_rtv"></div></div>
       <button class="btn pri" data-a="nqSave">Save batch</button>
-      <button class="btn" data-a="nqCancel">Cancel</button>
-    </div>
-    <div class="note">EXP must be later than MFG; MFG cannot be in the future; EXP cannot be in the past. Shelf-life validation itself is handled in SAP (OI-17).</div>
+      <button class="btn" data-a="nqCancel">Cancel</button></div>
+    <div class="note"><b>Saleable Qty</b> becomes the standard quantity for every box scanned under this batch, and supplies the units-per-box used by the inspection target. EXP must be later than MFG; MFG cannot be in the future or older than the sanity floor (${CFG.mfgFloorDays} days, value pending). Shelf-life validation itself is handled in SAP.</div>
     <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">
       <button class="btn sm" data-a="nqPreset" data-p="good">preset: valid</button>
       <button class="btn sm" data-a="nqPreset" data-p="stale">preset: breaches freshness</button>
       <button class="btn sm" data-a="nqPreset" data-p="expired">preset: already expired</button>
       <button class="btn sm" data-a="nqPreset" data-p="inverted">preset: EXP before MFG</button>
-    </div></div>`;
+      <button class="btn sm" data-a="nqPreset" data-p="ancient">preset: MFG below sanity floor</button></div></div>`;
 }
 function nqSave(){
   const l=cur(), f=S.nqForm;
   const vb=$('#nqVB').value.trim(), mfg=$('#nqMFG').value, exp=$('#nqEXP').value;
-  const dmg=parseInt($('#nqDmg').value)||0, rtv=parseInt($('#nqRtv').value)||0;
-  let bad=false; const set=(id,m)=>{ const e=$(id); if(e){e.textContent=m||'';} if(m) bad=true; };
-  set('#e_vb',''); set('#e_mfg',''); set('#e_exp',''); set('#e_dmg',''); set('#e_rtv','');
+  const sq=parseInt($('#nqSal').value), dmg=parseInt($('#nqDmg').value)||0, rtv=parseInt($('#nqRtv').value)||0;
+  let bad=false; const set=(id,m)=>{const e=$(id);if(e)e.textContent=m||'';if(m)bad=true;};
+  ['#e_vb','#e_mfg','#e_exp','#e_sal','#e_dmg','#e_rtv'].forEach(i=>set(i,''));
   if(!vb) set('#e_vb','Vendor Batch is mandatory');
-  else if(vb.length>20) set('#e_vb','Maximum 20 characters (OI-16)');
-  else if(!f.editing && getBatch(l,vb)) set('#e_vb','Already declared on this SKU — add boxes to the existing batch instead');
-  if(!mfg) set('#e_mfg','MFG is mandatory'); else if(daysTo(mfg)>0) set('#e_mfg','MFG cannot be in the future');
+  else if(vb.length>20) set('#e_vb','Maximum 20 characters');
+  else if(!f.editing&&getBatch(l,vb)) set('#e_vb','Already declared on this SKU — add boxes to the existing batch');
+  if(!mfg) set('#e_mfg','MFG is mandatory');
+  else if(daysTo(mfg)>0) set('#e_mfg','MFG cannot be in the future');
+  else if(-daysTo(mfg)>CFG.mfgFloorDays) set('#e_mfg',`Older than the sanity floor of ${CFG.mfgFloorDays} days`);
   if(!exp) set('#e_exp','EXP is mandatory');
-  else if(mfg && new Date(exp)<=new Date(mfg)) set('#e_exp','EXP must be strictly later than MFG');
-  else if(daysTo(exp)<0) set('#e_exp','Already expired at receipt — this is a return, not a receipt (EC-21)');
+  else if(mfg&&new Date(exp)<=new Date(mfg)) set('#e_exp','EXP must be strictly later than MFG');
+  else if(daysTo(exp)<0) set('#e_exp','Already expired at receipt — this is a return, not a receipt');
+  if(isNaN(sq)||sq<=0) set('#e_sal','Saleable Qty is mandatory and must be greater than zero');
   if(dmg<0) set('#e_dmg','Cannot be negative');
   if(rtv<0) set('#e_rtv','Cannot be negative');
+  if(!isNaN(sq)&&sq>0&&dmg+rtv>sq) set('#e_dmg',`Damaged + Return cannot exceed the Saleable Qty of ${sq}`);
   if(bad) return;
-  if(f.editing){ const b=getBatch(l,f.editing); b.vb=vb; b.mfg=mfg; b.exp=exp; b.dmgQty=dmg; b.rtvQty=rtv;
-    l.boxes.filter(x=>x.vb===f.editing).forEach(x=>x.vb=vb);
-    toast(`Batch ${vb} updated — freshness re-evaluated`,'ok');
-  } else { addBatch(l,vb,mfg,exp,{dmgQty:dmg,rtvQty:rtv}); toast(`Batch ${vb} declared`,'ok'); }
-  const f2=freshnessAPI(l.sku,exp);
-  if(!f2.pass) toast(`Batch ${vb} breaches freshness (${f2.reason}) — the whole batch will route to RVDC`,'err');
+  if(f.editing){ const b=getBatch(l,f.editing);
+    const oldSq=b.saleableQty;
+    b.vb=vb;b.mfg=mfg;b.exp=exp;b.saleableQty=sq;b.dmgQty=dmg;b.rtvQty=rtv;
+    live(l).filter(x=>x.vb===f.editing).forEach(x=>{x.vb=vb; if(oldSq!==sq) x.qty=sq;});
+    toast(`Batch ${vb} updated${oldSq!==sq?` — standard qty now ${sq} on ${batchBoxes(l,b).length} box(es)`:''}`,'ok');
+  } else { addBatch(l,vb,mfg,exp,sq,{dmgQty:dmg,rtvQty:rtv});
+    toast(`Batch ${vb} declared · standard saleable qty ${sq} per box`,'ok'); }
+  const fr=freshnessAPI(l.sku,exp);
+  if(!fr.pass) toast(`Batch ${vb} breaches freshness (${fr.reason}) — the whole batch routes to RVDC`,'err');
   S.nqForm=null; render();
 }
-function nqScanBox(vb, dup, other){
+function nqScan(vb,dup,other){
   const l=cur(), b=getBatch(l,vb), s=sampling(l);
   if(other){ const o=l.batches.find(x=>x.vb!==vb);
-    if(!o){ toast('No other batch on this SKU to demonstrate with'); return; }
+    if(!o){toast('No other batch on this SKU to demonstrate with');return;}
     const ob=batchBoxes(l,o)[0];
-    if(!ob){ toast('The other batch has no boxes yet'); return; }
-    toast(`${ob.uid} is already on batch ${o.vb}. SKU + Batch is the unique property of a box — remove it from that batch first (BR-17).`,'err');
-    return; }
+    if(!ob){toast('The other batch has no boxes yet');return;}
+    toast(`${ob.uid} is already on batch ${o.vb}. SKU + Batch is the unique property of a box.`,'err'); return; }
   if(dup){ const last=batchBoxes(l,b).slice(-1)[0];
-    if(!last){ toast('No box scanned into this batch yet'); return; }
-    toast(`${last.uid} already scanned — idempotent no-op (NQ-11)`,'err'); return; }
+    if(!last){toast('No box scanned into this batch yet');return;}
+    S.boxModal={uid:last.uid, dup:true}; toast(`${last.uid} already scanned under ${vb} — showing existing details`); render(); return; }
   const uid=l.uidPool[l.boxes.length];
-  if(!uid){ toast('All expected boxes are already associated'); return; }
-  const box={uid, vb, mfg:b.mfg, exp:b.exp, qty:l.pack, short:0, excess:0, dmg:0, rtv:0,
-             insp: inspected(l).length < s.target, probs:[], dmgSrc:null};
-  applyPanelDamage(box); l.boxes.push(box);
-  toast(`${uid} associated to batch ${vb}${box.insp?' · in the inspection sample':''}`,'ok');
+  const box={uid,vb,qty:b.saleableQty,short:0,excess:0,dmg:0,rtv:0,
+    insp:!s.undetermined&&inspected(l).length<s.target,issues:[],dmgSrc:null,deleted:false};
+  if(RECEIPT_PANEL.has(uid)){box.dmgSrc='unloading';box.panelFlag=true;}
+  l.boxes.push(box);
+  toast(`${uid} scanned into ${vb} · standard qty ${b.saleableQty}${box.insp?' · in the inspection sample':''}${box.panelFlag?' · flagged damaged at unloading':''}`, box.panelFlag?'err':'ok');
+  render();
+}
+
+/* ---------- box detail modal: view / delete / raise issue ---------- */
+function renderModal(){
+  const m=$('#modal'), o=$('#ovl');
+  if(S.delConfirm){ const b=findBox(S.delConfirm);
+    m.innerHTML=`<h3>Delete this box?</h3>
+      <p class="note">Box <span class="mono">${b.uid}</span> on batch <b>${b.vb}</b>, standard qty ${b.qty}.</p>
+      <div class="msg m-warn"><b>!</b><div>The box will be removed from the batch. The scanned-box count, the issue count and every QC figure for this batch will be recalculated. This cannot be undone.</div></div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+        <button class="btn" data-a="delCancel">Cancel</button>
+        <button class="btn dan" data-a="delGo">Delete box</button></div>`;
+    m.classList.remove('hide'); o.classList.remove('hide'); return; }
+  if(S.boxModal){ const b=findBox(S.boxModal.uid), l=cur();
+    const iss=PROBLEMS.filter(p=>p.uid===b.uid);
+    m.innerHTML=`<div style="display:flex;align-items:center"><h3>Box details</h3><div class="spacer"></div>
+      <button class="btn sm" data-a="boxClose">Close</button></div>
+      ${S.boxModal.dup?'<div class="msg m-info"><b>i</b><div>This box was already scanned under this batch, so its existing details are shown rather than a duplicate being created.</div></div>':''}
+      <div class="kpis">${kpi('<span class="mono" style="font-size:13px">'+b.uid+'</span>','UID')}${kpi(b.vb,'Batch')}
+        ${kpi(b.qty,'Standard qty (from batch)')}${kpi(b.insp?'Yes':'No','In inspection sample')}</div>
+      <div class="sec">Condition</div>
+      <div class="row">
+        ${['short','excess','dmg','rtv'].map(k=>`<div class="f"><label>${({short:'Short',excess:'Extra',dmg:'Damaged',rtv:'Return'})[k]}</label>
+          <input class="mini" data-fld="${k}" data-uid="${b.uid}" value="${b[k]}"></div>`).join('')}
+        <div class="f"><label>Good stock</label><div style="font-weight:700;color:var(--ok)">${sal(b)}</div></div></div>
+      ${b.dmgSrc==='unloading'?`<div class="msg m-err" style="margin-top:8px"><b>⚠</b><div><b>Flagged damaged at unloading.</b>
+        A damaged quantity above zero is mandatory, or clear the flag explicitly with a reason.
+        <div style="margin-top:6px"><button class="btn sm" data-a="clearFlag" data-uid="${b.uid}">Box is intact — override</button></div></div></div>`:''}
+      <div class="sec">Issues against this box</div>
+      ${iss.length?iss.map(p=>`<div class="msg ${p.status==='open'?'m-err':'m-warn'}"><b>⚑</b><div>
+        <b>${p.code}</b> <span class="note">${p.qty} units · ${p.by}</span>
+        ${p.status==='open'?'<span class="pill p-err">open</span>':`<span class="pill p-ok">${p.status}${p.closedReason?' · '+p.closedReason:''}</span>`}
+        ${p.remarks?`<br>${esc(p.remarks)}`:''}</div></div>`).join('')
+        :'<div class="note">No issue raised against this box.</div>'}
+      <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+        <button class="btn dan" data-a="delAsk" data-uid="${b.uid}">Delete box</button>
+        <button class="btn" data-a="boxIssue" data-uid="${b.uid}">Raise issue</button>
+        <div class="spacer"></div><button class="btn pri" data-a="boxClose">Done</button></div>
+      <div class="note" style="margin-top:8px">Delete box, Raise issue and View details are deliberately separate actions.</div>`;
+    m.classList.remove('hide'); o.classList.remove('hide'); return; }
+  m.classList.add('hide'); if($('#drawer').classList.contains('hide')) o.classList.add('hide');
+}
+function findBox(uid){ for(const k in SCN) for(const l of SCN[k].lines){ const b=l.boxes.find(x=>x.uid===uid); if(b) return b; } return null; }
+function findBoxLine(uid){ for(const k in SCN) for(const l of SCN[k].lines){ if(l.boxes.find(x=>x.uid===uid)) return l; } return null; }
+function deleteBox(uid){
+  const l=findBoxLine(uid), b=l.boxes.find(x=>x.uid===uid);
+  b.deleted=true;
+  PROBLEMS=PROBLEMS.filter(p=>p.uid!==uid);          // its issues leave the batch's QC data
+  // re-derive the inspection sample from the boxes that remain
+  const s=sampling(l); let n=0;
+  live(l).forEach(x=>{ x.insp = n<s.target; if(x.insp) n++; });
+  S.delConfirm=null; S.boxModal=null;
+  toast(`${uid} deleted from batch ${b.vb} — counts and QC figures recalculated`,'ok');
   render();
 }
 
 /* ==========================================================================
-   SCREEN 4 — RECEIVING
+   SCREEN 4 — RECEIVING (no total-box figures anywhere)
    ========================================================================== */
 function renderRecv(){
-  const l=cur(), q=S.pendingQR, qr=isQR(l);
-  const ins=l.boxes.filter(b=>b.insp), rest=l.boxes.filter(b=>!b.insp);
-  const t=l.boxes.reduce((a,b)=>({s:a.s+sal(b), d:a.d+b.dmg, r:a.r+b.rtv, sh:a.sh+b.short, e:a.e+b.excess}),{s:0,d:0,r:0,sh:0,e:0});
-  const panelPending = l.uidPool.slice(0,l.expBoxes).filter(u=>RECEIPT_PANEL.has(u) && !l.boxes.find(b=>b.uid===u));
-
+  const l=cur(), q=S.pendingQR, qr=isQR(l), m=metrics(l);
+  const ins=live(l).filter(b=>b.insp), rest=live(l).filter(b=>!b.insp);
+  const pending=live(l).filter(b=>b.dmgSrc==='unloading'&&b.dmg===0).length;
   app().innerHTML=`<div class="card">
-    ${hd(4,'Receiving — '+esc(l.desc),'Scan every remaining box. This is the operator’s last step on this line.')}
-    ${l.eligible?`<div class="msg m-ok"><b>⚡</b><div><b>This line skips inspection.</b> ${l.sku} is on the Green Channel list, so Identity and Sample QC were not required.</div></div>`:''}
-    ${l.postedQty?`<div class="msg m-info"><b>i</b><div><b>Partially posted line.</b> ${l.postedQty} of ${l.invQty} units already posted across ${l.grns.length} GRN(s). Remaining: <b>${remaining(l)}</b> units (§6.13.3).</div></div>`:''}
-    <div class="kpis">${kpi(`${l.boxes.length} / ${l.expBoxes}`,'Boxes scanned')}${kpi(t.s,'Good stock')}${kpi(t.d,'Damaged')}${kpi(t.r,'To return')}</div>
-    ${panelPending.length?`<div class="msg m-warn"><b>⚠</b><div><b>Unloading flagged ${panelPending.length} box(es) as damaged</b> that have not been scanned yet: ${panelPending.map(u=>`<span class="mono">${u}</span>`).join(', ')}.
-      The flag will apply automatically when they are scanned; if they are never scanned it forms part of the shortfall (DMG-09).</div></div>`:''}
-
+    ${hd(4,'Receiving — '+esc(l.desc),'Scan the boxes being received. This is the operator’s last step on this line.')}
+    ${l.eligible?'<div class="msg m-ok"><b>⚡</b><div><b>This line skips inspection</b> — it is on the Green Channel list.</div></div>':''}
+    ${l.postedQty?`<div class="msg m-info"><b>i</b><div><b>Partially posted.</b> ${l.postedQty} of ${l.invQty} units posted across ${l.grns.length} GRN(s). Remaining <b>${remaining(l)}</b> units.</div></div>`:''}
+    <div class="kpis">${kpi(m.scanned,'Boxes received')}${kpi(pending,'Boxes pending action')}
+      ${kpi(m.issues,'Issues raised')}${kpi(m.accepted,'Successfully processed')}</div>
+    <div class="kpis">${kpi(m.qty,'Good stock (units)')}${kpi(m.dmg,'Damaged (units)')}${kpi(m.rtv,'To return (units)')}
+      ${kpi(l.invQty,'Invoiced (units)')}</div>
+    <div class="note">Only boxes actually received are represented. No total, remaining or percentage-complete box figure is shown or calculated.</div>
     <div class="sec">Scan a box</div>
     <div class="card" style="margin:0 0 10px;background:#fcfbfd">
       ${qr?`<div class="row" style="align-items:flex-start">
@@ -1011,74 +919,60 @@ function renderRecv(){
           <div style="margin-top:8px"><button class="btn sm pri" data-a="scanQR">Scan QR</button></div></div>
         <div style="flex:1 1 240px"><label class="note"><b>2 · Box UID</b></label>
           <div class="note" style="margin-top:5px">${q?'Scan the UID to create the box.':'Scan the QR first.'}</div>
-          <div style="margin-top:8px"><button class="btn sm pri" data-a="scanUID" ${q?'':'disabled'}>Scan UID</button></div></div>
-      </div>`
-      :`<div class="row">
-        <div class="f"><label>Vendor Batch to receive against (only this SKU’s batches)</label>
-          <select id="rvBatch">${l.batches.map(b=>`<option value="${b.vb}">${b.vb} · exp ${fmt(b.exp)}</option>`).join('')}</select></div>
+          <div style="margin-top:8px"><button class="btn sm pri" data-a="scanUID" ${q?'':'disabled'}>Scan UID</button></div></div></div>`
+      :`<div class="row"><div class="f"><label>Vendor Batch to receive against (only this SKU’s batches)</label>
+          <select id="rvBatch">${l.batches.map(b=>`<option value="${b.vb}">${b.vb} · std qty ${b.saleableQty} · exp ${fmt(b.exp)}</option>`).join('')}</select></div>
         <button class="btn pri" data-a="recvScan" ${l.batches.length?'':'disabled'}>Scan box</button>
-        <span class="note">${l.batches.length>1?'Multiple batches — the operator selects; nothing is pre-attributed (RC-03).':l.batches.length===1?'Single batch — attributed automatically (RC-04).':'No batch declared — return to Sample QC (EC-28).'}</span>
-      </div>`}
+        <span class="note">${l.batches.length>1?'Multiple batches — the operator selects; nothing is pre-attributed.':l.batches.length===1?'Single batch — attributed automatically.':'No batch declared — return to Sample QC.'}</span></div>`}
     </div>
-
     ${batchTable(l)}
-    ${ins.length?`<div class="sec">Inspected at Sample QC — carried over, read-only</div>${ins.map(b=>boxCard(l,b,false)).join('')}`:''}
+    ${ins.length?`<div class="sec">Inspected at Sample QC — carried over</div>${ins.map(b=>boxCard(l,b,false)).join('')}`:''}
     ${rest.length?`<div class="sec">Received here</div>${rest.map(b=>boxCard(l,b,true)).join('')}`:''}
-    ${!l.boxes.length?'<div class="note">No boxes scanned yet.</div>':''}
-    <div id="flags" style="margin-top:10px">${flagsHtml(l)}</div>
-    <div class="open-pt" style="margin-top:10px">Multiple GRNs per line are supported: closing part of the quantity posts that part, then the line reopens for the remainder (§6.13.3).</div>
+    ${!m.scanned?'<div class="note">No boxes received yet.</div>':''}
+    <div style="margin-top:10px">${flagsHtml(l)}</div>
+    <div class="open-pt" style="margin-top:10px">A line may be received and posted in more than one go; it reopens for the remaining quantity until fully received or short-closed.</div>
     <div style="display:flex;justify-content:flex-end;margin-top:10px">
-      <button class="btn pri" data-a="closeLine" ${l.boxes.length?'':'disabled'}>Close receiving for this line →</button></div>
-  </div>`;
+      <button class="btn pri" data-a="closeLine" ${m.scanned?'':'disabled'}>Close receiving for this line →</button></div></div>`;
 }
 function boxCard(l,b,edit){
-  // A box flagged at unloading must always allow its damaged quantity to be entered,
-  // even on a carried-forward read-only box, or DMG-04 would deadlock the line.
-  const dmgEdit = edit || b.dmgSrc==='unloading';
-  const f=(k,lab)=>{ const en = k==='dmg' ? dmgEdit : edit;
-    return `<div class="f"><label>${lab}</label><input class="mini" data-fld="${k}" data-uid="${b.uid}" value="${b[k]}" ${en?'':'disabled'}></div>`; };
-  const src = b.dmgSrc==='unloading' ? `<span class="pill p-err">⚠ damaged at unloading</span>`
-    : b.dmgSrc==='cleared' ? `<span class="pill p-grey">flag cleared by operator</span>`
-    : b.dmg>0 ? `<span class="pill p-warn">damaged at receiving</span>` : '';
-  return `<div class="box ${b.insp?'insp':''} ${b.dmgSrc==='unloading'?'dmg':''}">
+  const dmgEdit=edit||b.dmgSrc==='unloading';
+  const f=(k,lab)=>{const en=k==='dmg'?dmgEdit:edit;
+    return `<div class="f"><label>${lab}</label><input class="mini" data-fld="${k}" data-uid="${b.uid}" value="${b[k]}" ${en?'':'disabled'}></div>`;};
+  const src=b.dmgSrc==='unloading'?'<span class="pill p-err">⚠ damaged at unloading</span>'
+    :b.dmgSrc==='cleared'?'<span class="pill p-grey">flag cleared by operator</span>'
+    :b.dmg>0?'<span class="pill p-warn">damaged at receiving</span>':'';
+  return `<div class="box ${b.insp?'insp':''} ${boxIssues(b)?'iss':''}">
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
       <b class="mono">${b.uid}</b><span class="pill p-info">${b.vb}</span>
-      <span class="note">exp ${fmt(b.exp)} · ${b.qty} units${b.insp?' · inspected':''}</span>${src}
+      <span class="note">standard qty ${b.qty}${b.insp?' · inspected':''}</span>${src}
+      ${b.issues.length?`<span class="pill p-err">⚑ ${b.issues.length} issue</span>`:''}
       <div class="spacer"></div>
-      ${edit?`<button class="btn sm dan" data-a="openProbBox" data-uid="${b.uid}">Report a problem</button>`:''}
-      ${b.dmgSrc==='unloading'?`<button class="btn sm" data-a="clearFlag" data-uid="${b.uid}">Box is intact — override</button>`:''}
-    </div>
+      <button class="btn sm" data-a="boxOpen" data-uid="${b.uid}">Details</button>
+      ${edit?`<button class="btn sm dan" data-a="boxIssue" data-uid="${b.uid}">Raise issue</button>`:''}</div>
     <div class="row" style="margin-top:7px">${f('short','Short')}${f('excess','Extra')}${f('dmg','Damaged')}${f('rtv','Return')}
       <div class="f"><label>Good stock</label><div style="font-weight:700;color:var(--ok)">${sal(b)}</div></div></div>
-    ${b.dmgSrc==='unloading'&&b.dmg===0?`<div class="note" style="color:var(--err);margin-top:5px">⚠ Flagged at unloading — a damaged quantity above zero is mandatory, or override explicitly (DMG-04).</div>`:''}
-    ${b.probs.length?`<div style="margin-top:6px">${b.probs.map(c=>`<span class="pill p-err" style="margin-right:5px">${c}</span>`).join('')}</div>`:''}
-  </div>`;
+    ${b.dmgSrc==='unloading'&&b.dmg===0?'<div class="note" style="color:var(--err);margin-top:5px">⚠ Flagged at unloading — a damaged quantity above zero is mandatory, or override explicitly.</div>':''}</div>`;
 }
 function recvScanNQ(){
-  const l=cur(), vb=$('#rvBatch').value;
-  const uid=l.uidPool[l.boxes.length];
-  if(!uid){ toast('All expected boxes are already scanned'); return; }
-  const b=getBatch(l,vb);
-  const box={uid, vb, mfg:b.mfg, exp:b.exp, qty:l.pack, short:0, excess:0, dmg:0, rtv:0, insp:false, probs:[], dmgSrc:null};
-  applyPanelDamage(box); l.boxes.push(box);
-  toast(`${uid} received against ${vb}${box.panelFlag?' — flagged damaged at unloading':''}`, box.panelFlag?'err':'ok');
+  const l=cur(), vb=$('#rvBatch').value, b=getBatch(l,vb), uid=l.uidPool[l.boxes.length];
+  const box={uid,vb,qty:b.saleableQty,short:0,excess:0,dmg:0,rtv:0,insp:false,issues:[],dmgSrc:null,deleted:false};
+  if(RECEIPT_PANEL.has(uid)){box.dmgSrc='unloading';box.panelFlag=true;}
+  l.boxes.push(box);
+  toast(`${uid} received against ${vb} · standard qty ${b.saleableQty}${box.panelFlag?' — flagged damaged at unloading':''}`,box.panelFlag?'err':'ok');
   render();
 }
 function closeLine(){
   const l=cur();
-  const bad = l.boxes.find(b=>b.dmgSrc==='unloading' && b.dmg===0);
-  if(bad){ toast(`${bad.uid} was flagged damaged at unloading — enter a damaged quantity or override explicitly (DMG-04)`,'err'); return; }
-  const scanned=l.boxes.length;
-  if(scanned<l.expBoxes && !l.ackShort){
-    l.ackShort=true;
-    toast(`${l.expBoxes-scanned} expected box(es) not scanned. Press Close again to confirm the shortfall (RC-09).`,'err');
-    render(); return;
-  }
-  // every open problem closes on completion — blocking codes included (PR-12 / OI-21)
+  const bad=live(l).find(b=>b.dmgSrc==='unloading'&&b.dmg===0);
+  if(bad){toast(`${bad.uid} was flagged damaged at unloading — enter a damaged quantity or override explicitly`,'err');return;}
+  const m=metrics(l), recv=m.qty+m.dmg+m.rtv;
+  /* closure compares QUANTITY, not box counts — the system knows invoiced quantity, not box totals */
+  if(recv<l.invQty && !l.ackShortQty){ l.ackShortQty=true;
+    toast(`Received ${recv} of ${l.invQty} invoiced units. Press Close again to confirm the ${l.invQty-recv}-unit shortfall.`,'err'); render(); return; }
   const n=openProbs(l).length;
-  openProbs(l).forEach(p=>{ p.status='closed'; p.closedReason='on completion';
-    p.hist.push({from:'open',to:'closed',by:'system',at:new Date()}); });
-  l.status='qc'; l.lockedBy=null; l.ackShort=false; l.closedAt=new Date();
+  openProbs(l).forEach(p=>{p.status='closed';p.closedReason='on completion';
+    p.hist.push({from:'open',to:'closed',by:'system',at:new Date()});});
+  l.status='qc'; l.lockedBy=null; l.ackShortQty=false;
   toast(`${l.sku} handed to the Team Lead${n?` · ${n} open problem(s) closed on completion`:''}`,'ok');
   S.lineId=null; go('worklist');
 }
@@ -1086,408 +980,451 @@ function closeLine(){
 /* ==========================================================================
    PROBLEM REPORTING
    ========================================================================== */
-function openProblem(codes, uid, scope, remarks){
-  S.back = ['prob','nsm'].includes(S.screen)?S.back:S.screen;
-  S.draft={codes:codes.slice(), uid:uid||null, scope:scope||'box', qty:1, remarks:remarks||'', imgs:0};
+function openProblem(codes,uid,scope,remarks){
+  S.back=['prob','nsm'].includes(S.screen)?S.back:S.screen;
+  S.boxModal=null;
+  S.draft={codes:codes.slice(),uid:uid||null,scope:scope||'box',qty:1,remarks:remarks||'',imgs:0};
   go('prob');
 }
-function renderProblem(){
+function renderProb(){
   const l=cur(), d=S.draft;
   const blk=d.codes.some(c=>codeOf(c).blk), needImg=d.codes.some(c=>codeOf(c).img);
-  const chip=(c)=>{const on=d.codes.includes(c.c);
+  const chip=c=>{const on=d.codes.includes(c.c);
     return `<div class="chip ${on?'on':''}" data-a="pCode" data-c="${c.c}"><div>${on?'☑':'☐'}</div>
       <div><b>${c.c}</b>${c.blk?' <span class="note">(blocking)</span>':''}<div class="h">${c.h}</div></div></div>`;};
-  const scopeChip=(v,t,h)=>`<div class="chip ${d.scope===v?'on':''}" data-a="pScope" data-s="${v}"><div>${d.scope===v?'◉':'○'}</div><div><b>${t}</b><div class="h">${h}</div></div></div>`;
+  const sc=(v,t,h)=>`<div class="chip ${d.scope===v?'on':''}" data-a="pScope" data-s="${v}"><div>${d.scope===v?'◉':'○'}</div><div><b>${t}</b><div class="h">${h}</div></div></div>`;
   app().innerHTML=`<div class="card">
-    ${hd(null,'Report a problem','Recorded in Manage — no external ticket. Several codes may be raised together as one event.')}
-    <div class="note">${esc(l.desc)} · ${l.sku}</div>
+    ${hd(null,'Raise an issue','Recorded in Manage — no external ticket. Several codes may be raised together as one event.')}
+    <div class="note">${esc(l.desc)} · ${l.sku}${d.uid?` · box <span class="mono">${d.uid}</span>`:''}</div>
     <div class="sec">What is wrong — tick everything that applies</div>
     <div class="codes">${CODES.map(chip).join('')}</div>
     <div class="sec">How much is affected</div>
-    <div class="codes">${scopeChip('box','The whole box','Every unit in one box')}
-      ${scopeChip('line','The whole line',`All ${l.invQty} units`)}${scopeChip('units','Some units','Enter a count')}</div>
+    <div class="codes">${sc('box','The whole box','Every unit in one box')}${sc('line','The whole line',`All ${l.invQty} units`)}${sc('units','Some units','Enter a count')}</div>
     ${d.scope==='box'?`<div class="row" style="margin-top:10px"><div class="f"><label>Which box</label>
-      ${l.boxes.length?`<select id="pUid">${l.boxes.map(b=>`<option value="${b.uid}" ${d.uid===b.uid?'selected':''}>${b.uid} · ${b.vb} · ${b.qty} units</option>`).join('')}</select>`
-        :`<span class="note">No box scanned yet on this line.</span>`}</div>
-      ${l.boxes.length?'':`<button class="btn" data-a="pScanBox">Scan the box now</button>`}</div>`:''}
+      ${live(l).length?`<select id="pUid">${live(l).map(b=>`<option value="${b.uid}" ${d.uid===b.uid?'selected':''}>${b.uid} · ${b.vb} · ${b.qty} units</option>`).join('')}</select>`
+        :'<span class="note">No box scanned yet.</span>'}</div></div>`:''}
     ${d.scope==='units'?`<div class="row" style="margin-top:10px"><div class="f"><label>Units affected</label><input class="mini" id="pQty" value="${d.qty}"></div></div>`:''}
     <div class="row" style="margin-top:10px"><div class="f" style="flex:1"><label>Notes</label><input id="pRem" value="${esc(d.remarks)}" style="min-width:280px"></div></div>
     <div class="sec">Photos${needImg?' (required for Damage)':' (optional)'}</div>
     <div>${[1,2,3].map(n=>`<span data-a="pImg" style="cursor:pointer;font-size:24px;margin-right:6px">${n<=d.imgs?'🖼️':'⬜'}</span>`).join('')}<span class="note">${d.imgs} of 3</span></div>
-    ${blk?`<div class="msg m-err" style="margin-top:10px"><b>!</b><div>At least one selected code is blocking. It will hold the line here and offer two resolutions: return to vendor, or correct in E42. It no longer prevents closure once the affected quantity is dispositioned (RC-10a).</div></div>`:''}
+    ${blk?'<div class="msg m-err" style="margin-top:10px"><b>!</b><div>At least one selected code is blocking. It holds the line here and offers two resolutions: return to vendor, or correct in E42.</div></div>':''}
     <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
       <button class="btn" data-a="pCancel">Cancel</button>
-      <button class="btn pri" data-a="pSave" ${d.codes.length?'':'disabled'}>Save</button></div>
-  </div>`;
+      <button class="btn pri" data-a="pSave" ${d.codes.length?'':'disabled'}>Save issue</button></div></div>`;
 }
-function pStash(){ const d=S.draft;
-  if($('#pRem')) d.remarks=$('#pRem').value;
-  if($('#pQty')) d.qty=Math.max(1,parseInt($('#pQty').value)||1);
-  if($('#pUid')) d.uid=$('#pUid').value; }
-function addProblem(l, codes, uid, scope, qty, remarks, imgs){
+function pStash(){const d=S.draft;
+  if($('#pRem'))d.remarks=$('#pRem').value;
+  if($('#pQty'))d.qty=Math.max(1,parseInt($('#pQty').value)||1);
+  if($('#pUid'))d.uid=$('#pUid').value;}
+function addProblem(l,codes,uid,scope,qty,remarks,imgs){
   const gid='GRP-'+(++evtSeq);
-  codes.forEach(c=>PROBLEMS.push({id:'D-'+(++evtSeq), gid, lineId:l.id, sku:l.sku, uid, scope, code:c, qty,
-    remarks, imgs:imgs||0, by:S.user, at:new Date(), status:'open', hist:[{from:'—',to:'open',by:S.user,at:new Date()}]}));
-  if(uid){ const b=l.boxes.find(x=>x.uid===uid); if(b) codes.forEach(c=>{ if(!b.probs.includes(c)) b.probs.push(c); }); }
-  if(scope==='line') codes.forEach(c=>{ if(IDENT_KEYS.includes(c)) l.ident[c]='flagged'; });
-  if(codes.some(c=>codeOf(c).blk) && l.status!=='nsm') l.status='prob';
+  codes.forEach(c=>PROBLEMS.push({id:'D-'+(++evtSeq),gid,lineId:l.id,sku:l.sku,uid,scope,code:c,qty,
+    remarks,imgs:imgs||0,by:S.user,at:new Date(),status:'open',hist:[{from:'—',to:'open',by:S.user,at:new Date()}]}));
+  if(uid){const b=l.boxes.find(x=>x.uid===uid); if(b) codes.forEach(c=>{if(!b.issues.includes(c))b.issues.push(c);});}
+  if(scope==='line') codes.forEach(c=>{if(IDENT.includes(c))l.ident[c]='flagged';});
+  if(codes.some(c=>codeOf(c).blk)&&l.status!=='nsm') l.status='prob';
   return gid;
 }
 function pSave(){
   const l=cur(), d=S.draft; pStash();
-  if(d.codes.some(c=>codeOf(c).img) && d.imgs===0){ toast('Attach at least one photo for Damage','err'); return; }
+  if(d.codes.some(c=>codeOf(c).img)&&d.imgs===0){toast('Attach at least one photo for Damage','err');return;}
   let uid=null, qty=d.qty;
-  if(d.scope==='box'){ uid = d.uid || (l.boxes[0]&&l.boxes[0].uid);
-    if(!uid){ toast('Scan the box first, or change the scope','err'); return; }
-    const b=l.boxes.find(x=>x.uid===uid); qty=b?b.qty:d.qty; }
+  if(d.scope==='box'){ uid=d.uid||(live(l)[0]&&live(l)[0].uid);
+    if(!uid){toast('Scan the box first, or change the scope','err');return;}
+    const b=live(l).find(x=>x.uid===uid); qty=b?b.qty:d.qty; }
   else if(d.scope==='line') qty=l.invQty;
-  addProblem(l, d.codes, uid, d.scope, qty, d.remarks, d.imgs);
-  toast(`${d.codes.join(' + ')} recorded against ${l.sku}`,'ok');
+  addProblem(l,d.codes,uid,d.scope,qty,d.remarks,d.imgs);
+  toast(`${d.codes.join(' + ')} recorded${uid?` against box ${uid}`:` against ${l.sku}`}`,'ok');
   go(S.back||'worklist');
 }
-function resolveGroup(gid, outcome){
-  const recs=PROBLEMS.filter(p=>p.gid===gid); if(!recs.length) return;
-  const l=line(recs[0].lineId);
-  recs.forEach(r=>{ r.hist.push({from:r.status,to:outcome,by:S.user,at:new Date()}); r.status=outcome;
-    if(r.scope==='line'&&IDENT_KEYS.includes(r.code)){ l.ident[r.code]=null; if(r.code==='MRP'){l.physMRP='';l.flags=[];} }
-    if(r.uid){ const b=l.boxes.find(x=>x.uid===r.uid); if(b) b.probs=b.probs.filter(c=>c!==r.code); } });
-  if(outcome==='e42'){
-    l.boxes=[]; l.batches=[]; l.escalated=false; l.physMRP=''; l.flags=[]; l.invoiceMRP=l.masterMRP;
-    IDENT_KEYS.forEach(k=>l.ident[k]=null); l.status='new'; l.nsm=null;
-    toast(`Corrected data pulled from E42 — recorded work on ${l.sku} was cleared. Start the line again.`,'err');
-    S.lineId=null; go('worklist'); return;
-  }
-  if(!openProbs(l).length && l.status==='prob') l.status='prog';
-  if(l.nsm){ l.nsm=null; l.status='prog'; }
-  toast(`${recs.map(r=>r.code).join(' + ')} marked for return to vendor`,'ok');
-  render();
+function resolveGroup(gid,out){
+  const rs=PROBLEMS.filter(p=>p.gid===gid); if(!rs.length)return;
+  const l=line(rs[0].lineId);
+  rs.forEach(r=>{r.hist.push({from:r.status,to:out,by:S.user,at:new Date()});r.status=out;
+    if(r.scope==='line'&&IDENT.includes(r.code)){l.ident[r.code]=null;if(r.code==='MRP'){l.physMRP='';l.flags=[];}}
+    if(r.uid){const b=l.boxes.find(x=>x.uid===r.uid);if(b)b.issues=b.issues.filter(c=>c!==r.code);}});
+  if(out==='e42'){ l.boxes=[];l.batches=[];l.escalated=false;l.physMRP='';l.flags=[];l.invoiceMRP=l.masterMRP;
+    IDENT.forEach(k=>l.ident[k]=null); l.status='new'; l.nsm=null;
+    toast(`Corrected data pulled from E42 — recorded work on ${l.sku} cleared`,'err'); S.lineId=null; go('worklist'); return; }
+  if(!openProbs(l).length&&l.status==='prob') l.status='prog';
+  if(l.nsm){l.nsm=null;l.status='prog';}
+  toast(`${rs.map(r=>r.code).join(' + ')} marked for return to vendor`,'ok'); render();
 }
 
 /* ==========================================================================
-   TEAM LEAD PANEL
+   TEAM LEAD — IBD determination, allocation, atomic post
    ========================================================================== */
 function tlLines(tab){
-  const out=[];
+  const o=[];
   Object.keys(SCN).forEach(k=>SCN[k].lines.forEach(l=>{
-    if(tab==='pending' && ['qc'].includes(l.status)) out.push(l);
-    if(tab==='repush' && l.status==='failed') out.push(l);
-    if(tab==='completed' && ['part','full','short'].includes(l.status)) out.push(l);
+    if(tab==='pending'&&l.status==='qc')o.push(l);
+    if(tab==='repush'&&l.status==='failed')o.push(l);
+    if(tab==='completed'&&['part','full','short'].includes(l.status))o.push(l);}));
+  return o;
+}
+/* IBD scenario resolution (PRD 6.13.4) */
+function ibdScenario(c){
+  const has=c.ibds.length>0;
+  if(!c.ibdConfirm&&!has) return {n:1,fmt:'standard',label:'No confirmation, no IBD → send the data as it is'};
+  if(c.ibdConfirm&&!has)  return {n:2,fmt:'blocked', label:'Confirmation, no IBD → a person adds the IBD, then check again'};
+  if(c.ibdConfirm&&has)   return {n:3,fmt:'ibd',     label:'Confirmation with IBD → post per IBD'};
+  return {n:4,fmt:'ibd',label:'No confirmation but IBD present → posts in IBD format (OI-31, unconfirmed)'};
+}
+/* box-level allocation: maximise IWDC (largest open qty first), then TGDC of the mapped warehouse */
+function allocate(c, sel){
+  const boxes=[]; sel.forEach(l=>live(l).forEach(b=>{
+    const f=freshnessAPI(l.sku,(getBatch(l,b.vb)||{}).exp);
+    if(f.pass) boxes.push({uid:b.uid,qty:sal(b)+b.dmg+b.rtv,line:l,vb:b.vb});   // freshness fails are excluded first
   }));
-  return out;
+  const rows=[], iwdc=c.ibds.filter(i=>i.loc==='IWDC').sort((a,b)=>b.open-a.open);
+  const tgdc=c.ibds.filter(i=>i.loc==='TGDC'&&i.whse===c.whse);
+  let rem=boxes.slice();
+  iwdc.forEach(i=>{ let cap=i.open, take=[], go=true;
+    while(go){ go=false;
+      const cand=rem.filter(b=>b.qty<=cap).sort((a,b)=>b.qty-a.qty)[0];
+      if(cand){take.push(cand);cap-=cand.qty;rem.splice(rem.indexOf(cand),1);go=true;} }
+    rows.push({ibd:i.id,loc:'IWDC',whse:i.whse,open:i.open,filled:i.open-cap,short:cap,boxes:take,rack:false}); });
+  if(rem.length&&tgdc.length){ const t=tgdc[0], q=rem.reduce((a,b)=>a+b.qty,0);
+    rows.push({ibd:t.id,loc:'TGDC',whse:t.whse,open:t.open,filled:q,short:Math.max(0,t.open-q),boxes:rem.slice(),rack:true}); rem=[]; }
+  const excluded=boxes.length===0&&sel.length>0;
+  return {rows, unallocated:rem, blocked:rem.length>0, excludedAll:excluded};
 }
 function renderTL(){
-  const c={pending:tlLines('pending').length, repush:tlLines('repush').length, completed:tlLines('completed').length};
-  const tab=(id,t)=>`<button class="${S.tab===id?'on':''}" data-a="tab" data-t="${id}">${t}<span class="ct">${c[id]}</span></button>`;
+  const ct={pending:tlLines('pending').length,repush:tlLines('repush').length,completed:tlLines('completed').length};
+  const tab=(id,t)=>`<button class="${S.tab===id?'on':''}" data-a="tab" data-t="${id}">${t}<span class="ct">${ct[id]}</span></button>`;
   app().innerHTML=`<div class="card">
-    ${hd(null,'Goods receipt — '+cons().dock,'Review what the operators finished, then post to SAP. You are the only Team Lead on this dock.')}
+    ${hd(null,'Goods receipt — '+cons().dock,'Review what the operators finished, resolve the payload format, then post to SAP.')}
     <div class="tabs">${tab('pending','Pending')}${tab('repush','Repush')}${tab('completed','Completed')}</div>
     <div>${tlBody()}</div>
-    ${S.tab==='pending'?`<div class="open-pt" style="margin-top:12px">Open point: the SAP interface (IDoc MBGMCR vs BAPI) and the GR payload structure are still to be confirmed with the SAP team (OI-02, OI-08a). This prototype simulates the response.</div>
-      <div class="note" style="margin-top:6px">Short and extra are netted on the line and never sent to SAP. Manage sends <b>SKU + Vendor Batch</b> and never a Batch ID — SAP determines it and returns one per key (§6.16).</div>`:''}
-  </div>`;
+    ${S.tab==='pending'?`<div class="note" style="margin-top:8px">Short and extra are netted on the line and never sent to SAP. Manage sends <b>SKU + Vendor Batch</b> and never a Batch ID — SAP determines it and returns one per key.</div>
+      <div class="open-pt" style="margin-top:6px">Open: the IDoc-vs-BAPI selection (OI-02a) and the RVDC flag field name (OI-08b). Atomic multi-line posting is native to SAP, so Manage carries no compensating logic.</div>`:''}</div>`;
 }
 function tlBody(){
   const ls=tlLines(S.tab);
   if(!ls.length) return `<div class="note">${S.tab==='pending'?'Nothing waiting. Lines appear here once an operator closes receiving.':S.tab==='repush'?'Nothing rejected.':'Nothing posted yet.'}</div>`;
-  const byInv={}; ls.forEach(l=>{ (byInv[l.ckey]=byInv[l.ckey]||[]).push(l); });
-  const rows=Object.entries(byInv).map(([k,il])=>{
-    const c=SCN[k], open=S.open[k+S.tab];
+  const byInv={}; ls.forEach(l=>(byInv[l.ckey]=byInv[l.ckey]||[]).push(l));
+  return Object.entries(byInv).map(([k,il])=>{
+    const c=SCN[k], open=S.open[k+S.tab], sc=ibdScenario(c);
     const inv=il.reduce((a,l)=>a+l.invQty,0);
-    const rec=il.reduce((a,l)=>a+l.boxes.reduce((x,b)=>x+sal(b)+b.dmg+b.rtv,0),0);
-    const nb=il.reduce((a,l)=>a+l.batches.length,0);
+    const recv=il.reduce((a,l)=>a+live(l).reduce((x,b)=>x+sal(b)+b.dmg+b.rtv,0),0);
     const selN=il.filter(l=>l.selected).length;
-    const sel = S.tab==='pending'?`<input type="checkbox" data-a="selInv" data-k="${k}" ${selN===il.length?'checked':''}>`:'';
-    let out=`<tr class="inv"><td>${sel}</td>
-      <td><span class="chev" data-a="exp" data-k="${k}">${open?'▾':'▸'}</span> ${c.inv}
-        <div class="note">${c.vendor.name} · PO ${c.po} · ${il.length} line(s)${S.tab==='pending'?` · ${selN} selected`:''}</div></td>
-      <td>${inv}</td><td>${rec}</td><td>${nb}</td>
-      <td class="note">${S.tab==='completed'?'posted':S.tab==='repush'?'rejected':'awaiting GR'}</td></tr>`;
-    if(open) out+=il.map(l=>tlLineRow(l)).join('');
-    return out;
-  }).join('');
-  return `<table><thead><tr><th style="width:30px"></th><th>Invoice / line</th><th>Invoiced</th><th>Received</th><th>Batches</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+    const ibdBox = S.tab==='pending' ? `
+      <div class="msg ${sc.fmt==='blocked'?'m-err':sc.fmt==='ibd'?'m-info':'m-ok'}" style="margin:8px 0">
+        <b>${sc.n}</b><div><b>IBD scenario ${sc.n}</b> — ${esc(sc.label)}<br>
+        Confirmation: <b>${c.ibdConfirm?'Yes':'No'}</b> · IBD details: <b>${c.ibds.length?c.ibds.length+' IBD(s)':'none'}</b> ·
+        payload format: <b>${sc.fmt==='blocked'?'blocked until an IBD exists':sc.fmt.toUpperCase()}</b>
+        ${sc.fmt==='blocked'?`<div style="margin-top:7px;display:flex;gap:7px;flex-wrap:wrap">
+          <span class="pill p-err">Awaiting IBD</span>
+          <button class="btn sm" data-a="addIbd" data-k="${k}">A person adds the IBD manually</button>
+          <button class="btn sm pri" data-a="reCheck" data-k="${k}">Run the check again</button></div>`:''}
+        ${c.ibds.length?`<div style="margin-top:7px">${c.ibds.map(i=>`<span class="pill ${i.loc==='IWDC'?'p-info':'p-ok'}" style="margin:0 5px 5px 0">${i.id} · ${i.loc} · ${i.whse} · open ${i.open}</span>`).join('')}</div>`:''}
+        </div></div>` : '';
+    let out=`<div class="card" style="margin:0 0 12px">
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        ${S.tab==='pending'?`<input type="checkbox" data-a="selInv" data-k="${k}" ${selN===il.length?'checked':''}>`:''}
+        <span class="chev" data-a="exp" data-k="${k}">${open?'▾':'▸'}</span>
+        <b>${c.inv}</b><span class="note">${c.vendor.name} · PO ${c.po} · ${il.length} line(s)${S.tab==='pending'?` · ${selN} selected`:''}</span>
+        <div class="spacer"></div><span class="note">${inv} invoiced · ${recv} received</span></div>
+      ${ibdBox}`;
+    if(open) out+=`<table><thead><tr><th style="width:26px"></th><th>Line</th><th>Invoiced</th><th>Received</th><th>Batches</th><th>Status</th></tr></thead>
+      <tbody>${il.map(l=>tlRow(l)).join('')}</tbody></table>`;
+    if(S.tab==='pending'&&sc.fmt!=='blocked'&&il.some(l=>l.selected)) out+=allocPreview(c,il.filter(l=>l.selected),sc);
+    out+='</div>';
+    return out;}).join('');
 }
-function tlLineRow(l){
-  const t=l.boxes.reduce((a,b)=>({s:a.s+sal(b),d:a.d+b.dmg,r:a.r+b.rtv,sh:a.sh+b.short,e:a.e+b.excess}),{s:0,d:0,r:0,sh:0,e:0});
-  const cb = S.tab==='pending'?`<input type="checkbox" data-a="selLine" data-id="${l.id}" ${l.selected?'checked':''}>`:'';
-  return `<tr class="sku"><td>${cb}</td>
-    <td style="padding-left:26px"><b>${l.sku}</b><div class="note">${esc(l.desc)}</div>
+function tlRow(l){
+  const m=metrics(l);
+  const cb=S.tab==='pending'?`<input type="checkbox" data-a="selLine" data-id="${l.id}" ${l.selected?'checked':''}>`:'';
+  return `<tr><td>${cb}</td>
+    <td><b>${l.sku}</b><div class="note">${esc(l.desc)}</div>
       ${l.eligible?'<span class="pill p-ok">skipped inspection</span>':''}
       ${l.e42Note?`<div class="note" style="color:var(--err)">⚠ ${esc(l.e42Note)}</div>`:''}
       <div class="note">batches: ${l.batches.map(b=>b.sapBatchId?`<span class="mono">${b.sapBatchId}</span>`:b.vb).join(', ')||'—'}</div>
       ${l.grns.length?`<div class="note">GRNs: ${l.grns.map(g=>`<span class="mono">${g}</span>`).join(', ')} · posted ${l.postedQty}, remaining ${remaining(l)}</div>`:''}
-      ${l.shortClosed?`<div class="note" style="color:var(--grey)">short-closed: ${esc(l.shortClosed)}</div>`:''}
+      ${l.shortClosed?`<div class="note">short-closed: ${esc(l.shortClosed)}</div>`:''}
       <div style="margin-top:5px;display:flex;gap:6px;flex-wrap:wrap">
         ${S.tab==='pending'?`<label class="note"><input type="checkbox" data-a="forceErr" data-id="${l.id}" ${l.forceErr?'checked':''}> simulate SAP rejection</label>`:''}
-        ${S.tab==='repush'?`<button class="btn sm pri" data-a="repushOne" data-id="${l.id}">Repush this submission</button>`:''}
+        ${S.tab==='repush'?`<button class="btn sm pri" data-a="repushOne" data-id="${l.id}">Repush submission</button>`:''}
         ${S.tab==='completed'&&l.status==='part'?`<button class="btn sm" data-a="shortClose" data-id="${l.id}">Short-close remaining ${remaining(l)}</button>`:''}
       </div></td>
-    <td>${l.invQty}</td>
-    <td>${t.s+t.d+t.r}<div class="note">good ${t.s} · dmg ${t.d} · ret ${t.r}</div>
-      ${t.sh||t.e?`<div class="note">short ${t.sh} · extra ${t.e} (not posted)</div>`:''}</td>
-    <td>${l.batches.length}</td>
-    <td>${statPill(l.status)}${openProbs(l).length?`<div class="note" style="color:var(--err)">${openProbs(l).length} open problem(s)</div>`:''}</td></tr>`;
+    <td>${l.invQty}</td><td>${m.qty+m.dmg+m.rtv}<div class="note">good ${m.qty} · dmg ${m.dmg} · ret ${m.rtv}</div></td>
+    <td>${l.batches.length}</td><td>${statPill(l.status)}</td></tr>`;
 }
-
-/* ---------- SAP submission (atomic) ---------- */
+function allocPreview(c,sel,sc){
+  if(sc.fmt!=='ibd') return `<div class="msg m-ok"><b>✓</b><div><b>Standard format.</b> No IBD applies, so the QC data is sent as it is with no allocation step.</div></div>`;
+  const a=allocate(c,sel); S.alloc=a;
+  if(c.ibds.length===1) return `<div class="msg m-info"><b>1</b><div><b>Single IBD.</b> All QC details for the selected lines go in <b>${c.ibds[0].id}</b>; no allocation step runs.</div></div>`;
+  return `<div class="sec">Allocation preview — maximise IWDC first (largest open quantity), then the TGDC of ${c.whse}</div>
+    <table><thead><tr><th>IBD</th><th>Location</th><th>Warehouse</th><th>Open</th><th>Boxes</th><th>Filled</th><th>Shortfall</th><th>Rack-in eligible</th></tr></thead>
+    <tbody>${a.rows.map(r=>`<tr><td class="mono">${r.ibd}</td>
+      <td><span class="pill ${r.loc==='IWDC'?'p-info':'p-ok'}">${r.loc}</span></td><td class="note">${r.whse}</td>
+      <td>${r.open}</td><td>${r.boxes.length}</td><td>${r.filled}</td>
+      <td>${r.short?`<span class="pill p-warn">${r.short} left open</span>`:'<span class="note">0</span>'}</td>
+      <td>${r.rack?'<span class="pill p-ok">Yes</span>':'<span class="pill p-grey">No — cross-dock</span>'}</td></tr>`).join('')}</tbody></table>
+    ${a.blocked?`<div class="msg m-err"><b>!</b><div><b>${a.unallocated.length} box(es) cannot be allocated</b> — no TGDC IBD exists for ${c.whse}. The submission is blocked rather than posting a partial allocation.</div></div>`:''}
+    <div class="note">IWDC IBDs are filled first, ordered by <b>largest open quantity</b>. A box is never split, so an IBD is often left slightly short — shortfall is acceptable, over-allocation is not. Batches that failed freshness are excluded before allocation begins, so they can never reach a cross-dock lane.</div>`;
+}
+function ibdCheck(){
+  const c=cons(), sc=ibdScenario(c);
+  SAP_LOG.push({t:new Date(),kind:'IBD check → SAP (existing capability)',data:{po:c.po,ibd_confirmation:c.ibdConfirm,ibds:c.ibds,scenario:sc.n,format:sc.fmt}});
+  toast(`IBD check: scenario ${sc.n} — ${sc.label}`, sc.fmt==='blocked'?'err':'ok'); render();
+}
 function submitGR(){
-  const sel=tlLines('pending').filter(l=>l.selected);
-  if(!sel.length) return;
-  const sub={id:'SUB-'+(++subSeq), at:new Date(), by:'teamlead.dock3', lines:sel.map(l=>l.id), state:'submitted', attempt:1};
+  const c=cons(), sel=tlLines('pending').filter(l=>l.selected&&l.ckey===S.key);
+  if(!sel.length){toast('Select lines on this invoice first','err');return;}
+  const sc=ibdScenario(c);
+  if(sc.fmt==='blocked'){toast('Awaiting IBD — a person must add the IBD, then run the check again. Nothing is posted and no standard-format fallback is attempted.','err');return;}
+  let alloc=null;
+  if(sc.fmt==='ibd'&&c.ibds.length>1){ alloc=allocate(c,sel);
+    if(alloc.blocked){toast(`${alloc.unallocated.length} box(es) unallocated — no TGDC IBD for ${c.whse}. Submission blocked.`,'err');return;} }
+  const sub={id:'SUB-'+(++subSeq),at:new Date(),lines:sel.map(l=>l.id),state:'submitted',attempt:1,key:S.key,fmt:sc.fmt};
   SUBS.push(sub);
-  // build the payload: SKU + Vendor Batch, never a Batch ID
-  const payload={submission:sub.id, lines:sel.map(l=>({
+  const payload={submission:sub.id, format:sc.fmt, po:c.po, lines:sel.map(l=>({
     line:l.id, sku:l.sku, invoiced:l.invQty,
-    batches:l.batches.map(b=>{
-      const f=freshnessAPI(l.sku,b.exp);
+    batches:l.batches.map(b=>{const f=freshnessAPI(l.sku,b.exp);
       return {sku:l.sku, vendor_batch:b.vb, mfg:b.mfg, exp:b.exp, qty:batchQty(l,b),
-              disposition: f.pass?'TGDC':'RVDC',
-              rvdc_freshness_flag: f.pass?undefined:'TBD — field name pending SAP (OI-08a)'};
-    })}))};
-  SAP_LOG.push({t:new Date(), kind:'GR payload → SAP', data:payload});
-
-  const rejected = sel.find(l=>l.forceErr);
-  if(rejected){
-    sub.state='rejected'; sub.error=`SKU–SLOC–Plant extension missing for ${rejected.sku}`;
-    sel.forEach(l=>l.status='failed');
-    SAP_LOG.push({t:new Date(), kind:'SAP response ← rejected', data:{submission:sub.id, error:sub.error,
-      note:'Atomic: no line posted, including lines SAP would have accepted (TL-08)'}});
-    toast(`Submission rejected — ${rejected.sku}. Nothing posted; the whole submission moved to Repush.`,'err');
-    S.tab='repush'; render(); return;
-  }
-  postSubmission(sub, sel);
-  toast(`Submission ${sub.id} posted — ${sel.length} line(s), ${sel.reduce((a,l)=>a+l.grns.length,0)} GRN(s) total`,'ok');
+        disposition:f.pass?'TGDC':'RVDC',
+        rvdc_freshness_flag:f.pass?undefined:'<line-item level; field name pending OI-08b>'};})}))};
+  if(alloc) payload.ibd_allocation=alloc.rows.map(r=>({ibd:r.ibd,location:r.loc,warehouse:r.whse,
+    boxes:r.boxes.map(b=>b.uid),filled:r.filled,shortfall:r.short,rack_in_eligible:r.rack}));
+  else if(sc.fmt==='ibd') payload.ibd=c.ibds[0].id;
+  SAP_LOG.push({t:new Date(),kind:`GR payload → SAP (${sc.fmt.toUpperCase()} format)`,data:payload});
+  const rej=sel.find(l=>l.forceErr);
+  if(rej){ sub.state='rejected'; sel.forEach(l=>l.status='failed');
+    SAP_LOG.push({t:new Date(),kind:'SAP response ← rejected',data:{submission:sub.id,
+      error:`SKU–SLOC–Plant extension missing for ${rej.sku}`,note:'Atomic and native in SAP: no line posted'}});
+    toast(`Submission rejected — ${rej.sku}. Nothing posted; moved to Repush.`,'err'); S.tab='repush'; render(); return; }
+  postSub(sub,sel,alloc,c); toast(`Submission ${sub.id} posted in ${sc.fmt.toUpperCase()} format`,'ok');
   S.tab='completed'; render();
 }
-function postSubmission(sub, sel){
-  const resp={submission:sub.id, batch_ids:[], grns:[]};
+function postSub(sub,sel,alloc,c){
+  const resp={submission:sub.id,batch_ids:[],grns:[],rack_in:[]};
   sel.forEach(l=>{
-    // SAP returns exactly ONE batch_id per SKU + Vendor Batch (OI-29)
     l.batches.forEach(b=>{
-      const key=bkey(l.sku,b.vb);
-      if(!SAP_BATCH_REG[key]) SAP_BATCH_REG[key]='B'+(++sapBatchSeq)+'-'+b.mfg.slice(2,7).replace('-','');
-      // simulate one batch where SAP returns nothing -> unresolved, cleared automatically
-      if(b.vb==='VB-3311' && !b.sapBatchId && !b.triedOnce){ b.triedOnce=true; b.unresolved=true;
-        resp.batch_ids.push({sku:l.sku, vendor_batch:b.vb, batch_id:null, note:'not returned'});
-        scheduleBatchIdJob(l,b); return; }
+      const key=l.sku+'|'+b.vb;
+      if(!SAP_BATCH_REG[key]) SAP_BATCH_REG[key]='B'+(++sapSeq)+'-'+b.mfg.slice(2,7).replace('-','');
+      if(b.vb==='VB-3311'&&!b.sapBatchId&&!b.tried){ b.tried=true;b.unresolved=true;
+        resp.batch_ids.push({sku:l.sku,vendor_batch:b.vb,batch_id:null,note:'not returned'});
+        setTimeout(()=>{ b.sapBatchId=SAP_BATCH_REG[key]; b.unresolved=false;
+          SAP_LOG.push({t:new Date(),kind:'Batch ID reconciliation job',data:{sku:l.sku,vendor_batch:b.vb,batch_id:b.sapBatchId,note:'cleared automatically, no user action'}});
+          toast(`Reconciliation job resolved Batch ID for ${b.vb} → ${b.sapBatchId}`,'ok'); if(S.role==='tl') render(); },3500);
+        return; }
       b.sapBatchId=SAP_BATCH_REG[key]; b.unresolved=false;
-      resp.batch_ids.push({sku:l.sku, vendor_batch:b.vb, batch_id:b.sapBatchId});
-    });
-    const postedNow=l.boxes.reduce((a,b)=>a+sal(b)+b.dmg+b.rtv,0);
-    const grn='49'+Math.floor(1000000+Math.random()*8999999);
-    l.grns.push(grn); l.postedQty=Math.min(l.invQty, l.postedQty+postedNow);
-    resp.grns.push({line:l.id, grn, qty:postedNow});
-    l.status = remaining(l)>0 ? 'part' : 'full';
-    l.boxes=[]; l.ackShort=false;      // posted boxes leave the working set
-    if(l.status==='part'){ l.batches=l.batches.filter(b=>b.sapBatchId||b.unresolved); }
-  });
+      resp.batch_ids.push({sku:l.sku,vendor_batch:b.vb,batch_id:b.sapBatchId}); });
+    const m=metrics(l), posted=m.qty+m.dmg+m.rtv, grn='49'+Math.floor(1000000+Math.random()*8999999);
+    l.grns.push(grn); l.postedQty=Math.min(l.invQty,l.postedQty+posted);
+    resp.grns.push({line:l.id,grn,qty:posted});
+    // rack-in eligibility per box
+    live(l).forEach(b=>{
+      const f=freshnessAPI(l.sku,(getBatch(l,b.vb)||{}).exp);
+      let elig=false, why='';
+      if(!f.pass){ why='freshness failure → RVDC'; }
+      else if(alloc){ const r=alloc.rows.find(x=>x.boxes.find(y=>y.uid===b.uid));
+        if(r){ elig=r.rack; why=r.rack?`TGDC of ${r.whse}`:`${r.loc} ${r.ibd} — cross-dock`; } else why='not allocated'; }
+      else { elig=true; why=`TGDC of ${c.whse}`; }
+      resp.rack_in.push({box:b.uid,rack_in_eligible:elig,reason:why}); });
+    l.status=remaining(l)>0?'part':'full'; l.boxes=[]; l.ackShortQty=false;
+    l.batches=l.batches.filter(b=>b.sapBatchId||b.unresolved); });
   sub.state='posted'; sub.resp=resp;
-  SAP_LOG.push({t:new Date(), kind:'SAP response ← posted', data:resp});
-}
-function scheduleBatchIdJob(l,b){
-  // BID-14: system job re-queries SAP and clears the state automatically
-  setTimeout(()=>{
-    const key=bkey(l.sku,b.vb);
-    b.sapBatchId=SAP_BATCH_REG[key]; b.unresolved=false;
-    SAP_LOG.push({t:new Date(), kind:'Batch ID reconciliation job', data:{sku:l.sku, vendor_batch:b.vb, batch_id:b.sapBatchId, note:'cleared automatically, no user action (BID-14)'}});
-    toast(`Reconciliation job resolved Batch ID for ${b.vb} → ${b.sapBatchId}`,'ok');
-    if(S.role==='tl') render();
-  }, 3500);
+  SAP_LOG.push({t:new Date(),kind:'SAP response ← posted',data:resp});
 }
 
 /* ==========================================================================
    REGISTER / DRAWERS
    ========================================================================== */
-function renderRegister(){
+function renderReg(){
   const f=S.regFilter;
   const rows=PROBLEMS.filter(p=>!f||p.code===f).map(p=>`<tr>
     <td class="note mono">${p.id}</td><td><span class="pill p-err">${p.code}</span></td>
     <td>${p.sku}<div class="note">${p.uid?'box '+p.uid:p.scope==='line'?'whole line':'part of the line'}</div></td>
     <td>${p.qty}</td><td class="note">${esc(p.remarks)||'—'}</td>
-    <td>${p.status==='open'?'<span class="pill p-err">open</span>':p.status==='rtv'?'<span class="pill p-err">returning</span>':p.status==='e42'?'<span class="pill p-ok">corrected in E42</span>':'<span class="pill p-ok">closed'+(p.closedReason?' · '+p.closedReason:'')+'</span>'}
+    <td>${p.status==='open'?'<span class="pill p-err">open</span>':p.status==='rtv'?'<span class="pill p-err">returning</span>'
+      :p.status==='e42'?'<span class="pill p-ok">corrected in E42</span>':`<span class="pill p-ok">closed${p.closedReason?' · '+p.closedReason:''}</span>`}
       ${p.status==='open'?`<div style="margin-top:4px"><select data-a="pStatus" data-id="${p.id}">
         <option value="">change status…</option><option value="rtv">Returned to vendor</option>
         <option value="e42">Corrected in E42</option><option value="closed">Closed</option></select></div>`:''}</td>
     <td class="note">${p.by}<br>${p.at.toLocaleTimeString()}<div class="note">${p.hist.length} change(s)</div></td></tr>`).join('');
-  app().innerHTML=`<div class="card">
-    ${hd(null,'Problems recorded','Everything raised on this dock, held in Manage. Status is manually changeable while the line is unposted.')}
+  app().innerHTML=`<div class="card">${hd(null,'Issues recorded','Held in Manage. Status is manually changeable while the line is unposted.')}
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
       <button class="btn sm ${!f?'pri':''}" data-a="regF" data-c="">All</button>
       ${CODES.map(c=>`<button class="btn sm ${f===c.c?'pri':''}" data-a="regF" data-c="${c.c}">${c.c}</button>`).join('')}</div>
     ${rows?`<table><thead><tr><th>Ref</th><th>Code</th><th>Line</th><th>Units</th><th>Notes</th><th>Status</th><th>Raised</th></tr></thead><tbody>${rows}</tbody></table>`
       :'<div class="note">Nothing recorded yet.</div>'}
-    <div class="note" style="margin-top:10px">Short, Extra and Return are quantity outcomes, not reason codes, so they never appear here (BR-43).</div>
-  </div>`;
+    <div class="note" style="margin-top:10px">Short, Extra and Return are quantity outcomes, not reason codes, so they never appear here.</div></div>`;
 }
-function drawer(html){ $('#drawer').innerHTML=html; $('#drawer').classList.remove('hide'); $('#ovl').classList.remove('hide'); }
-function closeDrawer(){ $('#drawer').classList.add('hide'); $('#ovl').classList.add('hide'); }
+function drawer(h){$('#drawer').innerHTML=h;$('#drawer').classList.remove('hide');$('#ovl').classList.remove('hide');}
+function closeAll(){$('#drawer').classList.add('hide');$('#modal').classList.add('hide');$('#ovl').classList.add('hide');
+  S.boxModal=null;S.delConfirm=null;}
 function openCfg(){
   drawer(`<div style="display:flex;align-items:center"><h3>Configuration</h3><div class="spacer"></div>
-    <button class="btn sm" data-a="closeDrawer">Close</button></div>
-    <p class="note">dc_qc_config_green_channel — maintained through the configuration panel by the Product team (CFG-09). No deployment needed.</p>
+    <button class="btn sm" data-a="closeAll">Close</button></div>
+    <p class="note">dc_qc_config_green_channel — maintained through the configuration panel by the Product team. Overlaps resolve by <b>latest effective wins</b>.</p>
     <div class="f"><label>Sample percentage (% of SKU quantity)</label><input id="cPct" value="${CFG.samplePct}"></div>
-    <div class="f" style="margin-top:8px"><label>Sample cap (BOXES — applied after the unit→box conversion)</label><input id="cCap" value="${CFG.sampleCap}"></div>
+    <div class="f" style="margin-top:8px"><label>Sample cap (BOXES, applied after the unit→box conversion)</label><input id="cCap" value="${CFG.sampleCap}"></div>
     <div class="f" style="margin-top:8px"><label>Escalation threshold (% of inspected boxes)</label><input id="cEsc" value="${CFG.escPct}"></div>
     <div class="f" style="margin-top:8px"><label>Batch date-consistency window (days)</label><input id="cWin" value="${CFG.windowDays}"></div>
+    <div class="f" style="margin-top:8px"><label>MFG sanity floor (days) — value pending OI-15a</label><input id="cFloor" value="${CFG.mfgFloorDays}"></div>
     <div class="f" style="margin-top:8px"><label>Line lock idle timeout (minutes)</label><input id="cLock" value="${CFG.lockMins}"></div>
     <button class="btn pri" style="margin-top:12px" data-a="saveCfg">Apply configuration</button>
     <div class="sec">Green Channel eligibility (Gate 2)</div>
     ${Object.keys(ELIG).map(k=>`<label style="display:block;font-size:13px;margin-bottom:4px">
-      <input type="checkbox" data-a="elig" data-k="${k}" ${ELIG[k]?'checked':''}> ${k} <span class="note">${esc((SKU_MASTER[k]||{}).desc||'')}</span></label>`).join('')}
+      <input type="checkbox" data-a="elig" data-k="${k}" ${ELIG[k]?'checked':''}> ${k} <span class="note">${esc((SKU[k]||{}).d||'')}</span></label>`).join('')}
     <div class="sec">Change audit (dc_qc_config_audit)</div>
     ${CFG_AUDIT.length?CFG_AUDIT.slice().reverse().map(a=>`<div class="note">${a.at.toLocaleTimeString()} — ${a.p}: ${a.from} → ${a.to} by ${a.by}</div>`).join(''):'<div class="note">No changes yet.</div>'}
-    <div class="open-pt" style="margin-top:12px">Fails closed: an absent vendor row blocks intake rather than defaulting a line to Green-direct (CFG-06).</div>`);
+    <div class="open-pt" style="margin-top:12px">Fails closed: an absent vendor row blocks intake rather than defaulting a line to Green-direct.</div>`);
 }
 function saveCfg(){
-  const set=(p,id,k)=>{ const v=parseInt($(id).value); if(!isNaN(v)&&v!==CFG[k]){ CFG_AUDIT.push({p,from:CFG[k],to:v,by:'product.admin',at:new Date()}); CFG[k]=v; } };
+  const set=(p,id,k)=>{const v=parseInt($(id).value);
+    if(!isNaN(v)&&v!==CFG[k]){CFG_AUDIT.push({p,from:CFG[k],to:v,by:'product.admin',at:new Date()});CFG[k]=v;}};
   set('Sample percentage','#cPct','samplePct'); set('Sample cap (boxes)','#cCap','sampleCap');
-  set('Escalation threshold','#cEsc','escPct'); set('Batch window','#cWin','windowDays'); set('Lock timeout','#cLock','lockMins');
-  toast('Configuration applied — resolved on next evaluation','ok'); closeDrawer(); render();
+  set('Escalation threshold','#cEsc','escPct'); set('Batch window','#cWin','windowDays');
+  set('MFG sanity floor','#cFloor','mfgFloorDays'); set('Lock timeout','#cLock','lockMins');
+  toast('Configuration applied — resolved on next evaluation','ok'); closeAll(); render();
 }
 function openSap(){
   drawer(`<div style="display:flex;align-items:center"><h3>SAP &amp; interface log</h3><div class="spacer"></div>
-    <button class="btn sm" data-a="closeDrawer">Close</button></div>
-    <p class="note">Simulated payloads and responses. Note that outbound payloads carry <b>SKU + Vendor Batch</b> and never a Batch ID.</p>
+    <button class="btn sm" data-a="closeAll">Close</button></div>
+    <p class="note">Simulated payloads and responses. Outbound GR payloads carry <b>SKU + Vendor Batch</b> and never a Batch ID.</p>
     ${SAP_LOG.length?SAP_LOG.slice().reverse().map(e=>`<div class="sec">${e.t.toLocaleTimeString()} — ${e.kind}</div>
-      <pre>${esc(JSON.stringify(e.data!==undefined?e.data:{raw:e.raw,outcome:e.outcome,sym:e.sym,why:e.why,sku:e.sku,skus:e.skus,resolved:e.resolved,line:e.line},null,1))}</pre>`).join('')
+      <pre>${esc(JSON.stringify(e.data!==undefined?e.data:{raw:e.raw,outcome:e.outcome,sym:e.sym,why:e.why,sku:e.sku,skus:e.skus,resolved:e.resolved},null,1))}</pre>`).join('')
       :'<div class="note">Nothing logged yet.</div>'}`);
 }
 
 /* ==========================================================================
    EVENTS
    ========================================================================== */
-document.addEventListener('click', e=>{
+document.addEventListener('click',e=>{
   const t=e.target.closest('[data-a]'); if(!t) return;
   const a=t.dataset.a, id=t.dataset.id, k=t.dataset.k, c=t.dataset.c, uid=t.dataset.uid, vb=t.dataset.vb;
   const l=S.lineId?cur():null;
   switch(a){
-    case 'role': S.role=t.dataset.r;
-      S.screen = S.role==='tl'?'tl':(!S.started?'intake':(S.lineId?S.screen:'worklist')); render(); break;
-    case 'toIntake': S.role='op'; S.lineId=null; S.refresh=null; S.nqForm=null; S.pendingQR=null; S.screen='intake'; render(); break;
-    case 'openReg': S.prev=S.screen; S.screen='reg'; render(); break;
-    case 'closeReg': S.screen=S.prev||(S.role==='tl'?'tl':'worklist'); render(); break;
-    case 'regF': S.regFilter=c; render(); break;
+    case 'role': S.role=t.dataset.r; S.screen=S.role==='tl'?'tl':(!S.started?'intake':(S.lineId?S.screen:'worklist'));
+      if(S.role==='tl'&&tlLines('pending').length) S.tab='pending';   // land on work that needs doing
+      render(); break;
+    case 'toIntake': S.role='op';S.lineId=null;S.refresh=null;S.nqForm=null;S.pendingQR=null;S.screen='intake';render(); break;
+    case 'openReg': S.prev=S.screen;S.screen='reg';render(); break;
+    case 'closeReg': S.screen=S.prev||(S.role==='tl'?'tl':'worklist');render(); break;
+    case 'regF': S.regFilter=c;render(); break;
     case 'openCfg': openCfg(); break;
     case 'saveCfg': saveCfg(); break;
     case 'openSap': openSap(); break;
-    case 'closeDrawer': closeDrawer(); break;
-    case 'elig': ELIG[k]=t.checked; CFG_AUDIT.push({p:'Eligibility '+k,from:!t.checked,to:t.checked,by:'product.admin',at:new Date()});
-      toast(`${k} ${t.checked?'added to':'removed from'} the Green Channel list`); render(); break;
+    case 'closeAll': closeAll();render(); break;
+    case 'elig': ELIG[k]=t.checked;CFG_AUDIT.push({p:'Eligibility '+k,from:!t.checked,to:t.checked,by:'product.admin',at:new Date()});
+      toast(`${k} ${t.checked?'added to':'removed from'} the Green Channel list`);render(); break;
     case 'check': doCheck(); break;
     case 'startQC': startQC(); break;
     case 'refresh': doRefresh(); break;
     case 'applyRefresh': applyRefresh(); break;
-    case 'cancelRefresh': S.refresh=null; toast('Change discarded — it can be pulled again later'); render(); break;
-    case 'ack': line(id).ackChange=true; toast('Highlight acknowledged — session-scoped, per user (E42-10)'); render(); break;
+    case 'cancelRefresh': S.refresh=null;toast('Change discarded');render(); break;
+    case 'ack': line(id).ackChange=true;toast('Highlight acknowledged — session-scoped, per user');render(); break;
     case 'open': openLine(id); break;
     case 'release': release(); break;
     case 'eanScan': eanScan(); break;
     case 'eanFill': $('#eanIn').value=t.dataset.v; break;
     case 'eanPick': { const sku=t.dataset.sku;
-      if(sku!==l.sku){ $('#eanOut').innerHTML=`<div class="msg m-err"><b>✕</b><div>You selected ${sku}, which is not the SKU on this line (${l.sku}).</div></div>`; }
-      else { l.eanResolved=$('#eanIn').value.trim(); $('#eanOut').innerHTML=`<div class="msg m-ok"><b>✓</b><div><b>${sku} selected.</b> Identity data populated.</div></div>`; }
-      break; }
+      $('#eanOut').innerHTML = sku!==l.sku
+        ? `<div class="msg m-err"><b>✕</b><div>You selected ${sku}, which is not the SKU on this line (${l.sku}).</div></div>`
+        : `<div class="msg m-ok"><b>✓</b><div><b>${sku} selected.</b> Identity data populated.</div></div>`; break; }
     case 'mrpChk': mrpChk(); break;
-    case 'attrOk': l.ident[k]='ok'; render(); break;
-    case 'attrBad': openProblem([k], null, 'line', ''); break;
-    case 'attrRst': l.ident[k]=null; if(k==='MRP'){l.physMRP='';l.rekeyed=false;l.flags=[];} render(); break;
-    case 'multiProb': openProblem([], null, 'line', ''); break;
-    case 'openProb': openProblem([c], null, 'line', ''); break;
-    case 'openProbBox': openProblem(['Damage'], uid, 'box', ''); break;
+    case 'attrOk': l.ident[k]='ok';render(); break;
+    case 'attrBad': openProblem([k],null,'line',''); break;
+    case 'attrRst': l.ident[k]=null;if(k==='MRP'){l.physMRP='';l.rekeyed=false;l.flags=[];}render(); break;
+    case 'multiProb': openProblem([],null,'line',''); break;
+    case 'openProb': openProblem([c],null,'line',''); break;
     case 'toSample': go('sample'); break;
     case 'toRecv': go('recv'); break;
     case 'scanQR': scanQR(!!t.dataset.bad); break;
     case 'scanUID': scanUID(!!t.dataset.dup); break;
     case 'recvScan': recvScanNQ(); break;
-    case 'clearFlag': { const b=l.boxes.find(x=>x.uid===uid);
-      b.dmgSrc='cleared'; b.panelFlag=false;
-      PROBLEMS.push({id:'D-'+(++evtSeq), gid:'GRP-'+(++evtSeq), lineId:l.id, sku:l.sku, uid, scope:'box', code:'Damage',
-        qty:0, remarks:'Unloading flag cleared by operator — box found intact (override, reason mandatory)', imgs:0,
-        by:S.user, at:new Date(), status:'closed', closedReason:'override', hist:[{from:'—',to:'closed',by:S.user,at:new Date()}]});
-      toast(`${uid}: unloading flag cleared with a reason. The original panel value is retained in audit (DMG-06).`,'ok'); render(); break; }
-    case 'closeLine': closeLine(); break;
-    case 'nqAdd': S.nqForm={vb:'', mfg:dOff(-120), exp:dOff(400), dmgQty:0, rtvQty:0, editing:null}; render(); break;
-    case 'nqEdit': { const b=getBatch(l,vb); S.nqForm={vb:b.vb,mfg:b.mfg,exp:b.exp,dmgQty:b.dmgQty,rtvQty:b.rtvQty,editing:b.vb}; render(); break; }
+    case 'nqAdd': S.nqForm={vb:'',mfg:dOff(-120),exp:dOff(400),saleableQty:50,dmgQty:0,rtvQty:0,editing:null};render(); break;
+    case 'nqEdit': { const b=getBatch(l,vb);
+      S.nqForm={vb:b.vb,mfg:b.mfg,exp:b.exp,saleableQty:b.saleableQty,dmgQty:b.dmgQty,rtvQty:b.rtvQty,editing:b.vb};render(); break; }
     case 'nqDel': { const b=getBatch(l,vb);
-      if(batchBoxes(l,b).length){ toast(`Batch ${vb} holds ${batchBoxes(l,b).length} box(es) — remove them before deleting (NQ-15)`,'err'); break; }
-      l.batches=l.batches.filter(x=>x.vb!==vb); toast(`Batch ${vb} deleted`,'ok'); render(); break; }
-    case 'nqCancel': S.nqForm=null; render(); break;
+      if(batchBoxes(l,b).length){toast(`Batch ${vb} holds ${batchBoxes(l,b).length} box(es) — remove them before deleting the batch`,'err');break;}
+      l.batches=l.batches.filter(x=>x.vb!==vb);toast(`Batch ${vb} deleted`,'ok');render(); break; }
+    case 'nqCancel': S.nqForm=null;render(); break;
     case 'nqSave': nqSave(); break;
-    case 'nqPreset': { const p=t.dataset.p, f=S.nqForm;
-      if(p==='good'){ f.vb=f.vb||'VB-SUN-01'; f.mfg=dOff(-120); f.exp=dOff(400); }
-      if(p==='stale'){ f.vb=f.vb||'VB-SUN-02'; f.mfg=dOff(-400); f.exp=dOff(30); }
-      if(p==='expired'){ f.vb=f.vb||'VB-SUN-03'; f.mfg=dOff(-500); f.exp=dOff(-10); }
-      if(p==='inverted'){ f.vb=f.vb||'VB-SUN-04'; f.mfg=dOff(-10); f.exp=dOff(-100); }
+    case 'nqPreset': { const p=t.dataset.p,f=S.nqForm;
+      if(p==='good'){f.vb=f.vb||'BATCH001';f.mfg=dOff(-120);f.exp=dOff(400);f.saleableQty=50;}
+      if(p==='stale'){f.vb=f.vb||'BATCH002';f.mfg=dOff(-400);f.exp=dOff(30);f.saleableQty=40;}
+      if(p==='expired'){f.vb=f.vb||'BATCH003';f.mfg=dOff(-500);f.exp=dOff(-10);f.saleableQty=40;}
+      if(p==='inverted'){f.vb=f.vb||'BATCH004';f.mfg=dOff(-10);f.exp=dOff(-100);f.saleableQty=40;}
+      if(p==='ancient'){f.vb=f.vb||'BATCH005';f.mfg=dOff(-1200);f.exp=dOff(400);f.saleableQty=40;}
       render(); break; }
-    case 'nqScanBox': nqScanBox(vb, !!t.dataset.dup, !!t.dataset.other); break;
-    case 'pCode': { pStash(); const i=S.draft.codes.indexOf(c); i>=0?S.draft.codes.splice(i,1):S.draft.codes.push(c); render(); break; }
-    case 'pScope': pStash(); S.draft.scope=t.dataset.s; render(); break;
-    case 'pScanBox': { pStash(); const uidN=l.uidPool[l.boxes.length];
-      const b0=l.batches[0]||addBatch(l,'VB-TMP',dOff(-100),dOff(400));
-      const box={uid:uidN, vb:b0.vb, mfg:b0.mfg, exp:b0.exp, qty:l.pack, short:0,excess:0,dmg:0,rtv:0,insp:false,probs:[],dmgSrc:null};
-      applyPanelDamage(box); l.boxes.push(box); S.draft.uid=uidN;
-      toast(`${uidN} scanned for this report`,'ok'); render(); break; }
-    case 'pImg': pStash(); S.draft.imgs = S.draft.imgs>=3?0:S.draft.imgs+1; render(); break;
+    case 'nqScan': nqScan(vb,!!t.dataset.dup,!!t.dataset.other); break;
+    case 'boxOpen': S.boxModal={uid};render(); break;
+    case 'boxClose': S.boxModal=null;render(); break;
+    case 'delAsk': S.delConfirm=uid;S.boxModal=null;render(); break;
+    case 'delCancel': S.delConfirm=null;render(); break;
+    case 'delGo': deleteBox(S.delConfirm); break;
+    case 'boxIssue': openProblem(['Damage'],uid,'box',''); break;
+    case 'clearFlag': { const b=findBox(uid); b.dmgSrc='cleared';b.panelFlag=false;
+      PROBLEMS.push({id:'D-'+(++evtSeq),gid:'GRP-'+(++evtSeq),lineId:findBoxLine(uid).id,sku:findBoxLine(uid).sku,uid,
+        scope:'box',code:'Damage',qty:0,remarks:'Unloading flag cleared by operator — box found intact (override with reason)',
+        imgs:0,by:S.user,at:new Date(),status:'closed',closedReason:'override',hist:[{from:'—',to:'closed',by:S.user,at:new Date()}]});
+      toast(`${uid}: unloading flag cleared with a reason. The original value is retained in audit.`,'ok');render(); break; }
+    case 'closeLine': closeLine(); break;
+    case 'pCode': { pStash();const i=S.draft.codes.indexOf(c);i>=0?S.draft.codes.splice(i,1):S.draft.codes.push(c);render(); break; }
+    case 'pScope': pStash();S.draft.scope=t.dataset.s;render(); break;
+    case 'pImg': pStash();S.draft.imgs=S.draft.imgs>=3?0:S.draft.imgs+1;render(); break;
     case 'pCancel': go(S.back||'worklist'); break;
     case 'pSave': pSave(); break;
     case 'pRTV': resolveGroup(t.dataset.g,'rtv'); break;
     case 'pE42': resolveGroup(t.dataset.g,'e42'); break;
-    case 'nsmReason': l.nsm.reason=$('#nsmR').value; toast('Reason updated','ok'); render(); break;
+    case 'nsmReason': l.nsm.reason=$('#nsmR').value;toast('Reason updated','ok');render(); break;
     case 'nsmRetry': { const ok=t.dataset.ok==='1';
       l.nsm.tries.push(`${new Date().toLocaleTimeString()} — retry ${ok?'resolved':'failed'} (${S.user})`);
-      if(ok){ PROBLEMS.filter(p=>p.lineId===l.id&&p.code==='SKU'&&p.status==='open').forEach(p=>{p.status='closed';p.closedReason='resolved on retry';p.hist.push({from:'open',to:'closed',by:S.user,at:new Date()});});
-        l.nsm=null; l.status='prog'; l.ident.SKU='ok'; toast('SKU identified — line unblocked, all attempts retained in audit','ok'); go('ident'); }
-      else { toast('Retry failed — logged, line stays blocked','err'); render(); } break; }
+      if(ok){PROBLEMS.filter(p=>p.lineId===l.id&&p.code==='SKU'&&p.status==='open').forEach(p=>{p.status='closed';p.closedReason='resolved on retry';});
+        l.nsm=null;l.status='prog';l.ident.SKU='ok';toast('SKU identified — line unblocked','ok');go('ident');}
+      else {toast('Retry failed — logged, line stays blocked','err');render();} break; }
     case 'nsmEsc': l.nsm.tries.push(`${new Date().toLocaleTimeString()} — escalated to Team Lead`);
-      toast('Escalated — visible to the Team Lead, line stays blocked','err'); render(); break;
+      toast('Escalated — visible to the Team Lead','err');render(); break;
     case 'nsmRTV': { const g=PROBLEMS.find(p=>p.lineId===l.id&&p.code==='SKU'&&p.status==='open');
-      if(g) resolveGroup(g.gid,'rtv'); l.nsm=null; l.status='prob'; toast('Marked for return to vendor — excluded from GR','ok'); go('worklist'); break; }
-    case 'nsmE42': { const g=PROBLEMS.find(p=>p.lineId===l.id&&p.code==='SKU'&&p.status==='open');
-      if(g) resolveGroup(g.gid,'e42'); break; }
+      if(g)resolveGroup(g.gid,'rtv'); l.nsm=null;l.status='prob';toast('Marked for return to vendor','ok');go('worklist'); break; }
     case 'nsmMD': l.nsm.tries.push(`${new Date().toLocaleTimeString()} — master-data request raised off-system`);
-      toast('Manual off-system step — no tracked request is created (OI-05)'); render(); break;
-    case 'tab': S.tab=t.dataset.t; render(); break;
-    case 'exp': S.open[k+S.tab]=!S.open[k+S.tab]; render(); break;
-    case 'selInv': { tlLines(S.tab).filter(x=>x.ckey===k).forEach(x=>x.selected=t.checked); render(); break; }
-    case 'selLine': line(id).selected=t.checked; render(); break;
+      toast('Manual off-system step — no tracked request is created');render(); break;
+    case 'tab': S.tab=t.dataset.t;render(); break;
+    case 'exp': S.open[k+S.tab]=!S.open[k+S.tab];render(); break;
+    case 'selInv': tlLines(S.tab).filter(x=>x.ckey===k).forEach(x=>x.selected=t.checked);render(); break;
+    case 'selLine': line(id).selected=t.checked;render(); break;
     case 'forceErr': line(id).forceErr=t.checked; break;
+    case 'ibdCheck': ibdCheck(); break;
+    case 'addIbd': { const c=SCN[k]; ibdSeq++;
+      c.ibds=[{id:'IBD-'+(2000+ibdSeq),loc:'IWDC',open:40,whse:'CROSS-DOCK-A'},
+              {id:'IBD-'+(2001+ibdSeq),loc:'TGDC',open:150,whse:c.whse}];
+      toast('IBD added manually. Run the check again to pick up the details.','ok'); render(); break; }
+    case 'reCheck': { S.key=k; ibdCheck(); break; }
     case 'submit': submitGR(); break;
     case 'repushOne': { const ln=line(id); ln.forceErr=false;
       const sub=SUBS.filter(x=>x.state==='rejected').find(x=>x.lines.includes(ln.id));
-      if(!sub){ toast('No rejected submission for that line'); break; }
+      if(!sub){toast('No rejected submission for that line');break;}
       const set=sub.lines.map(x=>line(x)).filter(x=>x&&!x.forceErr);
-      sub.attempt++; postSubmission(sub,set);
-      toast(`${sub.id} reposted on attempt ${sub.attempt}`,'ok'); S.tab='completed'; render(); break; }
+      sub.attempt++; postSub(sub,set,null,SCN[sub.key]);
+      toast(`${sub.id} reposted on attempt ${sub.attempt}`,'ok');S.tab='completed';render(); break; }
     case 'repushAll': { SUBS.filter(x=>x.state==='rejected').forEach(sub=>{
         const set=sub.lines.map(x=>line(x)).filter(Boolean); set.forEach(x=>x.forceErr=false);
-        sub.attempt++; postSubmission(sub,set); });
-      toast('All rejected submissions reposted','ok'); S.tab='completed'; render(); break; }
-    case 'shortClose': { const ln=line(id);
-      ln.shortClosed=`balance of ${remaining(ln)} units will not arrive`; ln.status='short';
-      toast(`${ln.sku} short-closed with a reason — no further receiving (TL-20)`,'ok'); render(); break; }
+        sub.attempt++; postSub(sub,set,null,SCN[sub.key]); });
+      toast('All rejected submissions reposted','ok');S.tab='completed';render(); break; }
+    case 'shortClose': { const ln=line(id); ln.shortClosed=`balance of ${remaining(ln)} units will not arrive`;
+      ln.status='short'; toast(`${ln.sku} short-closed with a reason`,'ok');render(); break; }
   }
 });
-document.addEventListener('change', e=>{
-  const t=e.target.closest('[data-a="pStatus"]'); if(!t||!t.value) return;
+document.addEventListener('change',e=>{
+  const t=e.target.closest('[data-a="pStatus"]'); if(!t||!t.value)return;
   const p=PROBLEMS.find(x=>x.id===t.dataset.id);
   p.hist.push({from:p.status,to:t.value,by:S.user,at:new Date()}); p.status=t.value;
-  toast(`${p.code} status changed to ${t.value} — logged with previous value (PR-11)`,'ok'); render();
+  toast(`${p.code} status changed to ${t.value} — logged with previous value`,'ok'); render();
 });
-document.addEventListener('input', e=>{
-  const el=e.target; if(!el.dataset.fld) return;
-  const l=cur(); if(!l) return;
-  const b=l.boxes.find(x=>x.uid===el.dataset.uid); if(!b) return;
-  const v=Math.max(0,parseInt(el.value)||0);
-  b[el.dataset.fld]=v;
-  if(b.dmg+b.rtv > b.qty){ toast(`Damaged + Return cannot exceed the box quantity of ${b.qty} (BR-18)`,'err');
-    b[el.dataset.fld]=0; render(); return; }
-  if(S.screen==='sample'){ const r=defectRate(l);
-    if(!l.escalated && r>CFG.escPct){ l.escalated=true;
-      toast(`Problem rate ${r}% exceeds ${CFG.escPct}% — line escalated, every box must now be inspected`,'err'); } }
+document.addEventListener('input',e=>{
+  const el=e.target; if(!el.dataset.fld)return;
+  const b=findBox(el.dataset.uid), l=findBoxLine(el.dataset.uid); if(!b||!l)return;
+  const v=Math.max(0,parseInt(el.value)||0); b[el.dataset.fld]=v;
+  if(b.dmg+b.rtv>b.qty){toast(`Damaged + Return cannot exceed the standard quantity of ${b.qty}`,'err');b[el.dataset.fld]=0;render();return;}
+  if(S.screen==='sample'){const r=defectRate(l);
+    if(!l.escalated&&r>CFG.escPct){l.escalated=true;
+      toast(`Problem rate ${r}% of inspected boxes exceeds ${CFG.escPct}% — every box scanned must now be inspected`,'err');}}
   render();
 });
-
-/* boot */
 render();
 </script>
 </body>
